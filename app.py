@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-CÔNG CỤ TRỰC QUAN HÓA & HỖ TRỢ QUYẾT ĐỊNH (PHIÊN BẢN CẬP NHẬT ẢNH & TƯ LIỆU)
+CÔNG CỤ TRỰC QUAN HÓA & HỖ TRỢ QUYẾT ĐỊNH (PHIÊN BẢN HOÀN THIỆN)
 Đề tài: Lựa chọn nơi ở sau giải tỏa của hộ gia đình có con đang học phổ thông 
         bị ảnh hưởng bởi dự án Vành đai 2.5 đoạn Ngụy Như Kon Tum – Nhân Hòa – Nguyễn Trãi
 Tác giả: Nguyễn Vũ Tuấn Minh (Lớp 12 Tin 1, Trường THPT chuyên Hà Nội – Amsterdam)
@@ -30,13 +30,11 @@ def get_base64_of_bin_file(bin_file):
         return base64.b64encode(data).decode()
     return ""
 
-# Lấy dữ liệu ảnh nền, nếu không có file thì trả về chuỗi rỗng
+# Lấy dữ liệu ảnh nền banner NNKT2.jpg
 bg_image_base64 = get_base64_of_bin_file("NNKT2.jpg")
-
-# Tùy chỉnh CSS giao diện
-# Nếu có ảnh NNKT2.jpg, sử dụng làm nền cho header, nếu không dùng màu xanh
 header_bg = f"url('data:image/jpeg;base64,{bg_image_base64}')" if bg_image_base64 else "linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%)"
 
+# Tùy chỉnh CSS giao diện (Thu gọn chiều cao banner ảnh để không bị tràn)
 st.markdown(
     f"""
     <style>
@@ -44,25 +42,28 @@ st.markdown(
         background-image: {header_bg};
         background-size: cover;
         background-position: center;
-        padding: 2.5rem;
+        padding: 1.5rem 2rem;
         border-radius: 12px;
         color: white;
         margin-bottom: 2rem;
         box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8); /* Thêm đổ bóng chữ để dễ đọc trên nền ảnh */
+        text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
         position: relative;
     }}
-    /* Thêm lớp phủ mờ để chữ nổi bật hơn trên ảnh */
     .main-header::before {{
         content: "";
         position: absolute;
         top: 0; right: 0; bottom: 0; left: 0;
-        background-color: rgba(0, 0, 0, 0.5); /* Độ mờ 50% */
+        background-color: rgba(0, 0, 0, 0.4);
         border-radius: 12px;
     }}
     .main-header h1, .main-header p {{
         position: relative;
         z-index: 1;
+    }}
+    .main-header h1 {{
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
     }}
     .card {{
         background-color: #ffffff;
@@ -154,7 +155,9 @@ with st.sidebar:
         use_container_width=True,
     )
 
-  st.title("🏡 LỰA CHỌN NƠI Ở SAU GIẢI TỎA VÀNH ĐAI 2.5")
+  st.markdown("### NGUYỄN VŨ TUẤN MINH")
+  st.markdown("**12 Chuyên Tin 1**")
+  st.markdown("Trường THPT chuyên Hà Nội – Amsterdam")
   st.markdown("---")
   st.markdown("### 📌 Thông tin Đề tài")
   st.markdown(
@@ -164,18 +167,13 @@ with st.sidebar:
       "**Địa bàn:** Đoạn Ngụy Như Kon Tum - Nhân Hòa - Nguyễn Trãi (Hà Nội)."
   )
   st.markdown("**Thời gian thực hiện:** 09/2026 – 12/2026")
-  st.markdown("---")
-  st.markdown("### 👤 Tác giả")
-  st.markdown("**Nguyễn Vũ Tuấn Minh**")
-  st.markdown("Lớp 12 Tin 1 (chuyên Tin)")
-  st.markdown("Trường THPT chuyên Hà Nội – Amsterdam")
 
 # --- HEADER CHÍNH ---
 st.markdown(
     """
     <div class="main-header">
         <h1>Lựa chọn nơi ở sau di dời của hộ gia đình có con đang học phổ thông</h1>
-        <p style="font-size: 1.1rem; margin-top: 0.5rem;">Khảo sát tác động và cấu trúc đánh đổi tại dự án Vành đai 2.5 đoạn Ngụy Như Kon Tum – Nhân Hòa – Nguyễn Trãi.</p>
+        <p style="font-size: 1.0rem; margin-top: 0.3rem;">Khảo sát tác động và cấu trúc đánh đổi tại dự án Vành đai 2.5 đoạn Ngụy Như Kon Tum – Nhân Hòa – Nguyễn Trãi.</p>
     </div>
 """,
     unsafe_allow_html=True,
