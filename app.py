@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-CÔNG CỤ TRỰC QUAN HÓA & HỖ TRỢ QUYẾT ĐỊNH (PHIÊN BẢN TƯƠNG THÍCH DI ĐỘNG / DARK MODE)
+CÔNG CỤ TRỰC QUAN HÓA & HỖ TRỢ QUYẾT ĐỊNH (PHIÊN BẢN CHUYÊN NGHIỆP - CLEAN UI)
 Đề tài: Lựa chọn nơi ở sau giải tỏa của hộ gia đình có con đang học phổ thông 
         bị ảnh hưởng bởi dự án Vành đai 2.5 đoạn Ngụy Như Kon Tum – Nhân Hòa – Nguyễn Trãi
 Tác giả: Nguyễn Vũ Tuấn Minh (Lớp 12 Tin 1, Trường THPT chuyên Hà Nội – Amsterdam)
@@ -22,18 +22,34 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# Hàm để mã hóa ảnh nền
+# Ẩn hoàn toàn các thành phần mặc định của Streamlit (Menu, Footer, Header)
+hide_streamlit_style = """
+    <style>
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    header {visibility: hidden;}
+    </style>
+"""
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+
+
+# Hàm mã hóa ảnh nền banner
 def get_base64_of_bin_file(bin_file):
-    if os.path.exists(bin_file):
-        with open(bin_file, 'rb') as f:
-            data = f.read()
-        return base64.b64encode(data).decode()
-    return ""
+  if os.path.exists(bin_file):
+    with open(bin_file, "rb") as f:
+      data = f.read()
+    return base64.b64encode(data).decode()
+  return ""
+
 
 bg_image_base64 = get_base64_of_bin_file("NNKT2.jpg")
-header_bg = f"url('data:image/jpeg;base64,{bg_image_base64}')" if bg_image_base64 else "linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%)"
+header_bg = (
+    f"url('data:image/jpeg;base64,{bg_image_base64}')"
+    if bg_image_base64
+    else "linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%)"
+)
 
-# Tùy chỉnh CSS giao diện (Sử dụng màu sắc linh hoạt theo theme sáng/tối của thiết bị)
+# Tùy chỉnh CSS giao diện chuyên nghiệp
 st.markdown(
     f"""
     <style>
