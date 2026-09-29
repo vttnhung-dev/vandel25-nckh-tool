@@ -1,0 +1,31 @@
+﻿ma_phieu,khoang_cach,nha_o_truoc,nha_o_sau,giu_truong,tg_hoc_truoc,tg_hoc_sau,tg_lam_truoc,tg_lam_sau,doi_tg_hoc,doi_tg_lam,qt_tai_chinh,qt_giu_truong,qt_di_lam,qt_nguoi_than,kha_nang_tai_chinh,so_phuong_an,hai_long
+H001,Dưới 3 km,"Sở hữu, không vay","Sở hữu, có vay",Một số chuyển,31–45 phút,46–60 phút,Trên 60 phút,Trên 60 phút,Tăng,Không đổi,4,4,4,2,3,4,3
+H002,Trên 7–15 km,Ở cùng người thân,Thuê,Giữ tất cả,46–60 phút,Trên 60 phút,Dưới 30 phút,30–45 phút,Tăng,Tăng,4,4,2,3,3,5,4
+H003,3–7 km,Thuê,Thuê,Tất cả chuyển,15–30 phút,46–60 phút,30–45 phút,30–45 phút,Tăng,Không đổi,5,4,5,3,3,1,4
+H004,3–7 km,Thuê,"Sở hữu, có vay",Một số chuyển,15–30 phút,46–60 phút,Dưới 30 phút,Dưới 30 phút,Tăng,Không đổi,4,3,5,2,3,3,5
+H005,3–7 km,"Sở hữu, không vay",Ở cùng người thân,Giữ tất cả,15–30 phút,15–30 phút,30–45 phút,Dưới 30 phút,Không đổi,Giảm,3,5,4,2,4,2,1
+H006,Trên 7–15 km,Ở cùng người thân,Tạm thời/khác,Tất cả chuyển,Dưới 15 phút,15–30 phút,Dưới 30 phút,Dưới 30 phút,Tăng,Không đổi,3,5,4,3,3,4,2
+H007,Trên 15 km (trong Hà Nội),"Sở hữu, có vay","Sở hữu, không vay",Tất cả chuyển,31–45 phút,Trên 60 phút,46–60 phút,Trên 60 phút,Tăng,Tăng,3,5,4,4,1,6,4
+H008,Dưới 3 km,"Sở hữu, không vay","Sở hữu, không vay",Một số chuyển,31–45 phút,15–30 phút,30–45 phút,46–60 phút,Giảm,Tăng,4,2,3,3,4,3,4
+H009,Trên 7–15 km,Ở cùng người thân,Ở cùng người thân,Giữ tất cả,15–30 phút,31–45 phút,Dưới 30 phút,30–45 phút,Tăng,Tăng,4,4,4,2,2,1,4
+H010,3–7 km,"Sở hữu, không vay","Sở hữu, không vay",Giữ tất cả,15–30 phút,15–30 phút,46–60 phút,46–60 phút,Không đổi,Không đổi,5,2,3,3,5,4,3
+H011,Ngoài Hà Nội,Thuê,Thuê,Tất cả chuyển,Trên 60 phút,Trên 60 phút,30–45 phút,46–60 phút,Không đổi,Tăng,5,2,4,3,5,2,2
+H012,Trên 15 km (trong Hà Nội),"Sở hữu, không vay","Sở hữu, không vay",Giữ tất cả,31–45 phút,46–60 phút,30–45 phút,46–60 phút,Tăng,Tăng,5,4,3,3,4,5,3
+H013,Trên 7–15 km,"Sở hữu, không vay",Thuê,Một số chuyển,31–45 phút,46–60 phút,Dưới 30 phút,30–45 phút,Tăng,Tăng,5,4,4,3,4,1,2
+H014,Trên 7–15 km,Thuê,Tạm thời/khác,Một số chuyển,46–60 phút,Trên 60 phút,46–60 phút,Trên 60 phút,Tăng,Tăng,3,3,3,3,5,2,2
+H015,3–7 km,"Sở hữu, không vay",Ở cùng người thân,Một số chuyển,Dưới 15 phút,15–30 phút,Dưới 30 phút,Dưới 30 phút,Tăng,Không đổi,5,2,4,2,2,3,2
+H016,Trên 15 km (trong Hà Nội),"Sở hữu, không vay","Sở hữu, có vay",Giữ tất cả,31–45 phút,46–60 phút,Không thường xuyên,Không thường xuyên,Tăng,Không xác định,5,3,5,3,3,5,3
+H017,3–7 km,"Sở hữu, có vay","Sở hữu, có vay",Giữ tất cả,31–45 phút,Trên 60 phút,Trên 60 phút,Trên 60 phút,Tăng,Không đổi,5,4,4,3,3,4,4
+H018,3–7 km,"Sở hữu, không vay",Ở cùng người thân,Tất cả chuyển,46–60 phút,46–60 phút,Không thường xuyên,Không thường xuyên,Không đổi,Không xác định,5,4,4,5,2,4,5
+H019,3–7 km,Thuê,"Sở hữu, có vay",Giữ tất cả,15–30 phút,15–30 phút,Dưới 30 phút,30–45 phút,Không đổi,Tăng,5,4,4,3,5,5,4
+H020,3–7 km,"Sở hữu, có vay","Sở hữu, có vay",Giữ tất cả,31–45 phút,31–45 phút,30–45 phút,Trên 60 phút,Không đổi,Tăng,5,5,3,4,2,4,4
+H021,3–7 km,Thuê,Thuê,Giữ tất cả,31–45 phút,46–60 phút,Dưới 30 phút,30–45 phút,Tăng,Tăng,5,3,5,4,2,6,5
+H022,3–7 km,"Sở hữu, không vay","Sở hữu, có vay",Giữ tất cả,15–30 phút,31–45 phút,Dưới 30 phút,46–60 phút,Tăng,Tăng,3,4,5,2,3,2,3
+H023,Trên 7–15 km,"Sở hữu, không vay","Sở hữu, có vay",Tất cả chuyển,Dưới 15 phút,Dưới 15 phút,30–45 phút,Dưới 30 phút,Không đổi,Giảm,3,4,4,2,4,4,2
+H024,Dưới 3 km,"Sở hữu, không vay","Sở hữu, không vay",Giữ tất cả,15–30 phút,31–45 phút,Trên 60 phút,Trên 60 phút,Tăng,Không đổi,5,3,5,3,2,2,3
+H025,3–7 km,"Sở hữu, không vay","Sở hữu, không vay",Giữ tất cả,Trên 60 phút,Trên 60 phút,Trên 60 phút,Trên 60 phút,Không đổi,Không đổi,4,4,3,4,2,4,3
+H026,3–7 km,Thuê,Thuê,Giữ tất cả,Dưới 15 phút,15–30 phút,Không thường xuyên,Không thường xuyên,Tăng,Không xác định,3,5,2,3,4,3,5
+H027,Dưới 3 km,"Sở hữu, có vay","Sở hữu, có vay",Giữ tất cả,Dưới 15 phút,Dưới 15 phút,46–60 phút,46–60 phút,Không đổi,Không đổi,4,3,3,3,1,6,3
+H028,Trên 7–15 km,"Sở hữu, không vay","Sở hữu, có vay",Một số chuyển,15–30 phút,15–30 phút,Dưới 30 phút,30–45 phút,Không đổi,Tăng,5,5,3,1,2,1,4
+H029,3–7 km,"Sở hữu, không vay","Sở hữu, có vay",Giữ tất cả,Dưới 15 phút,31–45 phút,46–60 phút,46–60 phút,Tăng,Không đổi,5,5,3,3,2,4,3
+H030,3–7 km,Thuê,Ở cùng người thân,Giữ tất cả,15–30 phút,46–60 phút,Dưới 30 phút,Dưới 30 phút,Tăng,Không đổi,4,4,4,4,3,1,4
