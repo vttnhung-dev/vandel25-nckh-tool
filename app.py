@@ -933,37 +933,3 @@ Sổ tay thực hiện toàn bộ quy trình và **tái tạo được mọi b�
             )
 
 st.caption("Đề tài NCKH học sinh phổ thông • Dữ liệu minh họa giả lập • Mã nguồn mở phục vụ tái lập kết quả")
-
-
-    # Cho tải bộ dữ liệu giả lập dạng CSV (utf-8-sig để Excel đọc đúng tiếng Việt)
-    st.download_button(
-        "⬇️ Tải dữ liệu giả lập (CSV)",
-        data=df.to_csv(index=False).encode("utf-8-sig"),
-        file_name="du_lieu_gia_lap_vanh_dai_2_5.csv",
-        mime="text/csv",
-    )
-
-    st.subheader("Sổ tay Python phân tích dữ liệu")
-    st.markdown(
-        """
-Sổ tay thực hiện toàn bộ quy trình và **tái tạo được mọi bảng, biểu đồ** từ dữ liệu đã xử lý:
-
-1. Nhập dữ liệu → 2. Kiểm tra điều kiện tham gia → 3. Mã hóa biến →
-4. Tạo biến thay đổi trước–sau → 5. Xuất bảng mô tả → 6. Ba kiểm tra đã định trước (H1–H3) → 7. Vẽ biểu đồ.
-        """
-    )
-    if NOTEBOOK_URL:
-        st.markdown(f"🔗 [Mở hướng dẫn đọc sổ tay Python]({NOTEBOOK_URL})")
-    else:
-        st.info("Đường dẫn sổ tay sẽ được cập nhật (gán vào biến `NOTEBOOK_URL` ở đầu file app.py).")
-
-    with st.expander("Quy tắc kiểm tra giả thuyết (H1–H3)"):
-        st.markdown(
-            "- Chỉ kiểm tra khi tổng mẫu ≥ 30 và mỗi nhóm so sánh có ≥ 5 quan sát; "
-            "nếu không, chỉ báo cáo số lượng và tỷ lệ.\n"
-            "- Dùng bảng 2×2 và kiểm định Fisher; kết quả chỉ mang tính khám phá.\n"
-            "- Kết quả không ủng hộ giả thuyết thì giữ nguyên, không đổi giả thuyết sau khi xem dữ liệu."
-        )
-
-st.markdown("---")
-st.caption("Đề tài NCKH học sinh phổ thông • Dữ liệu minh họa giả lập • Mã nguồn mở phục vụ tái lập kết quả")
