@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-CÔNG CỤ TRỰC QUAN HÓA & HỖ TRỢ QUYẾT ĐỊNH (PHIÊN BẢN HOÀN THIỆN)
+CÔNG CỤ TRỰC QUAN HÓA & HỖ TRỢ QUYẾT ĐỊNH (PHIÊN BẢN TƯƠNG THÍCH DI ĐỘNG / DARK MODE)
 Đề tài: Lựa chọn nơi ở sau giải tỏa của hộ gia đình có con đang học phổ thông 
         bị ảnh hưởng bởi dự án Vành đai 2.5 đoạn Ngụy Như Kon Tum – Nhân Hòa – Nguyễn Trãi
 Tác giả: Nguyễn Vũ Tuấn Minh (Lớp 12 Tin 1, Trường THPT chuyên Hà Nội – Amsterdam)
@@ -30,11 +30,10 @@ def get_base64_of_bin_file(bin_file):
         return base64.b64encode(data).decode()
     return ""
 
-# Lấy dữ liệu ảnh nền banner NNKT2.jpg
 bg_image_base64 = get_base64_of_bin_file("NNKT2.jpg")
 header_bg = f"url('data:image/jpeg;base64,{bg_image_base64}')" if bg_image_base64 else "linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%)"
 
-# Tùy chỉnh CSS giao diện (Thu gọn chiều cao banner ảnh để không bị tràn)
+# Tùy chỉnh CSS giao diện (Sử dụng màu sắc linh hoạt theo theme sáng/tối của thiết bị)
 st.markdown(
     f"""
     <style>
@@ -66,7 +65,8 @@ st.markdown(
         margin-bottom: 0.5rem;
     }}
     .card {{
-        background-color: #ffffff;
+        background-color: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(100, 116, 139, 0.2);
         padding: 1.5rem;
         border-radius: 10px;
         border-left: 5px solid #3b82f6;
@@ -74,8 +74,8 @@ st.markdown(
         margin-bottom: 1rem;
     }}
     .author-card {{
-        background-color: #f8fafc;
-        border: 1px solid #e2e8f0;
+        background-color: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(100, 116, 139, 0.2);
         padding: 1.5rem;
         border-radius: 10px;
         text-align: center;
@@ -84,7 +84,6 @@ st.markdown(
         gap: 10px;
     }}
     .stTabs [data-baseweb="tab"] {{
-        background-color: #f1f5f9;
         border-radius: 6px 6px 0px 0px;
         padding: 10px 20px;
         font-weight: 600;
@@ -99,7 +98,6 @@ st.markdown(
 )
 
 
-# Hàm tải dữ liệu an toàn tránh lỗi KeyError
 @st.cache_data
 def load_data():
   try:
@@ -233,11 +231,11 @@ with tab1:
             <p>Con là <b>Nguyễn Vũ Tuấn Minh</b>, học sinh lớp 12 Tin 1 (chuyên Tin), Trường THPT chuyên Hà Nội – Amsterdam. Từ sự tò mò của một học sinh trước một vấn đề thực tế của cuộc sống, con đã bắt đầu nghiên cứu này với mong muốn hiểu rõ hơn cách mỗi gia đình đưa ra quyết định về nơi ở sau di dời.</p>
             <p>Con chân thành cảm ơn cô/chú, anh/chị đã dành thời gian chia sẻ trải nghiệm và những cân nhắc của gia đình. Mỗi phản hồi đều rất quý giá, giúp con nhìn vấn đề đầy đủ hơn từ những lựa chọn có thật trong cuộc sống.</p>
             <p><b>Cam kết của con:</b> Thông tin và kết quả tổng hợp từ khảo sát chỉ được sử dụng cho đề tài nghiên cứu khoa học; không dùng cho mục đích thương mại và không dùng để đánh giá đúng – sai quyết định của bất kỳ gia đình nào. Dữ liệu được thu thập ẩn danh.</p>
-            <hr style="margin: 15px 0;">
+            <hr style="margin: 15px 0; border-color: rgba(100, 116, 139, 0.2);">
             <h4>Lời tri ân</h4>
             <p>Con xin bày tỏ lòng biết ơn sâu sắc tới <b>cô Lê Thị Thúy</b> — giáo viên môn Tin học, đồng thời là giáo viên chủ nhiệm của con trong hai năm lớp 11 và lớp 12 — người đã trực tiếp hướng dẫn và đồng hành cùng con trong quá trình thực hiện nghiên cứu.</p>
             <p>Con cũng chân thành cảm ơn các bạn học sinh đã nhiệt tình hỗ trợ con trong quá trình khảo sát thực tế. Sự hướng dẫn của cô và sự giúp đỡ của các bạn là một phần quan trọng để con có thể hoàn thành đề tài này.</p>
-            <p style="font-size: 0.9rem; color: #64748b; margin-top: 10px;"><i>Việc tham gia hoàn toàn tự nguyện. Cô/chú, anh/chị có thể thử công cụ mà không gửi dữ liệu và có thể dừng bất cứ lúc nào.</i></p>
+            <p style="font-size: 0.9rem; margin-top: 10px;"><i>Việc tham gia hoàn toàn tự nguyện. Cô/chú, anh/chị có thể thử công cụ mà không gửi dữ liệu và có thể dừng bất cứ lúc nào.</i></p>
             <p style="margin-bottom: 0; text-align: right; font-style: italic;"><b>Trân trọng — Nguyễn Vũ Tuấn Minh, lớp 12 Tin 1</b></p>
         </div>
         """,
@@ -317,8 +315,8 @@ with tab3:
 
   st.markdown(
       """
-        <div style="background-color: #f8fafc; padding: 1rem; border-left: 4px solid #3b82f6; border-radius: 4px; margin-bottom: 1.5rem;">
-            <h4 style="margin-top: 0; color: #1e3a8a;">Cần hiểu trước khi gửi phản hồi</h4>
+        <div style="background-color: rgba(59, 130, 246, 0.1); padding: 1rem; border-left: 4px solid #3b82f6; border-radius: 4px; margin-bottom: 1.5rem;">
+            <h4 style="margin-top: 0; color: #3b82f6;">Cần hiểu trước khi gửi phản hồi</h4>
             <p><b>Năm yếu tố và các phương án có ý nghĩa gì?</b></p>
             <p style="margin-bottom: 0;">Công cụ không tự quyết định thay gia đình. Người tham gia cho biết điều gì quan trọng, điều kiện nào không thể chấp nhận và mức độ mỗi phương án đáp ứng hoàn cảnh thực tế của hộ.</p>
         </div>
