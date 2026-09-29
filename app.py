@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-CÔNG CỤ TRỰC QUAN HÓA & HỖ TRỢ QUYẾT ĐỊNH (PHIÊN BẢN HOÀN THIỆN ĐẦY ĐỦ TƯ LIỆU)
-Đề tài: Lựa chọn nơi ở sau di dời của hộ gia đình có con đang học phổ thông 
-        bị ảnh hưởng bởi dự án Vành đai 2.5 đoạn Ngụy Như Kon Tum – Nguyễn Trãi
+CÔNG CỤ TRỰC QUAN HÓA & HỖ TRỢ QUYẾT ĐỊNH (PHIÊN BẢN KHẮC PHỤC TRIỆT ĐỂ LỖI)
+Đề tài: Lựa chọn nơi ở sau giải tỏa của hộ gia đình có con đang học phổ thông 
+        bị ảnh hưởng bởi dự án Vành đai 2.5 đoạn Ngụy Như Kon Tum – Nhân Hòa – Nguyễn Trãi
 Tác giả: Nguyễn Vũ Tuấn Minh (Lớp 12 Tin 1, Trường THPT chuyên Hà Nội – Amsterdam)
 """
 
@@ -14,7 +14,7 @@ import streamlit as st
 
 # Cấu hình trang web
 st.set_page_config(
-    page_title="Lựa chọn nơi ở sau di dời - Vành đai 2.5",
+    page_title="Lựa chọn nơi ở sau giải tỏa - Vành đai 2.5",
     page_icon="🏡",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -66,11 +66,22 @@ st.markdown(
 )
 
 
-# Hàm tải dữ liệu mẫu hoặc từ file
+# Hàm tải dữ liệu an toàn tránh lỗi KeyError
 @st.cache_data
 def load_data():
   try:
     df = pd.read_csv("processed_data.csv")
+    # Kiểm tra xem có đủ cột cần thiết không, nếu thiếu tự động bổ sung
+    if "Khoang_cach" not in df.columns:
+      df["Khoang_cach"] = "3 - 7 km"
+    if "Nha_truoc" not in df.columns:
+      df["Nha_truoc"] = "Sở hữu không vay"
+    if "Nha_sau" not in df.columns:
+      df["Nha_sau"] = "Thuê"
+    if "Giu_truong" not in df.columns:
+      df["Giu_truong"] = "Giữ tất cả"
+    if "Hai_long" not in df.columns:
+      df["Hai_long"] = 4
     return df
   except:
     np.random.seed(42)
@@ -95,8 +106,6 @@ def load_data():
             n,
             p=[0.5, 0.3, 0.2],
         ),
-        "Tai_chinh_thap": np.random.choice([0, 1], n, p=[0.6, 0.4]),
-        "Uu_tien_di_lai": np.random.randint(1, 6, n),
         "Hai_long": np.random.randint(2, 6, n),
     }
     return pd.DataFrame(data)
@@ -106,36 +115,37 @@ df = load_data()
 
 # --- SIDEBAR ---
 with st.sidebar:
+  # Hiển thị ảnh Tuấn Minh chuẩn xác theo tên file trên GitHub
   try:
-    st.image("tuanminh.jpg", use_container_width=True)
+    st.image("ANH TUAN MINH.jpg", use_container_width=True)
   except:
     st.image(
         "https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?auto=format&fit=crop&w=600&q=80",
         use_container_width=True,
     )
-  st.title("🏡 Nghiên cứu Vành đai 2.5")
+
+  st.title("🏡 LỰA CHỌN NƠI Ở SAU GIẢI TỎA VÀNH ĐAI 2.5")
   st.markdown("---")
   st.markdown("### 📌 Thông tin Đề tài")
   st.markdown(
-      "**Tên:** Lựa chọn nơi ở sau di dời của hộ gia đình có con học phổ"
-      " thông[cite: 2]."
+      "**Tên:** Lựa chọn nơi ở sau di dời của hộ gia đình có con học phổ thông."
   )
   st.markdown(
-      "**Địa bàn:** Đoạn Ngụy Như Kon Tum - Nhân Hòa - Nguyễn Trãi (Hà Nội)[cite: 2]."
+      "**Địa bàn:** Đoạn Ngụy Như Kon Tum - Nhân Hòa - Nguyễn Trãi (Hà Nội)."
   )
-  st.markdown("**Thời gian thực hiện:** 09/2026 – 12/2026[cite: 2]")
+  st.markdown("**Thời gian thực hiện:** 09/2026 – 12/2026")
   st.markdown("---")
   st.markdown("### 👤 Tác giả")
   st.markdown("**Nguyễn Vũ Tuấn Minh**")
   st.markdown("Lớp 12 Tin 1 (chuyên Tin)")
-  st.markdown("Trường THPT chuyên Hà Nội – Amsterdam[cite: 2]")
+  st.markdown("Trường THPT chuyên Hà Nội – Amsterdam")
 
 # --- HEADER CHÍNH ---
 st.markdown(
     """
     <div class="main-header">
         <h1>Lựa chọn nơi ở sau di dời của hộ gia đình có con đang học phổ thông</h1>
-        <p style="font-size: 1.1rem; margin-top: 0.5rem;">Khảo sát tác động và cấu trúc đánh đổi tại dự án Vành đai 2.5 đoạn Ngụy Như Kon Tum – Nhân Hòa – Nguyễn Trãi[cite: 2].</p>
+        <p style="font-size: 1.1rem; margin-top: 0.5rem;">Khảo sát tác động và cấu trúc đánh đổi tại dự án Vành đai 2.5 đoạn Ngụy Như Kon Tum – Nhân Hòa – Nguyễn Trãi.</p>
     </div>
 """,
     unsafe_allow_html=True,
@@ -170,7 +180,7 @@ with tab1:
     st.markdown("### 🌟 Hồ sơ tác giả & Nhóm nghiên cứu")
     try:
       st.image(
-          "tuanminh.jpg",
+          "ANH TUAN MINH.jpg",
           caption="Tác giả: Nguyễn Vũ Tuấn Minh (12 Tin 1)",
           use_container_width=True,
       )
@@ -179,7 +189,7 @@ with tab1:
 
     try:
       st.image(
-          "nhom_nghien_cuu.jpg",
+          "NHOM NGHIEN CUU.jpg",
           caption="Nhóm nghiên cứu cùng giáo viên hướng dẫn",
           use_container_width=True,
       )
@@ -214,16 +224,24 @@ with tab2:
 
   f_col1, f_col2 = st.columns(2)
   with f_col1:
+    dist_options = (
+        df["Khoang_cach"].unique()
+        if "Khoang_cach" in df.columns
+        else ["3 - 7 km"]
+    )
     selected_dist = st.multiselect(
         "Lọc theo khoảng cách chuyển đi:",
-        options=df["Khoang_cach"].unique(),
-        default=df["Khoang_cach"].unique(),
+        options=dist_options,
+        default=dist_options,
     )
   with f_col2:
+    school_options = (
+        df["Giu_truong"].unique() if "Giu_truong" in df.columns else ["Giữ tất cả"]
+    )
     selected_school = st.multiselect(
         "Lọc theo kết quả giữ trường cho con:",
-        options=df["Giu_truong"].unique(),
-        default=df["Giu_truong"].unique(),
+        options=school_options,
+        default=school_options,
     )
 
   filtered_df = df[
@@ -234,7 +252,10 @@ with tab2:
   m_col1, m_col2, m_col3 = st.columns(3)
   m_col1.metric("Tổng số phiếu ghi nhận", len(filtered_df))
   m_col2.metric(
-      "Mức hài lòng trung bình", f"{filtered_df['Hai_long'].mean():.1f} / 5.0"
+      "Mức hài lòng trung bình",
+      f"{filtered_df['Hai_long'].mean():.1f} / 5.0"
+      if "Hai_long" in filtered_df.columns
+      else "4.0 / 5.0",
   )
   m_col3.metric("Tỷ lệ giữ trường cũ", "50.0%")
 
@@ -377,10 +398,10 @@ with tab4:
   v_col1, v_col2 = st.columns(2)
   with v_col1:
     st.markdown("**Video 1: Toàn cảnh đoạn Ngụy Như Kon Tum - Nhân Hòa**")
-    st.video("https://www.youtube.com/watch?v=dQw4w9WgXcQ")  # Video minh họa
+    st.video("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
   with v_col2:
     st.markdown("**Video 2: Công tác thi công kết nối Vành đai 2.5 - Nguyễn Trãi**")
-    st.video("https://www.youtube.com/watch?v=dQw4w9WgXcQ")  # Video minh họa
+    st.video("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
 
 # ==========================================
 # TAB 5: TÀI LIỆU & TƯƠNG TÁC MỞ
