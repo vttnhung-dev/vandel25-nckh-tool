@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-WEBSITE NGHIÊN CỨU KHOA HỌC - PHIÊN BẢN THIẾT KẾ LẠI (v3)
+WEBSITE NGHIÊN CỨU KHOA HỌC - HỒ SƠ NĂNG LỰC TƯƠNG TÁC (v4)
 Đề tài: Lựa chọn nơi ở sau di dời của hộ gia đình có con đang học phổ thông
         bị ảnh hưởng bởi dự án Vành đai 2.5 đoạn Ngụy Như Kon Tum – Nhân Hòa – Nguyễn Trãi
 Tác giả: Nguyễn Vũ Tuấn Minh (12 Tin 1, THPT chuyên Hà Nội – Amsterdam)
@@ -11,6 +11,7 @@ Thư viện: streamlit (>=1.40), pandas, numpy, plotly  (Pillow đã đi kèm st
 CÁCH SỬA NHANH (đọc trước khi chỉnh):
   - Thời gian nghiên cứu, năm ............ biến NAM, THOI_GIAN_NGHIEN_CUU (phần 0)
   - Email nhận góp ý, link sổ tay ........ EMAIL_PHAN_HOI, NOTEBOOK_URL (phần 0)
+  - Nút GitHub, PDF, Google Form ......... GITHUB_URL, BAO_CAO_PDF, GOOGLE_FORM_EMBED_URL (phần 0)
   - Ảnh/video tư liệu thực địa ........... ANH_TU_LIEU, VIDEO_TU_LIEU (phần 0)
   - Ảnh banner/tác giả/nhóm .............. ANH_BANNER, ANH_TAC_GIA, ANH_NHOM (phần 0)
   - Màu sắc ............................... khối :root trong CSS và nhóm biến màu Plotly
@@ -35,7 +36,7 @@ st.set_page_config(
     page_title="Nơi ở sau di dời – Vành đai 2.5",
     page_icon="🏘️",
     layout="wide",
-    initial_sidebar_state="collapsed",   # không dùng sidebar, thông tin tác giả nằm ở Tab 1
+    initial_sidebar_state="expanded",
 )
 
 NAM = "2026"                                          # đổi năm ở MỘT chỗ này
@@ -49,6 +50,10 @@ ANH_NHOM = "NHOM NGHIEN CUU.jpg"
 
 NOTEBOOK_URL = ""        # link sổ tay Python (GitHub/Colab); để trống nếu chưa có
 EMAIL_PHAN_HOI = ""      # email nhận góp ý; để trống nếu chưa có
+GITHUB_URL = ""          # link repo GitHub (nút "Xem mã nguồn"); để trống thì nút bị mờ
+BAO_CAO_PDF = "bao_cao_nghien_cuu.pdf"   # file PDF báo cáo đặt cạnh app.py; chưa có thì nút bị mờ
+GOOGLE_FORM_EMBED_URL = ""   # link nhúng Google Form (dạng .../viewform?embedded=true)
+KHAO_SAT_HAN = f"31/10/{NAM}"   # hạn khảo sát hiển thị ở trang Khảo sát
 
 # Tư liệu thực địa (Tab 4): (đường dẫn hoặc URL ảnh, chú thích)
 # LƯU Ý: nên thay bằng ảnh tự chụp và ghi rõ nguồn/ngày chụp.
@@ -136,9 +141,10 @@ html, body, .stApp { background: var(--bg); }
 }
 .block-container { max-width: 1240px; padding: 1.2rem 2rem 3rem; }
 
-/* Ẩn phần thừa của Streamlit nhưng GIỮ tiêu đề để không mất các điều khiển */
-#MainMenu, footer, [data-testid="stToolbar"], [data-testid="stDecoration"],
-[data-testid="stStatusWidget"] { visibility: hidden; height: 0; }
+/* Ẩn menu ba chấm, nút Deploy, chân trang mặc định.
+   KHÔNG ẩn cả stToolbar vì nút mở lại thanh bên nằm trong đó. */
+#MainMenu, footer, [data-testid="stToolbarActions"], [data-testid="stAppDeployButton"],
+[data-testid="stMainMenu"], [data-testid="stDecoration"], [data-testid="stStatusWidget"] { display: none !important; }
 [data-testid="stHeader"] { background: transparent; }
 
 /* ---------- Cỡ chữ (lớn, dễ đọc) ---------- */
@@ -246,12 +252,33 @@ div[class*="st-key-card_loc"] { background: var(--mist); border-color: #CBD9F3; 
 [data-testid="stAlert"] { border-radius: 16px; }
 [data-testid="stImage"] img { border-radius: 16px; }
 
+/* ---------- Thanh bên: menu điều hướng + hồ sơ tác giả ---------- */
+[data-testid="stSidebar"] { background: #fff; border-right: 1px solid var(--line); }
+[data-testid="stSidebar"] [data-testid="stImage"] img { width: 100%; max-height: 260px; object-fit: cover; border-radius: 18px; }
+.sb-name { font-weight: 800; color: var(--navy); text-align: center; font-size: 1.15rem; margin-top: .7rem; }
+.sb-sub { text-align: center; color: var(--muted); font-size: .98rem; line-height: 1.5; }
+[data-testid="stSidebar"] [role="radiogroup"] { gap: .2rem; }
+[data-testid="stSidebar"] [role="radiogroup"] label { padding: .6rem .85rem; border-radius: 12px; width: 100%; }
+[data-testid="stSidebar"] [role="radiogroup"] label:hover { background: var(--mist); }
+[data-testid="stSidebar"] [role="radiogroup"] label:has(input:checked) { background: var(--sky); }
+[data-testid="stSidebar"] [role="radiogroup"] label p { font-size: 1.04rem !important; font-weight: 600; color: var(--ink); }
+
+/* ---------- Nút chiếm hết chiều rộng cột; bảng HTML; biến thể lưới bước ---------- */
+.stButton > button, .stDownloadButton > button, .stLinkButton > a { width: 100%; justify-content: center; }
+.stLinkButton > a { border-radius: 13px; font-weight: 600; font-size: 1rem; padding: .55rem 1.1rem; }
+.steps.three { grid-template-columns: repeat(3, 1fr); }
+.steps.five { grid-template-columns: repeat(5, 1fr); }
+.step code { font-size: .88rem; }
+.tbl { width: 100%; border-collapse: collapse; font-size: 1rem; line-height: 1.55; margin-bottom: .6rem; }
+.tbl th { background: var(--mist); color: var(--navy); text-align: left; padding: .6rem .8rem; border-bottom: 2px solid #CBD9F3; font-weight: 700; }
+.tbl td { padding: .6rem .8rem; border-bottom: 1px solid var(--line); vertical-align: top; color: var(--ink); }
+
 /* ---------- Màn hình nhỏ ---------- */
 @media (max-width: 900px) {
   .block-container { padding: 1rem 1rem 2rem; }
   .stApp .hero { padding: 1.8rem 1.3rem; border-radius: 20px; }
   .stApp .hero h1 { font-size: 1.7rem; }
-  .steps, .rqs { grid-template-columns: 1fr; }
+  .steps, .steps.three, .steps.five, .rqs { grid-template-columns: 1fr; }
   .kv { grid-template-columns: 1fr; gap: .1rem; }
   .kv .v { margin-bottom: .5rem; }
 }
@@ -430,138 +457,7 @@ CAC_COT_GOC = list(df_goc.columns)
 df = them_cot_phan_nhom(df_goc)
 
 # =============================================================================
-# PHẦN 3. BANNER ĐẦU TRANG
-# =============================================================================
-st.markdown(
-    f"""
-    <div class="hero">
-      <span class="eyebrow">Đề tài nghiên cứu khoa học học sinh phổ thông</span>
-      <h1>Lựa chọn nơi ở sau di dời của hộ gia đình có con đang học phổ thông</h1>
-      <p class="lead">Khảo sát cấu trúc đánh đổi của các hộ bị ảnh hưởng bởi dự án Vành đai 2.5,
-      đoạn Ngụy Như Kon Tum – Nhân Hòa – Nguyễn Trãi.</p>
-      <div class="chips">
-        <div class="chip"><small>Tác giả</small><b>Nguyễn Vũ Tuấn Minh · 12 Tin 1</b></div>
-        <div class="chip"><small>Thời gian nghiên cứu</small><b>{THOI_GIAN_NGHIEN_CUU}</b></div>
-        <div class="chip"><small>Thiết kế</small><b>Khảo sát cắt ngang hồi cứu</b></div>
-        <div class="chip"><small>Mẫu mục tiêu</small><b>30–45 phiếu</b></div>
-      </div>
-    </div>
-    """,
-    unsafe_allow_html=True,
-)
-
-tab1, tab2, tab3, tab4, tab5 = st.tabs([
-    "Tổng quan & Bối cảnh",
-    "Kết quả khảo sát",
-    "Công cụ quyết định",
-    "Tư liệu thực địa",
-    "Tài liệu & Phản hồi",
-])
-
-# =============================================================================
-# TAB 1. TỔNG QUAN & BỐI CẢNH
-# =============================================================================
-with tab1:
-    tieu_de_muc("Tổng quan", "Một câu hỏi thực tế dưới góc nhìn của học sinh lớp 12",
-                "Các gia đình đã chuyển đến đâu, và điều gì khiến họ chọn nơi ở đó?")
-    cot_trai, cot_phai = st.columns([7, 5], gap="medium")
-
-    with cot_trai:
-        with st.container(key="card_van_de"):
-            tieu_de_the("Vấn đề nghiên cứu")
-            st.markdown(
-                f"""
-Đây là đề tài nghiên cứu nhỏ do **Nguyễn Vũ Tuấn Minh**, học sinh lớp 12 Tin 1 (chuyên Tin), Trường THPT chuyên Hà Nội – Amsterdam, thực hiện từ sự tò mò trước một câu hỏi rất đời thường: *sau khi phải di dời để phục vụ dự án Vành đai 2.5, đoạn Ngụy Như Kon Tum – Nhân Hòa – Nguyễn Trãi, các gia đình đã chuyển đến đâu và điều gì khiến họ lựa chọn nơi ở đó?*
-
-Tại thời điểm nghiên cứu vào tháng 9/{NAM}, việc giải phóng mặt bằng đã hoàn tất và các hộ bị ảnh hưởng đã di dời. Vì quyết định chuyển nhà đã xảy ra, khảo sát tập trung tìm hiểu lại những căn cứ đã được cân nhắc, gồm **khả năng tài chính, trường học của con, thời gian đi làm, sự hỗ trợ của người thân và mức độ ổn định của nơi ở mới**.
-                """
-            )
-        with st.container(key="card_cau_hoi"):
-            tieu_de_the("Bốn câu hỏi nghiên cứu")
-            st.markdown(
-                """
-                <div class="rqs">
-                  <div class="rq"><b>RQ1</b><div>Hộ chuyển đến đâu, dùng hình thức nhà ở nào, xem xét bao nhiêu phương án?</div></div>
-                  <div class="rq"><b>RQ2</b><div>Trường học, thời gian đi học – đi làm, hỗ trợ từ người thân thay đổi thế nào?</div></div>
-                  <div class="rq"><b>RQ3</b><div>Hộ ưu tiên, bị giới hạn và đánh đổi những gì?</div></div>
-                  <div class="rq"><b>RQ4</b><div>Tài chính, ưu tiên giữ trường, ưu tiên thời gian đi làm liên hệ ra sao với 3 kết quả tương ứng?</div></div>
-                </div>
-                """,
-                unsafe_allow_html=True,
-            )
-
-    with cot_phai:
-        with st.container(key="card_tac_gia"):
-            tieu_de_the("Tác giả & nhóm nghiên cứu")
-            hien_thi_anh(ANH_TAC_GIA, "Nguyễn Vũ Tuấn Minh · 12 Tin 1")
-            hien_thi_anh(ANH_NHOM, "Nhóm nghiên cứu cùng giáo viên hướng dẫn")
-        with st.container(key="card_thong_tin"):
-            tieu_de_the("Thông tin đề tài")
-            st.markdown(
-                f"""
-                <div class="kv">
-                  <div class="k">Địa bàn</div><div class="v">{DIA_BAN}</div>
-                  <div class="k">Thời gian</div><div class="v">{THOI_GIAN_NGHIEN_CUU}</div>
-                  <div class="k">Đối tượng</div><div class="v">Hộ có con học lớp 1–12 tại thời điểm chọn nơi ở mới</div>
-                  <div class="k">Trường</div><div class="v">THPT chuyên Hà Nội – Amsterdam</div>
-                </div>
-                """,
-                unsafe_allow_html=True,
-            )
-
-    with st.container(key="card_khung"):
-        tieu_de_the("Khung khái niệm", "Điều kiện → Quá trình → Lựa chọn → Đánh giá sau di dời")
-        st.markdown(
-            """
-            <div class="steps">
-              <div class="step"><div class="no">1</div><h5>Điều kiện</h5>
-                <div>Tài chính, con đang học, nơi làm việc, hỗ trợ từ người thân <i>tại thời điểm chốt nơi ở</i>.</div></div>
-              <div class="step"><div class="no">2</div><h5>Quá trình</h5>
-                <div>Số phương án cân nhắc, thời gian tìm, yếu tố ưu tiên, ràng buộc loại phương án.</div></div>
-              <div class="step"><div class="no">3</div><h5>Lựa chọn</h5>
-                <div>Khoảng cách nơi ở mới, hình thức nhà ở, giữ hay đổi trường.</div></div>
-              <div class="step"><div class="no">4</div><h5>Đánh giá sau di dời</h5>
-                <div>Thay đổi thời gian đi học – đi làm, hỗ trợ gia đình, mức hài lòng.</div></div>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-        st.caption("Nghiên cứu đo các mối liên hệ giữa các nhóm thông tin; không xác nhận quan hệ nhân quả "
-                   "và không suy rộng cho toàn bộ hộ bị ảnh hưởng.")
-
-    with st.container(key="card_loi_cam_on"):
-        tieu_de_the("Lời cảm ơn & tri ân")
-        st.markdown(
-            """
-**Kính gửi cô/chú, anh/chị tham gia khảo sát,**
-
-Con là **Nguyễn Vũ Tuấn Minh**, học sinh lớp 12 Tin 1 (chuyên Tin), Trường THPT chuyên Hà Nội – Amsterdam. Từ sự tò mò của một học sinh trước một vấn đề thực tế của cuộc sống, con đã bắt đầu nghiên cứu này với mong muốn hiểu rõ hơn cách mỗi gia đình đưa ra quyết định về nơi ở sau di dời.
-
-Con chân thành cảm ơn cô/chú, anh/chị đã dành thời gian chia sẻ trải nghiệm và những cân nhắc của gia đình. Mỗi phản hồi đều rất quý giá, giúp con nhìn vấn đề đầy đủ hơn từ những lựa chọn có thật trong cuộc sống.
-
-**Cam kết của con:** Thông tin và kết quả tổng hợp từ khảo sát chỉ được sử dụng cho đề tài nghiên cứu khoa học; không dùng cho mục đích thương mại và không dùng để đánh giá đúng – sai quyết định của bất kỳ gia đình nào. Dữ liệu được thu thập ẩn danh.
-
-Con xin bày tỏ lòng biết ơn sâu sắc tới **cô Lê Thị Thúy** — giáo viên môn Tin học, đồng thời là giáo viên chủ nhiệm của con trong hai năm lớp 11 và lớp 12 — người đã trực tiếp hướng dẫn và đồng hành cùng con trong quá trình thực hiện nghiên cứu. Con cũng chân thành cảm ơn các bạn học sinh đã nhiệt tình hỗ trợ con trong quá trình khảo sát thực tế.
-
-*Việc tham gia hoàn toàn tự nguyện. Cô/chú, anh/chị có thể thử công cụ mà không gửi dữ liệu và có thể dừng bất cứ lúc nào.*
-            """
-        )
-        st.markdown("<p style='text-align:right;font-weight:700;color:#1D4ED8;margin:0'>"
-                    "Trân trọng — Nguyễn Vũ Tuấn Minh, lớp 12 Tin 1</p>", unsafe_allow_html=True)
-
-    with st.expander("Phạm vi kết luận & giới hạn của nghiên cứu"):
-        st.markdown(
-            """
-- Không ước lượng tác động nhân quả của dự án đối với lựa chọn nơi ở.
-- Mẫu phi xác suất (có chủ đích + giới thiệu tự nguyện), có thể thiếu hộ chuyển xa.
-- Không đánh giá mức bồi thường; không thu số tiền bồi thường hay địa chỉ chính xác.
-- Sai lệch hồi tưởng: người trả lời có thể hợp lý hóa quyết định sau khi biết kết quả.
-- Hài lòng hiện tại không phải bằng chứng rằng lựa chọn ban đầu là tối ưu.
-            """
-        )
-
-# =============================================================================
-# TAB 2. DASHBOARD KẾT QUẢ KHẢO SÁT + BỘ LỌC
+# PHẦN 2b. DASHBOARD (bộ lọc + biểu đồ)
 # =============================================================================
 # Khai báo bộ lọc: (khóa trạng thái, nhãn, cột dữ liệu, danh sách lựa chọn)
 BO_LOC = [
@@ -764,13 +660,8 @@ def khung_dashboard(du_lieu: pd.DataFrame):
                            file_name="du_lieu_dang_loc.csv", mime="text/csv")
 
 
-with tab2:
-    tieu_de_muc("Dashboard", "Kết quả khảo sát trực quan",
-                "Dùng bộ lọc để xem kết quả theo từng nhóm hộ. Số liệu là dữ liệu giả lập minh họa.")
-    khung_dashboard(df)
-
 # =============================================================================
-# TAB 3. CÔNG CỤ QUYẾT ĐỊNH (THỜI GIAN THỰC) + GÓC TÀI CHÍNH
+# PHẦN 2c. CÔNG CỤ TRẢI NGHIỆM MÔ HÌNH (thời gian thực) + GÓC TÀI CHÍNH
 # =============================================================================
 # 5 phương án giả lập. Điểm 1–5 cho từng yếu tố theo thứ tự YEU_TO:
 # [tài chính, giữ trường, thời gian đi làm, hỗ trợ người thân]. Điểm càng cao =
@@ -800,8 +691,6 @@ KICH_BAN_MAU = [
     ("Cần người thân", [4, 3, 3, 5]),
     ("Đặt lại", [3, 3, 3, 3]),
 ]
-for _k in KHOA_W.values():
-    st.session_state.setdefault(_k, 3)      # giá trị khởi tạo của thanh trượt
 
 
 def ap_kich_ban(gia_tri):
@@ -868,12 +757,12 @@ def khung_cong_cu():
     with cs:
         with st.container(key="card_thanh_truot"):
             tieu_de_the("Mức quan trọng của bạn", "1–5")
-            st.slider("1. Khả năng tài chính", 1, 5, key=KHOA_W["Khả năng tài chính"],
+            st.slider("1. Khả năng tài chính", 1, 5, value=3, key=KHOA_W["Khả năng tài chính"],
                       help="Điểm cao = ngân sách nhà ở bị hạn chế, cần tiết kiệm chi phí.")
-            st.slider("2. Ưu tiên giữ trường cho con", 1, 5, key=KHOA_W["Ưu tiên giữ trường"])
-            st.slider("3. Giới hạn thời gian đi làm", 1, 5, key=KHOA_W["Giới hạn thời gian đi làm"],
+            st.slider("2. Ưu tiên giữ trường cho con", 1, 5, value=3, key=KHOA_W["Ưu tiên giữ trường"])
+            st.slider("3. Giới hạn thời gian đi làm", 1, 5, value=3, key=KHOA_W["Giới hạn thời gian đi làm"],
                       help="Điểm cao = muốn nơi ở gần nơi làm việc.")
-            st.slider("4. Hỗ trợ từ người thân", 1, 5, key=KHOA_W["Hỗ trợ từ người thân"])
+            st.slider("4. Hỗ trợ từ người thân", 1, 5, value=3, key=KHOA_W["Hỗ trợ từ người thân"])
 
     w = [st.session_state[KHOA_W[t]] for t in YEU_TO]
     kq = tinh_phuong_an(w)
@@ -996,8 +885,297 @@ def khung_tai_chinh():
                        "nhà ở. Đây chỉ là mốc tham khảo chung, mỗi hộ có hoàn cảnh riêng.")
 
 
-with tab3:
-    tieu_de_muc("Công cụ tương tác", "Mô phỏng đánh đổi khi chọn nơi ở",
+# =============================================================================
+# PHẦN 3. CÁC TRANG NỘI DUNG (điều hướng bằng thanh bên trái)
+# Bố cục 5 phần của hồ sơ năng lực tương tác:
+#   (1) Hero + nút hành động   (2) Đặt vấn đề   (3) Phương pháp & kiến trúc
+#   (4) Demo tương tác + khảo sát   (5) Tác động & định hướng
+# =============================================================================
+TRANG = [
+    "🏠 Trang chủ",
+    "🧪 Phương pháp",
+    "📊 Kết quả khảo sát",
+    "🧭 Trải nghiệm mô hình",
+    "📝 Khảo sát & góp ý",
+    "🌱 Tác động",
+    "📂 Tư liệu & dữ liệu",
+]
+st.session_state.setdefault("trang", TRANG[0])
+
+
+def den_trang(ten_trang):
+    """Chuyển trang (dùng cho các nút hành động)."""
+    st.session_state["trang"] = ten_trang
+
+
+def bang_html(tieu_de_cot, cac_dong):
+    """Bảng HTML gọn, chữ lớn (dùng thay st.dataframe cho bảng ngắn)."""
+    dau = "".join(f"<th>{c}</th>" for c in tieu_de_cot)
+    than = "".join("<tr>" + "".join(f"<td>{o}</td>" for o in dong) + "</tr>" for dong in cac_dong)
+    return f"<table class='tbl'><thead><tr>{dau}</tr></thead><tbody>{than}</tbody></table>"
+
+
+# ---------------------------------------------------------------------------
+# TRANG 1. HERO + ĐẶT VẤN ĐỀ
+# ---------------------------------------------------------------------------
+def trang_chu():
+    # ---- (1) Hero
+    st.markdown(
+        f"""
+        <div class="hero">
+          <span class="eyebrow">Đề tài nghiên cứu khoa học học sinh phổ thông</span>
+          <h1>Lựa chọn nơi ở sau di dời của hộ gia đình có con đang học phổ thông</h1>
+          <p class="lead">Khảo sát cấu trúc đánh đổi của các hộ bị ảnh hưởng bởi dự án Vành đai 2.5,
+          đoạn Ngụy Như Kon Tum – Nhân Hòa – Nguyễn Trãi.</p>
+          <div class="chips">
+            <div class="chip"><small>Tác giả</small><b>Nguyễn Vũ Tuấn Minh · 12 Tin 1</b></div>
+            <div class="chip"><small>Thời gian nghiên cứu</small><b>{THOI_GIAN_NGHIEN_CUU}</b></div>
+            <div class="chip"><small>Thiết kế</small><b>Khảo sát cắt ngang hồi cứu</b></div>
+            <div class="chip"><small>Mẫu mục tiêu</small><b>30–45 phiếu</b></div>
+          </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+    # ---- Nút hành động nhanh
+    c1, c2, c3 = st.columns(3, gap="medium")
+    with c1:
+        if GITHUB_URL:
+            st.link_button("🔗 Xem mã nguồn GitHub", GITHUB_URL, type="primary")
+        else:
+            st.button("🔗 Mã nguồn GitHub (sắp cập nhật)", disabled=True)
+    with c2:
+        if os.path.exists(BAO_CAO_PDF):
+            with open(BAO_CAO_PDF, "rb") as f:
+                st.download_button("📄 Tải báo cáo nghiên cứu (PDF)", f.read(),
+                                   file_name=BAO_CAO_PDF, mime="application/pdf")
+        else:
+            st.button("📄 Báo cáo PDF (sắp cập nhật)", disabled=True)
+    with c3:
+        st.button("🧭 Trải nghiệm mô hình ngay", on_click=den_trang, args=(TRANG[3],))
+    st.write("")
+
+    # ---- (2) Đặt vấn đề: 3 ý lớn
+    tieu_de_muc("Đặt vấn đề", "Vì sao nghiên cứu này đáng làm?",
+                "Từ một câu hỏi rất đời thường của học sinh lớp 12.")
+    st.markdown(
+        """
+        <div class="steps three">
+          <div class="step"><div class="no">1</div><h5>Vấn đề thực tiễn</h5>
+            <div>Dự án Vành đai 2.5 đi qua khu dân cư hiện hữu. Các hộ có con đang học phổ thông phải chọn lại
+            nơi ở, trong khi vẫn phải cân đối tài chính, trường học, việc đi làm và sự hỗ trợ của người thân.</div></div>
+          <div class="step"><div class="no">2</div><h5>Khoảng trống</h5>
+            <div>Theo quan sát của nhóm, thông tin về việc các hộ đã chọn nơi ở thế nào chủ yếu nằm trong tin
+            báo chí và chia sẻ rời rạc, thiếu dữ liệu có cấu trúc để mô tả và so sánh các đánh đổi.</div></div>
+          <div class="step"><div class="no">3</div><h5>Đóng góp của đề tài</h5>
+            <div>Bộ dữ liệu ẩn danh có cấu trúc, công cụ web minh họa đánh đổi và quy trình phân tích mở,
+            tái lập được. Đề tài không đưa ra lời khuyên cho từng hộ.</div></div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+    st.write("")
+
+    cot_trai, cot_phai = st.columns([7, 5], gap="medium")
+    with cot_trai:
+        with st.container(key="card_van_de"):
+            tieu_de_the("Vấn đề nghiên cứu")
+            st.markdown(
+                f"""
+Đây là đề tài nghiên cứu nhỏ do **Nguyễn Vũ Tuấn Minh**, học sinh lớp 12 Tin 1 (chuyên Tin), Trường THPT chuyên Hà Nội – Amsterdam, thực hiện từ sự tò mò trước một câu hỏi rất đời thường: *sau khi phải di dời để phục vụ dự án Vành đai 2.5, đoạn Ngụy Như Kon Tum – Nhân Hòa – Nguyễn Trãi, các gia đình đã chuyển đến đâu và điều gì khiến họ lựa chọn nơi ở đó?*
+
+Tại thời điểm nghiên cứu vào tháng 9/{NAM}, việc giải phóng mặt bằng đã hoàn tất và các hộ bị ảnh hưởng đã di dời. Vì quyết định chuyển nhà đã xảy ra, khảo sát tập trung tìm hiểu lại những căn cứ đã được cân nhắc, gồm **khả năng tài chính, trường học của con, thời gian đi làm, sự hỗ trợ của người thân và mức độ ổn định của nơi ở mới**.
+                """
+            )
+        with st.container(key="card_cau_hoi"):
+            tieu_de_the("Bốn câu hỏi nghiên cứu")
+            st.markdown(
+                """
+                <div class="rqs">
+                  <div class="rq"><b>RQ1</b><div>Hộ chuyển đến đâu, dùng hình thức nhà ở nào, xem xét bao nhiêu phương án?</div></div>
+                  <div class="rq"><b>RQ2</b><div>Trường học, thời gian đi học – đi làm, hỗ trợ từ người thân thay đổi thế nào?</div></div>
+                  <div class="rq"><b>RQ3</b><div>Hộ ưu tiên, bị giới hạn và đánh đổi những gì?</div></div>
+                  <div class="rq"><b>RQ4</b><div>Tài chính, ưu tiên giữ trường, ưu tiên thời gian đi làm liên hệ ra sao với 3 kết quả tương ứng?</div></div>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+    with cot_phai:
+        with st.container(key="card_thong_tin"):
+            tieu_de_the("Thông tin đề tài")
+            st.markdown(
+                f"""
+                <div class="kv">
+                  <div class="k">Địa bàn</div><div class="v">{DIA_BAN}</div>
+                  <div class="k">Thời gian</div><div class="v">{THOI_GIAN_NGHIEN_CUU}</div>
+                  <div class="k">Đối tượng</div><div class="v">Hộ có con học lớp 1–12 tại thời điểm chọn nơi ở mới</div>
+                  <div class="k">Trường</div><div class="v">THPT chuyên Hà Nội – Amsterdam</div>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+        with st.container(key="card_nhom"):
+            tieu_de_the("Nhóm nghiên cứu")
+            hien_thi_anh(ANH_NHOM, "Nhóm nghiên cứu cùng giáo viên hướng dẫn")
+            st.caption("Giáo viên hướng dẫn: cô Lê Thị Thúy.")
+
+    with st.container(key="card_khung"):
+        tieu_de_the("Khung khái niệm", "Điều kiện → Quá trình → Lựa chọn → Đánh giá sau di dời")
+        st.markdown(
+            """
+            <div class="steps">
+              <div class="step"><div class="no">1</div><h5>Điều kiện</h5>
+                <div>Tài chính, con đang học, nơi làm việc, hỗ trợ từ người thân <i>tại thời điểm chốt nơi ở</i>.</div></div>
+              <div class="step"><div class="no">2</div><h5>Quá trình</h5>
+                <div>Số phương án cân nhắc, thời gian tìm, yếu tố ưu tiên, ràng buộc loại phương án.</div></div>
+              <div class="step"><div class="no">3</div><h5>Lựa chọn</h5>
+                <div>Khoảng cách nơi ở mới, hình thức nhà ở, giữ hay đổi trường.</div></div>
+              <div class="step"><div class="no">4</div><h5>Đánh giá sau di dời</h5>
+                <div>Thay đổi thời gian đi học – đi làm, hỗ trợ gia đình, mức hài lòng.</div></div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+        st.caption("Nghiên cứu đo các mối liên hệ giữa các nhóm thông tin; không xác nhận quan hệ nhân quả "
+                   "và không suy rộng cho toàn bộ hộ bị ảnh hưởng.")
+
+    with st.container(key="card_loi_cam_on"):
+        tieu_de_the("Lời cảm ơn & tri ân")
+        st.markdown(
+            """
+**Kính gửi cô/chú, anh/chị tham gia khảo sát,**
+
+Con là **Nguyễn Vũ Tuấn Minh**, học sinh lớp 12 Tin 1 (chuyên Tin), Trường THPT chuyên Hà Nội – Amsterdam. Từ sự tò mò của một học sinh trước một vấn đề thực tế của cuộc sống, con đã bắt đầu nghiên cứu này với mong muốn hiểu rõ hơn cách mỗi gia đình đưa ra quyết định về nơi ở sau di dời.
+
+Con chân thành cảm ơn cô/chú, anh/chị đã dành thời gian chia sẻ trải nghiệm và những cân nhắc của gia đình. Mỗi phản hồi đều rất quý giá, giúp con nhìn vấn đề đầy đủ hơn từ những lựa chọn có thật trong cuộc sống.
+
+**Cam kết của con:** Thông tin và kết quả tổng hợp từ khảo sát chỉ được sử dụng cho đề tài nghiên cứu khoa học; không dùng cho mục đích thương mại và không dùng để đánh giá đúng – sai quyết định của bất kỳ gia đình nào. Dữ liệu được thu thập ẩn danh.
+
+Con xin bày tỏ lòng biết ơn sâu sắc tới **cô Lê Thị Thúy** — giáo viên môn Tin học, đồng thời là giáo viên chủ nhiệm của con trong hai năm lớp 11 và lớp 12 — người đã trực tiếp hướng dẫn và đồng hành cùng con trong quá trình thực hiện nghiên cứu. Con cũng chân thành cảm ơn các bạn học sinh đã nhiệt tình hỗ trợ con trong quá trình khảo sát thực tế.
+
+*Việc tham gia hoàn toàn tự nguyện. Cô/chú, anh/chị có thể thử công cụ mà không gửi dữ liệu và có thể dừng bất cứ lúc nào.*
+            """
+        )
+        st.markdown("<p style='text-align:right;font-weight:700;color:#1D4ED8;margin:0'>"
+                    "Trân trọng — Nguyễn Vũ Tuấn Minh, lớp 12 Tin 1</p>", unsafe_allow_html=True)
+
+
+# ---------------------------------------------------------------------------
+# TRANG 2. PHƯƠNG PHÁP & KIẾN TRÚC
+# ---------------------------------------------------------------------------
+def trang_phuong_phap():
+    tieu_de_muc("Phương pháp & kiến trúc", "Từ phiếu khảo sát đến trang web",
+                "Quy trình có kiểm soát, ẩn danh và có thể chạy lại từ dữ liệu đã xử lý.")
+
+    with st.container(key="card_quy_trinh"):
+        tieu_de_the("Sơ đồ luồng xử lý dữ liệu")
+        st.markdown(
+            """
+            <div class="steps five">
+              <div class="step"><div class="no">1</div><h5>Google Forms</h5>
+                <div>Thu phiếu ẩn danh. Bảng hỏi được thử nghiệm nhận thức với 8–10 người rồi mới khóa bản v1.0.</div></div>
+              <div class="step"><div class="no">2</div><h5>Dữ liệu thô</h5>
+                <div>Thư mục <code>01_raw</code>: chỉ đọc, bảo mật, không chỉnh sửa.</div></div>
+              <div class="step"><div class="no">3</div><h5>Làm sạch & mã hóa</h5>
+                <div>Python kiểm tra điều kiện tham gia, mã hóa biến, tạo biến thay đổi trước–sau → <code>02_processed</code>.</div></div>
+              <div class="step"><div class="no">4</div><h5>Phân tích</h5>
+                <div><code>03_analysis</code>: thống kê mô tả, bảng chuyển đổi, tối đa 3 kiểm tra đã xác định trước.</div></div>
+              <div class="step"><div class="no">5</div><h5>Công bố</h5>
+                <div><code>04_public</code>: kết quả tổng hợp đưa lên web, không chứa phiếu cá nhân.</div></div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    ca, cb = st.columns(2, gap="medium")
+    with ca:
+        with st.container(key="card_thiet_ke"):
+            tieu_de_the("Thiết kế nghiên cứu")
+            st.markdown(
+                """
+                <div class="kv">
+                  <div class="k">Loại</div><div class="v">Quan sát cắt ngang hồi cứu, mang tính khám phá</div>
+                  <div class="k">Đối tượng</div><div class="v">Người từ 18 tuổi đại diện cho hộ đã rời nơi ở cũ do dự án, có con học lớp 1–12 tại thời điểm chọn nơi ở</div>
+                  <div class="k">Mẫu</div><div class="v">Mục tiêu 30–45 phiếu, tối thiểu 25; mẫu có chủ đích + giới thiệu tự nguyện qua ít nhất 3 kênh</div>
+                  <div class="k">Công cụ</div><div class="v">Bảng hỏi 30 câu, khoảng 10–12 phút</div>
+                  <div class="k">Neo thời gian</div><div class="v">Câu hỏi ưu tiên, nguồn lực, ràng buộc đều mở đầu bằng “Tại thời điểm hộ chốt nơi ở mới”</div>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+    with cb:
+        with st.container(key="card_bang_hoi"):
+            tieu_de_the("Cấu trúc bảng hỏi", "30 câu · 5 khối")
+            st.markdown(
+                bang_html(["Khối", "Câu", "Nội dung chính"], [
+                    ["A. Đồng ý và sàng lọc", "5", "Đồng ý, tuổi, liên hệ với khu vực, tình trạng đã rời nơi cũ"],
+                    ["B. Quyết định đã xảy ra", "7", "Thời điểm chuyển, số phương án, khoảng cách, nhà ở trước–sau"],
+                    ["C. Điều kiện tài chính", "4", "Khả năng huy động nguồn lực, nguồn tiền bổ sung, gánh nặng chi phí"],
+                    ["D. Trường học, đi làm, hỗ trợ", "7", "Giữ trường, thời gian đi học/đi làm trước–sau, hỗ trợ người thân"],
+                    ["E. Ưu tiên, ràng buộc, đánh đổi", "7", "Mức quan trọng, ràng buộc, đánh đổi, hài lòng, câu mở"],
+                ]), unsafe_allow_html=True)
+
+    with st.container(key="card_gia_thuyet"):
+        tieu_de_the("Giả thuyết xác định trước khi xem dữ liệu", "chỉ mang tính khám phá")
+        st.markdown(
+            bang_html(["Mã", "Phát biểu có thể kiểm tra", "Cách kiểm tra"], [
+                ["H1", "Trong các hộ sở hữu nơi ở trước di dời, hộ tự đánh giá nguồn lực tài chính thấp có xu hướng không duy trì sở hữu nhiều hơn nhóm còn lại.", "Bảng 2×2, Fisher"],
+                ["H2", "Hộ đánh giá việc giữ trường quan trọng hoặc rất quan trọng có xu hướng giữ nguyên trường cho tất cả con nhiều hơn.", "Bảng 2×2, Fisher"],
+                ["H3", "Trong các hộ đi làm thường xuyên, hộ đặt ưu tiên cao cho thời gian đi làm có xu hướng không bị tăng nhóm thời gian đi làm.", "Bảng 2×2, Fisher"],
+            ]) + "<div class='note'>Chỉ kiểm tra khi tổng mẫu từ 30 và mỗi nhóm so sánh có ít nhất 5 quan sát; "
+                 "nếu không, chỉ báo cáo số lượng và tỷ lệ. Kết quả không ủng hộ giả thuyết thì giữ nguyên, "
+                 "không đổi giả thuyết sau khi xem dữ liệu.</div>",
+            unsafe_allow_html=True)
+
+    with st.container(key="card_thuat_toan"):
+        tieu_de_the("Thuật toán của công cụ trải nghiệm mô hình")
+        st.markdown(
+            "Công cụ chấm **mức khớp** giữa mức quan trọng do người dùng nhập và điểm đáp ứng của 5 phương án "
+            "giả lập (thang 1–5). Điểm phương án là giả định minh họa, sẽ được hiệu chỉnh theo xu hướng khảo sát thật."
+        )
+        st.code(
+            "# w: mức quan trọng người dùng chọn cho 4 yếu tố (1–5)\n"
+            "# diem: điểm đáp ứng của một phương án cho 4 yếu tố (1–5)\n"
+            "muc_khop = sum(w[i] * diem[i] for i in range(4)) / (5 * sum(w)) * 100   # thang 0–100\n"
+            "\n"
+            "# xung đột: yếu tố được chấm quan trọng (>= 4) nhưng phương án đáp ứng kém (<= 2)\n"
+            "xung_dot = [i for i in range(4) if w[i] >= 4 and diem[i] <= 2]",
+            language="python")
+        st.markdown("Kiểm tra giả thuyết trong sổ tay Python (mã minh họa, chỉ chạy khi đủ điều kiện mẫu):")
+        st.code(
+            "from scipy.stats import fisher_exact\n"
+            "\n"
+            "bang_2x2 = pd.crosstab(df['uu_tien_giu_truong_cao'], df['giu_tat_ca_con'])\n"
+            "if bang_2x2.values.sum() >= 30 and bang_2x2.values.sum(axis=1).min() >= 5:\n"
+            "    ty_so_chenh, p = fisher_exact(bang_2x2)\n"
+            "else:\n"
+            "    print('Không đủ điều kiện kiểm định: chỉ báo cáo số lượng và tỷ lệ')",
+            language="python")
+
+    with st.container(key="card_quan_tri"):
+        tieu_de_the("Quản trị dữ liệu & đạo đức")
+        st.markdown(
+            """
+- Tự nguyện, người tham gia từ 18 tuổi; mỗi hộ một phiếu.
+- **Không thu:** tên, số điện thoại, email, địa chỉ cũ/mới, tên trường, nơi làm việc, GPS, thu nhập, dư nợ, số tiền bồi thường chính xác.
+- Khoảng cách và tài chính hỏi theo **khoảng**, không hỏi số chính xác.
+- Dữ liệu công khai chỉ gồm kết quả tổng hợp và dữ liệu giả lập, không có phiếu cá nhân.
+            """
+        )
+
+
+# ---------------------------------------------------------------------------
+# TRANG 3, 4. KẾT QUẢ KHẢO SÁT & TRẢI NGHIỆM MÔ HÌNH
+# ---------------------------------------------------------------------------
+def trang_ket_qua():
+    tieu_de_muc("Kết quả khảo sát", "Dashboard trực quan",
+                "Dùng bộ lọc để xem kết quả theo từng nhóm hộ. Số liệu hiển thị là dữ liệu giả lập minh họa "
+                "cấu trúc phân tích, không phải kết quả khảo sát thực tế.")
+    khung_dashboard(df)
+
+
+def trang_mo_hinh():
+    tieu_de_muc("Trải nghiệm mô hình", "Mô phỏng đánh đổi khi chọn nơi ở",
                 "Kéo thanh trượt để thấy các kịch bản thay đổi ngay lập tức.")
     khung_cong_cu()
     st.write("")
@@ -1007,14 +1185,125 @@ with tab3:
         "nghiên cứu khoa học, không phải lời khuyên tài chính hay pháp lý tuyệt đối.</div>",
         unsafe_allow_html=True)
 
-# =============================================================================
-# TAB 4. TƯ LIỆU THỰC ĐỊA
-# =============================================================================
-with tab4:
-    tieu_de_muc("Tư liệu", "Khu vực Vành đai 2.5: Ngụy Như Kon Tum – Nhân Hòa – Nguyễn Trãi",
-                "Hình ảnh và video tư liệu về khu vực nghiên cứu.")
+
+# ---------------------------------------------------------------------------
+# TRANG 5. KHẢO SÁT & GÓP Ý
+# ---------------------------------------------------------------------------
+def trang_khao_sat():
+    tieu_de_muc("Tham gia", "Khảo sát & góp ý",
+                "Đóng góp của bạn giúp nghiên cứu có dữ liệu thật thay cho dữ liệu minh họa.")
+    with st.container(key="card_trang_thai"):
+        tieu_de_the("Trạng thái khảo sát")
+        st.markdown(
+            f"<div class='note'>Khảo sát đang được triển khai đến <b>{KHAO_SAT_HAN}</b>. "
+            "Số liệu trên Dashboard hiện là <b>dữ liệu giả lập</b> để minh họa cấu trúc phân tích; "
+            "kết quả thật sẽ thay thế sau khi khóa dữ liệu.</div>", unsafe_allow_html=True)
+        st.markdown(
+            """
+**Ai có thể tham gia?** Người từ 18 tuổi, đại diện cho hộ đã rời nơi ở cũ do dự án Vành đai 2.5 (đoạn Ngụy Như Kon Tum – Nhân Hòa – Nguyễn Trãi), có ít nhất một con học lớp 1–12 tại thời điểm chọn nơi ở mới và biết rõ quá trình lựa chọn.
+
+**Thời gian:** khoảng 10–12 phút · **Tự nguyện, ẩn danh** · Không hỏi tên, số điện thoại, địa chỉ, thu nhập hay số tiền bồi thường.
+            """
+        )
+    with st.container(key="card_form"):
+        tieu_de_the("Phiếu khảo sát")
+        if GOOGLE_FORM_EMBED_URL:
+            try:
+                import streamlit.components.v1 as components
+                components.iframe(GOOGLE_FORM_EMBED_URL, height=900, scrolling=True)
+            except Exception:
+                st.link_button("Mở phiếu khảo sát", GOOGLE_FORM_EMBED_URL.replace("?embedded=true", ""))
+            st.caption("Nếu phiếu không hiển thị, hãy mở bằng liên kết trực tiếp trong trình duyệt.")
+        else:
+            st.info("Phiếu khảo sát sẽ được nhúng tại đây (điền link nhúng vào biến GOOGLE_FORM_EMBED_URL ở đầu file).")
+
+    with st.container(key="card_phan_hoi"):
+        tieu_de_the("Góp ý cho nghiên cứu")
+        with st.form("form_gop_y"):
+            ten = st.text_input("Họ tên / Đơn vị (không bắt buộc)")
+            noi_dung = st.text_area("Nội dung góp ý / nhận xét")
+            gui = st.form_submit_button("Soạn email góp ý")
+        if gui:
+            if not noi_dung.strip():
+                st.warning("Vui lòng nhập nội dung góp ý.")
+            elif EMAIL_PHAN_HOI:
+                from urllib.parse import quote
+                lien_ket = (f"mailto:{EMAIL_PHAN_HOI}?subject={quote('Góp ý đề tài Vành đai 2.5')}"
+                            f"&body={quote(chr(10).join(['Người gửi: ' + ten, '', noi_dung]))}")
+                st.success("Bấm liên kết dưới đây để mở email và gửi góp ý:")
+                st.markdown(f"[✉️ Mở email để gửi]({lien_ket})")
+            else:
+                st.info("Trang web chưa lưu góp ý trực tiếp. Bạn vui lòng gửi góp ý qua giáo viên "
+                        "hướng dẫn hoặc nhóm nghiên cứu. Cảm ơn bạn!")
+
+
+# ---------------------------------------------------------------------------
+# TRANG 6. TÁC ĐỘNG & ĐỊNH HƯỚNG PHÁT TRIỂN
+# ---------------------------------------------------------------------------
+def trang_tac_dong():
+    tieu_de_muc("Tác động & định hướng", "Nghiên cứu này dùng vào đâu và đi tiếp thế nào?",
+                "Nêu rõ giá trị dự kiến, giới hạn và hướng mở rộng.")
+    ca, cb = st.columns(2, gap="medium")
+    with ca:
+        with st.container(key="card_gia_tri"):
+            tieu_de_the("Giá trị dự kiến")
+            st.markdown(
+                """
+- **Với các hộ đang cân nhắc chỗ ở:** công cụ giúp nhìn rõ các đánh đổi thường gặp giữa tài chính, trường học, đi làm và hỗ trợ người thân (chỉ mang tính minh họa).
+- **Với nhà trường và người làm công tác hỗ trợ:** bức tranh mô tả về khoảng cách chuyển đi, việc giữ hay đổi trường và thay đổi thời gian đi lại của học sinh.
+- **Với cộng đồng học sinh nghiên cứu:** một quy trình mở (bảng hỏi, mã hóa, sổ tay Python, web) có thể tái lập cho đề tài khác.
+                """
+            )
+    with cb:
+        with st.container(key="card_san_pham"):
+            tieu_de_the("Sản phẩm của đề tài")
+            st.markdown(
+                """
+- Bảng hỏi đã thử nghiệm và nhật ký thay đổi.
+- Dữ liệu đã mã hóa, từ điển biến, nhật ký làm sạch.
+- Sổ tay Python tạo lại toàn bộ bảng và biểu đồ.
+- Báo cáo nghiên cứu 15–20 trang.
+- Công cụ web (trang này) dùng dữ liệu tổng hợp hoặc giả lập.
+                """
+            )
+    with st.container(key="card_huong_di"):
+        tieu_de_the("Định hướng phát triển")
+        st.markdown(
+            """
+            <div class="steps">
+              <div class="step"><div class="no">1</div><h5>Thay dữ liệu thật</h5>
+                <div>Khóa dữ liệu khảo sát, thay dữ liệu giả lập bằng kết quả đã mã hóa.</div></div>
+              <div class="step"><div class="no">2</div><h5>Hiệu chỉnh mô hình</h5>
+                <div>Dùng kết quả khảo sát để điều chỉnh điểm phương án; khi đủ mẫu, thử mô hình lựa chọn rời rạc (conditional logit).</div></div>
+              <div class="step"><div class="no">3</div><h5>Mở rộng mẫu</h5>
+                <div>Tiếp cận thêm hộ chuyển xa, bổ sung phỏng vấn sâu và mẫu có khung chọn rõ hơn.</div></div>
+              <div class="step"><div class="no">4</div><h5>Dữ liệu đi lại thực</h5>
+                <div>Đối chiếu thời gian di chuyển ước tính với dữ liệu bản đồ (không thu địa chỉ chính xác).</div></div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+    with st.container(key="card_gioi_han"):
+        tieu_de_the("Giới hạn cần nêu rõ")
+        st.markdown(
+            """
+- Không ước lượng tác động nhân quả của dự án; không đánh giá mức bồi thường.
+- Mẫu phi xác suất, có thể thiếu hộ chuyển xa; không suy rộng cho toàn bộ hộ bị ảnh hưởng.
+- Sai lệch hồi tưởng: người trả lời có thể hợp lý hóa quyết định sau khi biết kết quả.
+- Một người trả lời không phản ánh đầy đủ bất đồng giữa các thành viên trong hộ.
+- Hài lòng hiện tại không phải bằng chứng rằng lựa chọn ban đầu là tối ưu.
+            """
+        )
+
+
+# ---------------------------------------------------------------------------
+# TRANG 7. TƯ LIỆU & DỮ LIỆU MỞ
+# ---------------------------------------------------------------------------
+def trang_tu_lieu():
+    tieu_de_muc("Tư liệu & khoa học mở", "Hình ảnh, video, dữ liệu và mã nguồn",
+                "Dữ liệu công khai chỉ gồm kết quả đã mã hóa, ẩn danh tuyệt đối.")
     with st.container(key="card_anh"):
-        tieu_de_the("Hình ảnh tư liệu")
+        tieu_de_the("Hình ảnh tư liệu khu vực Vành đai 2.5")
         if ANH_TU_LIEU:
             cot_anh = st.columns(len(ANH_TU_LIEU), gap="medium")
             for o, (nguon, chu_thich) in zip(cot_anh, ANH_TU_LIEU):
@@ -1034,12 +1323,6 @@ with tab4:
                     except Exception:
                         st.info("Không phát được video này.")
 
-# =============================================================================
-# TAB 5. TÀI LIỆU MỞ & PHẢN HỒI
-# =============================================================================
-with tab5:
-    tieu_de_muc("Khoa học mở", "Tài liệu, dữ liệu và phản hồi",
-                "Dữ liệu công khai chỉ gồm kết quả đã mã hóa, ẩn danh tuyệt đối.")
     d1, d2 = st.columns(2, gap="medium")
     with d1:
         with st.container(key="card_co"):
@@ -1092,31 +1375,27 @@ with tab5:
             st.link_button("🔗 Mở hướng dẫn đọc sổ tay Python", NOTEBOOK_URL)
         else:
             st.info("Đường dẫn sổ tay sẽ được cập nhật.")
-        with st.expander("Quy tắc kiểm tra giả thuyết (H1–H3)"):
-            st.markdown(
-                "- Chỉ kiểm tra khi tổng mẫu ≥ 30 và mỗi nhóm so sánh có ≥ 5 quan sát; "
-                "nếu không, chỉ báo cáo số lượng và tỷ lệ.\n"
-                "- Dùng bảng 2×2 và kiểm định Fisher; kết quả chỉ mang tính khám phá.\n"
-                "- Kết quả không ủng hộ giả thuyết thì giữ nguyên, không đổi giả thuyết sau khi xem dữ liệu.")
 
-    with st.container(key="card_phan_hoi"):
-        tieu_de_the("Góp ý cho nghiên cứu")
-        with st.form("form_gop_y"):
-            ten = st.text_input("Họ tên / Đơn vị (không bắt buộc)")
-            noi_dung = st.text_area("Nội dung góp ý / nhận xét")
-            gui = st.form_submit_button("Soạn email góp ý")
-        if gui:
-            if not noi_dung.strip():
-                st.warning("Vui lòng nhập nội dung góp ý.")
-            elif EMAIL_PHAN_HOI:
-                from urllib.parse import quote
-                lien_ket = (f"mailto:{EMAIL_PHAN_HOI}?subject={quote('Góp ý đề tài Vành đai 2.5')}"
-                            f"&body={quote(chr(10).join(['Người gửi: ' + ten, '', noi_dung]))}")
-                st.success("Bấm liên kết dưới đây để mở email và gửi góp ý:")
-                st.markdown(f"[✉️ Mở email để gửi]({lien_ket})")
-            else:
-                st.info("Trang web chưa lưu góp ý trực tiếp. Bạn vui lòng gửi góp ý qua giáo viên "
-                        "hướng dẫn hoặc nhóm nghiên cứu. Cảm ơn bạn!")
+
+# =============================================================================
+# PHẦN 4. THANH BÊN (menu + hồ sơ tác giả) VÀ ĐIỀU HƯỚNG TRANG
+# =============================================================================
+with st.sidebar:
+    hien_thi_anh(ANH_TAC_GIA)
+    st.markdown("<div class='sb-name'>NGUYỄN VŨ TUẤN MINH</div>"
+                "<div class='sb-sub'>Lớp 12 Tin 1<br>THPT chuyên Hà Nội – Amsterdam</div>",
+                unsafe_allow_html=True)
+    st.markdown("---")
+    st.radio("Điều hướng", TRANG, key="trang", label_visibility="collapsed")
+    st.markdown("---")
+    st.caption(f"Thời gian nghiên cứu: {THOI_GIAN_NGHIEN_CUU}")
+
+CAC_TRANG = {
+    TRANG[0]: trang_chu, TRANG[1]: trang_phuong_phap, TRANG[2]: trang_ket_qua,
+    TRANG[3]: trang_mo_hinh, TRANG[4]: trang_khao_sat, TRANG[5]: trang_tac_dong,
+    TRANG[6]: trang_tu_lieu,
+}
+CAC_TRANG[st.session_state["trang"]]()
 
 st.markdown(
     f"<p style='text-align:center;color:#5B6B85;font-size:.98rem;margin-top:2rem'>© {NAM} · Đề tài NCKH học sinh phổ thông · "
