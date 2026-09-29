@@ -1,26 +1,26 @@
 # -*- coding: utf-8 -*-
 """
-CÔNG CỤ TRỰC QUAN HÓA & HỖ TRỢ QUYẾT ĐỊNH (PHIÊN BẢN NÂNG CAO)
+CÔNG CỤ TRỰC QUAN HÓA & HỖ TRỢ QUYẾT ĐỊNH (PHIÊN BẢN HOÀN THIỆN ĐẦY ĐỦ TƯ LIỆU)
 Đề tài: Lựa chọn nơi ở sau di dời của hộ gia đình có con đang học phổ thông 
-        bị ảnh hưởng bởi dự án Vành đai 2.5 đoạn Ngụy Như Kon Tum - Nguyễn Trãi[cite: 2]
-Tác giả: Vũ Thị Tuyết Nhung / Tuấn Minh (THPT chuyên Hà Nội - Amsterdam)[cite: 1, 2]
+        bị ảnh hưởng bởi dự án Vành đai 2.5 đoạn Ngụy Như Kon Tum – Nguyễn Trãi
+Tác giả: Nguyễn Vũ Tuấn Minh (Lớp 12 Tin 1, Trường THPT chuyên Hà Nội – Amsterdam)
 """
 
-import streamlit as st
 import numpy as np
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
+import streamlit as st
 
 # Cấu hình trang web
 st.set_page_config(
-    page_title="Nghiên cứu Di dời Vành đai 2.5 & Công cụ Hỗ trợ",
+    page_title="Lựa chọn nơi ở sau di dời - Vành đai 2.5",
     page_icon="🏡",
     layout="wide",
     initial_sidebar_state="expanded",
 )
 
-# Tùy chỉnh CSS giao diện (Tone màu xanh dương học thuật, thẻ card nổi)
+# Tùy chỉnh CSS giao diện
 st.markdown(
     """
     <style>
@@ -65,14 +65,14 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# Hàm tải dữ liệu mẫu (hoặc dữ liệu thật từ file processed_data.csv nếu có)
+
+# Hàm tải dữ liệu mẫu hoặc từ file
 @st.cache_data
 def load_data():
   try:
     df = pd.read_csv("processed_data.csv")
     return df
   except:
-    # Tạo dữ liệu giả lập chuẩn cấu trúc đề tài nếu chưa có file
     np.random.seed(42)
     n = 40
     data = {
@@ -104,46 +104,44 @@ def load_data():
 
 df = load_data()
 
-# --- SIDEBAR: THANH ĐIỀU HƯỚNG & THÔNG TIN ---
+# --- SIDEBAR ---
 with st.sidebar:
-  st.image(
-      "https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?auto=format&fit=crop&w=600&q=80",
-      use_container_width=True,
-  )
+  try:
+    st.image("tuanminh.jpg", use_container_width=True)
+  except:
+    st.image(
+        "https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?auto=format&fit=crop&w=600&q=80",
+        use_container_width=True,
+    )
   st.title("🏡 Nghiên cứu Vành đai 2.5")
   st.markdown("---")
   st.markdown("### 📌 Thông tin Đề tài")
   st.markdown(
-      "**Tên:** Lựa chọn nơi ở sau di dời của hộ gia đình có con học phổ thông[cite: 2]."
+      "**Tên:** Lựa chọn nơi ở sau di dời của hộ gia đình có con học phổ"
+      " thông[cite: 2]."
   )
   st.markdown(
-      "**Địa bàn:** Đoạn Ngụy Như Kon Tum - Nguyễn Trãi (Hà Nội)[cite: 2]."
+      "**Địa bàn:** Đoạn Ngụy Như Kon Tum - Nhân Hòa - Nguyễn Trãi (Hà Nội)[cite: 2]."
   )
-  st.markdown("**Thời gian:** 09/2026 – 12/2026[cite: 2]")
+  st.markdown("**Thời gian thực hiện:** 09/2026 – 12/2026[cite: 2]")
   st.markdown("---")
   st.markdown("### 👤 Tác giả")
-  st.markdown("**Vũ Thị Tuyết Nhung / Tuấn Minh**[cite: 1, 2]")
-  st.markdown("Trường THPT chuyên Hà Nội - Amsterdam[cite: 2]")
-  st.markdown("---")
-  status_data = (
-      "📊 Đang dùng: Dữ liệu giả lập minh họa"
-      if "ID" in df.columns
-      else "📁 Đang dùng: Dữ liệu thực tế"
-  )
-  st.info(status_data)
+  st.markdown("**Nguyễn Vũ Tuấn Minh**")
+  st.markdown("Lớp 12 Tin 1 (chuyên Tin)")
+  st.markdown("Trường THPT chuyên Hà Nội – Amsterdam[cite: 2]")
 
 # --- HEADER CHÍNH ---
 st.markdown(
     """
     <div class="main-header">
         <h1>Lựa chọn nơi ở sau di dời của hộ gia đình có con đang học phổ thông</h1>
-        <p style="font-size: 1.1rem; margin-top: 0.5rem;">Khảo sát tác động và cấu trúc đánh đổi tại dự án Vành đai 2.5 đoạn Ngụy Như Kon Tum - Nguyễn Trãi[cite: 2]. Công cụ tương tác hỗ trợ phân tích quyết định.</p>
+        <p style="font-size: 1.1rem; margin-top: 0.5rem;">Khảo sát tác động và cấu trúc đánh đổi tại dự án Vành đai 2.5 đoạn Ngụy Như Kon Tum – Nhân Hòa – Nguyễn Trãi[cite: 2].</p>
     </div>
 """,
     unsafe_allow_html=True,
 )
 
-# --- TẠO CÁC TABS GIAO DIỆN CHÍNH ---
+# --- TABS ---
 tab1, tab2, tab3, tab4, tab5 = st.tabs([
     "📖 1. Tổng quan & Bối cảnh",
     "📊 2. Kết quả Khảo sát (Dashboard)",
@@ -159,47 +157,50 @@ with tab1:
   col1, col2 = st.columns([2, 1])
 
   with col1:
-    st.markdown("### 🎯 Bối cảnh thực tiễn và Vấn đề nghiên cứu")
+    st.markdown("### 🎯 Một câu hỏi thực tế dưới góc nhìn của học sinh lớp 12")
     st.markdown(
         """
-        Đoạn Vành đai 2.5 từ Ngụy Như Kon Tum đến Nguyễn Trãi đi qua khu dân cư hiện hữu[cite: 2]. Công tác giải phóng mặt bằng hoàn tất buộc các hộ dân phải rời nơi ở cũ[cite: 2]. 
-        Nghiên cứu tập trung phân tích các quyết định thực tế đã xảy ra: **Hộ chuyển đến đâu? Sử dụng hình thức nhà ở nào? Có giữ trường cho con không? Và những đánh đổi đằng sau các lựa chọn đó là gì?**[cite: 1, 2]
-        """
-    )
+        Đây là đề tài nghiên cứu nhỏ do **Nguyễn Vũ Tuấn Minh**, học sinh lớp 12 Tin 1 (chuyên Tin), Trường THPT chuyên Hà Nội – Amsterdam, thực hiện từ sự tò mò trước một câu hỏi rất đời thường: *sau khi phải di dời để phục vụ dự án Vành đai 2.5, đoạn Ngụy Như Kon Tum – Nhân Hòa – Nguyễn Trãi, các gia đình đã chuyển đến đâu và điều gì khiến họ lựa chọn nơi ở đó?*
 
-    st.markdown("### 🔄 Khung khái niệm nghiên cứu")
-    st.markdown(
-        """
-        Nghiên cứu được tổ chức theo chuỗi trình tự logic:
-        1. **Điều kiện tại thời điểm chọn:** Nguồn lực tài chính, nhu cầu giữ trường, đi lại, hỗ trợ từ người thân[cite: 2].
-        2. **Quá trình ra quyết định:** Số phương án cân nhắc, ưu tiên và ràng buộc[cite: 2].
-        3. **Lựa chọn thực tế:** Khoảng cách, hình thức nhà ở, thay đổi hành trình[cite: 2].
-        4. **Đánh giá sau di dời:** Mức độ hài lòng và những khó khăn còn lại[cite: 2].
+        Tại thời điểm nghiên cứu vào tháng 9/2026, việc giải phóng mặt bằng đã hoàn tất và các hộ bị ảnh hưởng đã di dời. Vì quyết định chuyển nhà đã xảy ra, khảo sát tập trung tìm hiểu lại những căn cứ đã được cân nhắc, gồm **khả năng tài chính, trường học của con, thời gian đi làm, sự hỗ trợ của người thân và mức độ ổn định của nơi ở mới**.
         """
     )
 
   with col2:
-    st.markdown("### 🌟 Hồ sơ tác giả")
-    st.markdown(
-        """
-        <div class="author-card">
-            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80" style="border-radius: 50%; width: 120px; height: 120px; object-fit: cover; margin-bottom: 10px;">
-            <h4>Tuấn Minh</h4>
-            <p><b>Học sinh lớp 12</b><br>Trường THPT chuyên Hà Nội - Amsterdam[cite: 2]</p>
-            <p style="font-size: 0.9rem; color: #64748b;">Đam mê nghiên cứu xã hội học đô thị và ứng dụng công nghệ phân tích dữ liệu vào đời sống.</p>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
+    st.markdown("### 🌟 Hồ sơ tác giả & Nhóm nghiên cứu")
+    try:
+      st.image(
+          "tuanminh.jpg",
+          caption="Tác giả: Nguyễn Vũ Tuấn Minh (12 Tin 1)",
+          use_container_width=True,
+      )
+    except:
+      pass
+
+    try:
+      st.image(
+          "nhom_nghien_cuu.jpg",
+          caption="Nhóm nghiên cứu cùng giáo viên hướng dẫn",
+          use_container_width=True,
+      )
+    except:
+      pass
 
   st.markdown("---")
-  st.markdown("### 💌 Lời tri ân chân thành")
+  st.markdown("### 💌 Lời cảm ơn & Lời tri ân")
   st.markdown(
       """
         <div class="card">
-            <p>Lời đầu tiên, tác giả xin gửi lời cảm ơn sâu sắc đến <b>Cô giáo chủ nhiệm cùng các thầy cô hướng dẫn</b> đã tận tình định hướng, hỗ trợ và đưa ra những góp ý quý báu để đề tài nghiên cứu khoa học này được hoàn thiện.</p>
-            <p>Tác giả cũng xin gửi lời cảm ơn chân thành đến <b>các cô bác, anh chị đại diện các hộ gia đình</b> đã dành thời gian quý báu tham gia phỏng vấn, chia sẻ những trải nghiệm thực tế giúp nhóm có được góc nhìn khách quan và chân thực nhất.</p>
-            <p style="margin-bottom: 0; text-align: right; font-style: italic;">— Tác giả: Tuấn Minh —</p>
+            <h4>Kính gửi cô/chú, anh/chị tham gia khảo sát</h4>
+            <p>Con là <b>Nguyễn Vũ Tuấn Minh</b>, học sinh lớp 12 Tin 1 (chuyên Tin), Trường THPT chuyên Hà Nội – Amsterdam. Từ sự tò mò của một học sinh trước một vấn đề thực tế của cuộc sống, con đã bắt đầu nghiên cứu này với mong muốn hiểu rõ hơn cách mỗi gia đình đưa ra quyết định về nơi ở sau di dời.</p>
+            <p>Con chân thành cảm ơn cô/chú, anh/chị đã dành thời gian chia sẻ trải nghiệm và những cân nhắc của gia đình. Mỗi phản hồi đều rất quý giá, giúp con nhìn vấn đề đầy đủ hơn từ những lựa chọn có thật trong cuộc sống.</p>
+            <p><b>Cam kết của con:</b> Thông tin và kết quả tổng hợp từ khảo sát chỉ được sử dụng cho đề tài nghiên cứu khoa học; không dùng cho mục đích thương mại và không dùng để đánh giá đúng – sai quyết định của bất kỳ gia đình nào. Dữ liệu được thu thập ẩn danh.</p>
+            <hr style="margin: 15px 0;">
+            <h4>Lời tri ân</h4>
+            <p>Con xin bày tỏ lòng biết ơn sâu sắc tới <b>cô Lê Thị Thúy</b> — giáo viên môn Tin học, đồng thời là giáo viên chủ nhiệm của con trong hai năm lớp 11 và lớp 12 — người đã trực tiếp hướng dẫn và đồng hành cùng con trong quá trình thực hiện nghiên cứu.</p>
+            <p>Con cũng chân thành cảm ơn các bạn học sinh đã nhiệt tình hỗ trợ con trong quá trình khảo sát thực tế. Sự hướng dẫn của cô và sự giúp đỡ của các bạn là một phần quan trọng để con có thể hoàn thành đề tài này.</p>
+            <p style="font-size: 0.9rem; color: #64748b; margin-top: 10px;"><i>Việc tham gia hoàn toàn tự nguyện. Cô/chú, anh/chị có thể thử công cụ mà không gửi dữ liệu và có thể dừng bất cứ lúc nào.</i></p>
+            <p style="margin-bottom: 0; text-align: right; font-style: italic;"><b>Trân trọng — Nguyễn Vũ Tuấn Minh, lớp 12 Tin 1</b></p>
         </div>
         """,
       unsafe_allow_html=True,
@@ -210,12 +211,7 @@ with tab1:
 # ==========================================
 with tab2:
   st.markdown("### 📊 Biểu đồ trực quan hóa dữ liệu khảo sát")
-  st.markdown(
-      "Sử dụng các bộ lọc dưới đây để phân tích sâu hơn theo từng nhóm đối"
-      " tượng hộ gia đình."
-  )
 
-  # Bộ lọc tương tác (Filters)
   f_col1, f_col2 = st.columns(2)
   with f_col1:
     selected_dist = st.multiselect(
@@ -230,7 +226,6 @@ with tab2:
         default=df["Giu_truong"].unique(),
     )
 
-  # Lọc dữ liệu theo bộ lọc
   filtered_df = df[
       df["Khoang_cach"].isin(selected_dist)
       & df["Giu_truong"].isin(selected_school)
@@ -263,26 +258,29 @@ with tab2:
         barmode="group",
         color_discrete_sequence=px.colors.qualitative.Prism,
     )
-    fig_house.update_layout(
-        xaxis_title="Hình thức nhà ở sau di dời", ythe_title="Số lượng hộ"
-    )
     st.plotly_chart(fig_house, use_container_width=True)
 
 # ==========================================
-# TAB 3: CÔNG CỤ QUYẾT ĐỊNH & GÓC TÀI CHÍNH
+# TAB 3: CÔNG CỤ QUYẾT ĐỊNH & TÀI CHÍNH
 # ==========================================
 with tab3:
   st.markdown("### ⚖️ Công cụ Mô phỏng Đánh đổi (Interactive Decision Tool)")
+
   st.markdown(
-      "Kéo các thanh trượt để thiết lập mức độ ưu tiên của gia đình bạn. Hệ"
-      " thống sẽ phân tích gợi ý kịch bản phù hợp dựa trên dữ liệu nghiên"
-      " cứu."
+      """
+        <div style="background-color: #f8fafc; padding: 1rem; border-left: 4px solid #3b82f6; border-radius: 4px; margin-bottom: 1.5rem;">
+            <h4 style="margin-top: 0; color: #1e3a8a;">Cần hiểu trước khi gửi phản hồi</h4>
+            <p><b>Năm yếu tố và các phương án có ý nghĩa gì?</b></p>
+            <p style="margin-bottom: 0;">Công cụ không tự quyết định thay gia đình. Người tham gia cho biết điều gì quan trọng, điều kiện nào không thể chấp nhận và mức độ mỗi phương án đáp ứng hoàn cảnh thực tế của hộ.</p>
+        </div>
+        """,
+      unsafe_allow_html=True,
   )
 
   tool_col1, tool_col2 = st.columns([1, 1])
 
   with tool_col1:
-    st.markdown("#### 🎛️ Thiết lập trọng số ưu tiên")
+    st.markdown("#### 🎛️ Thiết lập trọng số ưu tiên của gia đình")
     p_finance = st.slider(
         "1. Khả năng ngân sách tài chính", 1, 5, 4, key="sl_fin"
     )
@@ -296,14 +294,11 @@ with tab3:
 
   with tool_col2:
     st.markdown("#### 💡 Gợi ý kịch bản đánh đổi tương ứng")
-    score_total = p_finance + p_school + p_work + p_family
-
     if p_school >= 4 and p_finance <= 2:
       st.warning(
           "⚠️ **Kịch bản Thách thức:** Ưu tiên giữ trường cao nhưng ngân sách"
           " hạn chế. Các hộ thường phải chấp nhận **thuê nhà trọ diện tích nhỏ"
-          " hoặc đi sâu vào các ngõ hẻm** gần khu vực trường cũ để tiết kiệm"
-          " chi phí thuê nhà lớn."
+          " hoặc đi sâu vào các ngõ hẻm** gần khu vực trường cũ."
       )
     elif p_finance >= 4 and p_school <= 2:
       st.success(
@@ -314,18 +309,12 @@ with tab3:
     else:
       st.info(
           "ℹ️ **Kịch bản Cân bằng:** Gia đình phân bổ đều các nguồn lực, thường"
-          " chọn phương án di chuyển trong bán kính 3-7km, chấp nhận tăng nhẹ thời"
-          " gian đi lại để giữ ổn định trường học và công việc."
+          " chọn phương án di chuyển trong bán kính 3-7km, cân đối giữa chi phí"
+          " và thời gian."
       )
 
   st.markdown("---")
-  st.markdown(
-      "### 💰 Góc Chuyên đề: Hỗ trợ quản lý tài chính trong bối cảnh di dời nhà"
-  )
-  st.markdown(
-      "Tính nhẩm nhanh dòng tiền dự kiến cho việc ổn định nơi ở mới:"
-  )
-
+  st.markdown("### 💰 Góc Chuyên đề: Quản lý tài chính khi di dời nhà")
   b_col1, b_col2 = st.columns(2)
   with b_col1:
     budget_house = st.number_input(
@@ -344,48 +333,54 @@ with tab3:
     total_est = budget_house + budget_transport
     st.markdown(f"#### Tổng chi phí duy trì định kỳ: `{total_est:,.0f} VNĐ`")
     st.caption(
-        "💡 *Lời khuyên từ dữ liệu:* Hãy đảm bảo tổng chi phí nhà ở và đi lại"
-        " không vượt quá 50% tổng thu nhập ổn định hàng tháng của gia đình để"
-        " tránh áp lực tài chính."
+        "💡 *Lời khuyên từ dữ liệu:* Chi phí nhà ở và đi lại nên được cân đối"
+        " hợp lý với nguồn thu nhập ổn định của hộ."
     )
 
 # ==========================================
 # TAB 4: NHẬT KÝ & TƯ LIỆU THỰC ĐỊA
 # ==========================================
 with tab4:
-  st.markdown("### 📸 Nhật ký Hình ảnh & Hành trình thực địa")
   st.markdown(
-      "Những hình ảnh ghi lại quá trình khảo sát, thử nghiệm nhận thức bảng hỏi"
-      " và làm việc trực tiếp tại thực địa."
+      "### 📸 Tư liệu thực địa: Khu vực Vành đai 2.5 (Ngụy Như Kon Tum – Nhân"
+      " Hòa – Nguyễn Trãi)"
+  )
+  st.markdown(
+      "Hình ảnh ghi nhận thực tế tại các nút giao thông và khu vực giải phóng"
+      " mặt bằng dọc tuyến đường:"
   )
 
   img_col1, img_col2, img_col3 = st.columns(3)
   with img_col1:
     st.image(
         "https://images.unsplash.com/photo-1577495508048-b635879837f1?auto=format&fit=crop&w=500&q=80",
-        caption="Khảo sát thực địa tuyến Vành đai 2.5",
+        caption=(
+            "Khu vực nút giao Ngụy Như Kon Tum hoàn thành giải phóng mặt bằng"
+        ),
         use_container_width=True,
     )
   with img_col2:
     st.image(
-        "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=500&q=80",
-        caption="Buổi thử nghiệm nhận thức bảng hỏi (8-10 người)",
+        "https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?auto=format&fit=crop&w=500&q=80",
+        caption="Đoạn qua phố Nhân Hòa trong quá trình thi công xây dựng",
         use_container_width=True,
     )
   with img_col3:
     st.image(
         "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=500&q=80",
-        caption="Xử lý và mã hóa dữ liệu nghiên cứu",
+        caption="Khu vực kết nối với trục đường Nguyễn Trãi",
         use_container_width=True,
     )
 
   st.markdown("---")
-  st.markdown("### 🎥 Video Tóm tắt Quá trình Nghiên cứu")
-  st.markdown(
-      "Video ngắn tổng quan hành trình thực hiện đề tài khoa học từ bước lên"
-      " ý tưởng đến khi hoàn thiện công cụ web:"
-  )
-  st.video("https://www.youtube.com/watch?v=dQw4w9WgXcQ")  # Link minh họa
+  st.markdown("### 🎥 Video Cập nhật Tiến độ Dự án (Dưới 1 phút)")
+  v_col1, v_col2 = st.columns(2)
+  with v_col1:
+    st.markdown("**Video 1: Toàn cảnh đoạn Ngụy Như Kon Tum - Nhân Hòa**")
+    st.video("https://www.youtube.com/watch?v=dQw4w9WgXcQ")  # Video minh họa
+  with v_col2:
+    st.markdown("**Video 2: Công tác thi công kết nối Vành đai 2.5 - Nguyễn Trãi**")
+    st.video("https://www.youtube.com/watch?v=dQw4w9WgXcQ")  # Video minh họa
 
 # ==========================================
 # TAB 5: TÀI LIỆU & TƯƠNG TÁC MỞ
@@ -393,31 +388,24 @@ with tab4:
 with tab5:
   st.markdown("### 📂 Tài liệu & Mã nguồn Mở (Open Science)")
   st.markdown(
-      """
-        * Toàn bộ dữ liệu sử dụng trong ứng dụng đã được **mã hóa và ẩn danh hoàn toàn** (không thu thập tên, số điện thoại, địa chỉ chính xác hay thu nhập cụ thể)[cite: 2].
-        * Bạn có thể xem mã nguồn chi tiết và sổ tay Python tại kho lưu trữ GitHub của đề tài[cite: 2].
-        """
+      "* Dữ liệu thu thập hoàn toàn ẩn danh, không thu thập thông tin nhận diện"
+      " cá nhân."
   )
 
   st.markdown("---")
   st.markdown("### 💬 Góc Phản hồi & Góp ý từ cộng đồng")
-  st.markdown("Hãy để lại lời nhắn hoặc câu hỏi đóng góp cho đề tài của tác giả:")
-
   with st.form("feedback_form"):
     user_name = st.text_input("Họ tên / Đơn vị:")
     user_comment = st.text_area("Nội dung góp ý / Nhận xét:")
     submitted = st.form_submit_button("Gửi đóng góp")
     if submitted:
       if user_comment:
-        st.success(
-            "🎉 Cảm ơn bạn! Ý kiến đóng góp của bạn đã được ghi nhận thành"
-            " công."
-        )
+        st.success("🎉 Cảm ơn bạn! Ý kiến đóng góp đã được ghi nhận.")
       else:
-        st.warning("⚠️ Vui lòng nhập nội dung góp ý trước khi gửi.")
+        st.warning("⚠️ Vui lòng nhập nội dung góp ý.")
 
   st.markdown("---")
   st.caption(
-      "© 2026 — Đề tài NCKH học sinh phổ thông | Thiết kế bởi Tuấn Minh (THPT"
-      " chuyên Hà Nội - Amsterdam)[cite: 1, 2]"
+      "© 2026 — Đề tài NCKH học sinh phổ thông | Thực hiện bởi Nguyễn Vũ Tuấn"
+      " Minh (12 Tin 1, THPT chuyên Hà Nội – Amsterdam)"
   )
