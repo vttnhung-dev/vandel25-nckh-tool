@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 """
-CÔNG CỤ TRỰC QUAN HÓA & HỖ TRỢ QUYẾT ĐỊNH (PHIÊN BẢN CỠ CHỮ LỚN & ĐỘ TƯƠNG PHẢN TUYỆT ĐỐI)
+CÔNG CỤ TRỰC QUAN HÓA & HỖ TRỢ QUYẾT ĐỊNH (PHIÊN BẢN NỀN ẢNH NNKT2 & TƯƠNG PHẢN TỐI ĐA)
 Đề tài: Lựa chọn nơi ở sau giải tỏa của hộ gia đình có con đang học phổ thông 
         bị ảnh hưởng bởi dự án Vành đai 2.5 đoạn Ngụy Như Kon Tum – Nhân Hòa – Nguyễn Trãi
 Tác giả: Nguyễn Vũ Tuấn Minh (Lớp 12 Tin 1, Trường THPT chuyên Hà Nội – Amsterdam)
 """
 
+import base64
+import os
 import numpy as np
 import pandas as pd
 import plotly.express as px
@@ -30,65 +32,97 @@ hide_streamlit_style = """
 """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
-# HỆ THỐNG CSS CỠ CHỮ CỰC LỚN & KHỐI TIÊU ĐỀ SẮC NÉT (ĐẶC BIỆT DỄ ĐỌC)
+
+# Hàm mã hóa ảnh nền banner NNKT2.jpg
+def get_base64_of_bin_file(bin_file):
+  if os.path.exists(bin_file):
+    with open(bin_file, "rb") as f:
+      data = f.read()
+    return base64.b64encode(data).decode()
+  return ""
+
+
+bg_image_base64 = get_base64_of_bin_file("NNKT2.jpg")
+header_bg = (
+    f"url('data:image/jpeg;base64,{bg_image_base64}')"
+    if bg_image_base64
+    else "linear-gradient(135deg, #0f172a 0%, #2563eb 100%)"
+)
+
+# HỆ THỐNG CSS: LỚP PHỦ TỐI & BÓNG CHỮ ĐỂ CHỮ TRẮNG NỔI BẬT TRÊN NỀN ẢNH NNKT2
 st.markdown(
-    """
+    f"""
     <style>
     /* Tổng thể font chữ và màu nền */
-    html, body, [class*="css"] {
+    html, body, [class*="css"] {{
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         color: #0f172a;
         background-color: #f8fafc;
-    }
+    }}
     
-    /* Khối tiêu đề chính: Sử dụng màu gradient sang trọng, chữ trắng tuyệt đối 100% rõ nét */
-    .hero-banner {
-        background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #2563eb 100%);
-        padding: 3rem 2.5rem;
+    /* Banner tiêu đề chính với nền ảnh NNKT2 và lớp phủ tối chuyên dụng */
+    .hero-banner {{
+        background-image: {header_bg};
+        background-size: cover;
+        background-position: center;
+        padding: 3.5rem 3rem;
         border-radius: 16px;
         color: #ffffff !important;
         margin-bottom: 2.5rem;
-        box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.3);
-    }
-    .hero-banner h1 {
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+        position: relative;
+        overflow: hidden;
+    }}
+    .hero-banner::before {{
+        content: "";
+        position: absolute;
+        top: 0; right: 0; bottom: 0; left: 0;
+        background: rgba(15, 23, 42, 0.70); /* Lớp phủ tối màu giúp tăng độ tương phản tuyệt đối */
+        border-radius: 16px;
+    }}
+    .hero-banner h1, .hero-banner p {{
+        position: relative;
+        z-index: 1;
         color: #ffffff !important;
+        text-shadow: 0 3px 6px rgba(0, 0, 0, 0.8), 0 1px 3px rgba(0, 0, 0, 0.9);
+    }}
+    .hero-banner h1 {{
         font-size: 2.3rem !important;
         font-weight: 800 !important;
         margin-bottom: 1rem !important;
         line-height: 1.35;
-    }
-    .hero-banner p {
-        color: #f1f5f9 !important;
+    }}
+    .hero-banner p {{
         font-size: 1.25rem !important;
         line-height: 1.6 !important;
-        font-weight: 500;
+        font-weight: 600;
         margin-bottom: 0;
-    }
+    }}
 
-    /* Ép tăng tối đa cỡ chữ cho toàn bộ nội dung web lên chuẩn lớn dễ đọc */
-    p, li, span, label, .stMarkdown p {
+    /* TĂNG CỠ CHỮ CHO TOÀN BỘ NỘI DUNG WEB */
+    p, li, span, label, .stMarkdown p {{
         font-size: 1.15rem !important;
         line-height: 1.8 !important;
         color: #1e293b !important;
         font-weight: 400;
-    }
+    }}
     
-    h3 {
+    h3 {{
         color: #0f172a !important;
         font-size: 1.6rem !important;
         font-weight: 700 !important;
         margin-top: 1.5rem !important;
         margin-bottom: 1rem !important;
-    }
+    }}
 
-    h4 {
+    h4 {{
         font-size: 1.35rem !important;
         font-weight: 700 !important;
         color: #1e3a8a !important;
-    }
+    }}
 
     /* Thẻ nội dung (Cards) nổi bật */
-    .card {
+    .card {{
         background-color: #ffffff;
         padding: 2.5rem;
         border-radius: 14px;
@@ -96,15 +130,15 @@ st.markdown(
         border-left: 8px solid #2563eb;
         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
         margin-bottom: 1.5rem;
-    }
+    }}
 
     /* Tùy chỉnh Tabs to rõ, hiện đại */
-    .stTabs [data-baseweb="tab-list"] {
+    .stTabs [data-baseweb="tab-list"] {{
         gap: 12px;
         border-bottom: 2px solid #cbd5e1;
         padding-bottom: 0.5rem;
-    }
-    .stTabs [data-baseweb="tab"] {
+    }}
+    .stTabs [data-baseweb="tab"] {{
         background-color: #ffffff;
         border: 1px solid #cbd5e1;
         border-radius: 10px 10px 0px 0px;
@@ -112,22 +146,22 @@ st.markdown(
         font-weight: 700;
         font-size: 1.15rem !important;
         color: #475569;
-    }
-    .stTabs [aria-selected="true"] {
+    }}
+    .stTabs [aria-selected="true"] {{
         background-color: #2563eb !important;
         color: white !important;
         border-color: #2563eb !important;
-    }
+    }}
 
     /* Sidebar */
-    [data-testid="stSidebar"] {
+    [data-testid="stSidebar"] {{
         background-color: #ffffff;
         border-right: 1px solid #e2e8f0;
         padding-top: 1rem;
-    }
-    [data-testid="stSidebar"] p, [data-testid="stSidebar"] span {
+    }}
+    [data-testid="stSidebar"] p, [data-testid="stSidebar"] span {{
         font-size: 1.1rem !important;
-    }
+    }}
     </style>
 """,
     unsafe_allow_html=True,
@@ -214,7 +248,7 @@ with st.sidebar:
   )
   st.markdown("**Thời gian thực hiện:** 09/2026 – 12/2026")
 
-# --- HEADER CHÍNH (Sử dụng khối màu gradient sắc nét thay vì ảnh nền bị chìm chữ) ---
+# --- HEADER CHÍNH (Sử dụng ảnh nền NNKT2.jpg với chữ trắng hiển thị rõ nét) ---
 st.markdown(
     """
     <div class="hero-banner">
