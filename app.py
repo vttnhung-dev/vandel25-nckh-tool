@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-CÔNG CỤ TRỰC QUAN HÓA & HỖ TRỢ QUYẾT ĐỊNH (PHIÊN BẢN ACADEMIC MODERN CAO CẤP)
+CÔNG CỤ TRỰC QUAN HÓA & HỖ TRỢ QUYẾT ĐỊNH (PHIÊN BẢN CỠ CHỮ LỚN & ĐỘ TƯƠNG PHẢN CAO)
 Đề tài: Lựa chọn nơi ở sau giải tỏa của hộ gia đình có con đang học phổ thông 
         bị ảnh hưởng bởi dự án Vành đai 2.5 đoạn Ngụy Như Kon Tum – Nhân Hòa – Nguyễn Trãi
 Tác giả: Nguyễn Vũ Tuấn Minh (Lớp 12 Tin 1, Trường THPT chuyên Hà Nội – Amsterdam)
@@ -49,27 +49,27 @@ header_bg = (
     else "linear-gradient(135deg, #0f172a 0%, #2563eb 100%)"
 )
 
-# HỆ THỐNG CSS CAO CẤP (Nâng cấp cỡ chữ, khoảng cách, bo góc và màu sắc hiện đại)
+# HỆ THỐNG CSS CỠ CHỮ LỚN & ĐỘ TƯƠNG PHẢN TỐI ĐA
 st.markdown(
     f"""
     <style>
     /* Tổng thể font chữ và màu nền */
     html, body, [class*="css"] {{
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        color: #1e293b;
+        color: #0f172a;
         background-color: #f8fafc;
     }}
     
-    /* Banner tiêu đề chính */
+    /* Banner tiêu đề chính với lớp phủ tối vừa phải để chữ trắng sáng rực rỡ */
     .main-header {{
         background-image: {header_bg};
         background-size: cover;
         background-position: center;
-        padding: 3rem 2.5rem;
+        padding: 3.5rem 3rem;
         border-radius: 16px;
-        color: #ffffff;
+        color: #ffffff !important;
         margin-bottom: 2.5rem;
-        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
         position: relative;
         overflow: hidden;
     }}
@@ -77,95 +77,88 @@ st.markdown(
         content: "";
         position: absolute;
         top: 0; right: 0; bottom: 0; left: 0;
-        background: linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(37, 99, 235, 0.75) 100%);
+        background: linear-gradient(135deg, rgba(15, 23, 42, 0.75) 0%, rgba(37, 99, 235, 0.65) 100%);
         border-radius: 16px;
     }}
     .main-header h1, .main-header p {{
         position: relative;
         z-index: 1;
+        color: #ffffff !important;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.5);
     }}
     .main-header h1 {{
-        font-size: 2.2rem;
-        font-weight: 700;
-        margin-bottom: 0.75rem;
-        letter-spacing: -0.025em;
+        font-size: 2.4rem !important;
+        font-weight: 800 !important;
+        margin-bottom: 1rem !important;
         line-height: 1.3;
     }}
     .main-header p {{
-        font-size: 1.15rem;
+        font-size: 1.25rem !important;
         line-height: 1.6;
-        opacity: 0.95;
+        font-weight: 500;
     }}
 
-    /* Thẻ nội dung (Cards) sang trọng */
-    .card {{
-        background-color: #ffffff;
-        padding: 2rem;
-        border-radius: 14px;
-        border: 1px solid #e2e8f0;
-        border-left: 6px solid #2563eb;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-        margin-bottom: 1.5rem;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }}
-    .card:hover {{
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
-    }}
-    .card h4 {{
-        color: #0f172a;
-        font-size: 1.25rem;
-        font-weight: 600;
-        margin-bottom: 1rem;
-    }}
-    .card p {{
-        font-size: 1.05rem;
-        line-height: 1.7;
-        color: #334155;
-    }}
-
-    /* Tăng cỡ chữ nội dung chung lên chuẩn 17px dễ đọc */
-    p, li, span, label {{
-        font-size: 1.05rem !important;
-        line-height: 1.7 !important;
-        color: #334155 !important;
+    /* TĂNG TỐI ĐA CỠ CHỮ CHO TOÀN BỘ NỘI DUNG (Chuẩn 19px - 20px) */
+    p, li, span, label, .stMarkdown p {{
+        font-size: 1.2rem !important;
+        line-height: 1.8 !important;
+        color: #1e293b !important;
+        font-weight: 400;
     }}
     
     h3 {{
         color: #0f172a !important;
+        font-size: 1.6rem !important;
         font-weight: 700 !important;
-        letter-spacing: -0.02em;
-        margin-top: 1rem !important;
+        margin-top: 1.5rem !important;
         margin-bottom: 1rem !important;
     }}
 
-    /* Tùy chỉnh Tabs hiện đại */
+    h4 {{
+        font-size: 1.35rem !important;
+        font-weight: 700 !important;
+    }}
+
+    /* Thẻ nội dung (Cards) */
+    .card {{
+        background-color: #ffffff;
+        padding: 2.5rem;
+        border-radius: 14px;
+        border: 1px solid #cbd5e1;
+        border-left: 8px solid #2563eb;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
+        margin-bottom: 1.5rem;
+    }}
+
+    /* Tùy chỉnh Tabs */
     .stTabs [data-baseweb="tab-list"] {{
         gap: 12px;
-        border-bottom: 2px solid #e2e8f0;
+        border-bottom: 2px solid #cbd5e1;
         padding-bottom: 0.5rem;
     }}
     .stTabs [data-baseweb="tab"] {{
         background-color: #ffffff;
-        border: 1px solid #e2e8f0;
+        border: 1px solid #cbd5e1;
         border-radius: 10px 10px 0px 0px;
-        padding: 12px 24px;
-        font-weight: 600;
-        font-size: 1.05rem;
-        color: #64748b;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+        padding: 14px 26px;
+        font-weight: 700;
+        font-size: 1.15rem !important;
+        color: #475569;
     }}
     .stTabs [aria-selected="true"] {{
         background-color: #2563eb !important;
         color: white !important;
         border-color: #2563eb !important;
-        box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
     }}
 
-    /* Tùy chỉnh Sidebar cao cấp */
+    /* Sidebar */
     [data-testid="stSidebar"] {{
         background-color: #ffffff;
         border-right: 1px solid #e2e8f0;
         padding-top: 1rem;
+    }}
+    [data-testid="stSidebar"] p, [data-testid="stSidebar"] span {{
+        font-size: 1.1rem !important;
     }}
     </style>
 """,
@@ -218,7 +211,7 @@ def load_data():
 
 df = load_data()
 
-# --- SIDEBAR: GỌN GÀNG & SANG TRỌNG ---
+# --- SIDEBAR ---
 with st.sidebar:
   try:
     st.image("ANH TUAN MINH.jpg", use_container_width=True)
@@ -230,17 +223,17 @@ with st.sidebar:
 
   st.markdown(
       "<h3 style='text-align: center; margin-bottom: 0; color: #0f172a;"
-      " font-size: 1.25rem;'>NGUYỄN VŨ TUẤN MINH</h3>",
+      " font-size: 1.4rem !important;'>NGUYỄN VŨ TUẤN MINH</h3>",
       unsafe_allow_html=True,
   )
   st.markdown(
-      "<p style='text-align: center; color: #2563eb; font-weight: 600;'>"
-      "12 Chuyên Tin 1</p>",
+      "<p style='text-align: center; color: #2563eb; font-weight: 700;"
+      " font-size: 1.2rem !important;'>12 Chuyên Tin 1</p>",
       unsafe_allow_html=True,
   )
   st.markdown(
-      "<p style='text-align: center; font-size: 0.95rem !important; color:"
-      " #64748b !important;'>Trường THPT chuyên Hà Nội – Amsterdam</p>",
+      "<p style='text-align: center; color: #475569 !important;'>Trường"
+      " THPT chuyên Hà Nội – Amsterdam</p>",
       unsafe_allow_html=True,
   )
   st.markdown("---")
@@ -314,16 +307,16 @@ with tab1:
   st.markdown(
       """
         <div class="card">
-            <h4>Kính gửi cô/chú, anh/chị tham gia khảo sát</h4>
+            <h4 style="color: #0f172a; margin-bottom: 1rem;">Kính gửi cô/chú, anh/chị tham gia khảo sát</h4>
             <p>Con là <b>Nguyễn Vũ Tuấn Minh</b>, học sinh lớp 12 Tin 1 (chuyên Tin), Trường THPT chuyên Hà Nội – Amsterdam. Từ sự tò mò của một học sinh trước một vấn đề thực tế của cuộc sống, con đã bắt đầu nghiên cứu này với mong muốn hiểu rõ hơn cách mỗi gia đình đưa ra quyết định về nơi ở sau di dời.</p>
             <p>Con chân thành cảm ơn cô/chú, anh/chị đã dành thời gian chia sẻ trải nghiệm và những cân nhắc của gia đình. Mỗi phản hồi đều rất quý giá, giúp con nhìn vấn đề đầy đủ hơn từ những lựa chọn có thật trong cuộc sống.</p>
             <p><b>Cam kết của con:</b> Thông tin và kết quả tổng hợp từ khảo sát chỉ được sử dụng cho đề tài nghiên cứu khoa học; không dùng cho mục đích thương mại và không dùng để đánh giá đúng – sai quyết định của bất kỳ gia đình nào. Dữ liệu được thu thập ẩn danh.</p>
-            <hr style="margin: 20px 0; border-color: #e2e8f0;">
+            <hr style="margin: 25px 0; border-color: #cbd5e1;">
             <h4 style="color: #0f172a;">Lời tri ân</h4>
             <p>Con xin bày tỏ lòng biết ơn sâu sắc tới <b>cô Lê Thị Thúy</b> — giáo viên môn Tin học, đồng thời là giáo viên chủ nhiệm của con trong hai năm lớp 11 và lớp 12 — người đã trực tiếp hướng dẫn và đồng hành cùng con trong quá trình thực hiện nghiên cứu.</p>
             <p>Con cũng chân thành cảm ơn các bạn học sinh đã nhiệt tình hỗ trợ con trong quá trình khảo sát thực tế. Sự hướng dẫn của cô và sự giúp đỡ của các bạn là một phần quan trọng để con có thể hoàn thành đề tài này.</p>
-            <p style="font-size: 0.95rem; margin-top: 15px; color: #64748b;"><i>Việc tham gia hoàn toàn tự nguyện. Cô/chú, anh/chị có thể thử công cụ mà không gửi dữ liệu và có thể dừng bất cứ lúc nào.</i></p>
-            <p style="margin-bottom: 0; text-align: right; font-style: italic; font-weight: 600; color: #2563eb;"><b>Trân trọng — Nguyễn Vũ Tuấn Minh, lớp 12 Tin 1</b></p>
+            <p style="margin-top: 15px; color: #475569;"><i>Việc tham gia hoàn toàn tự nguyện. Cô/chú, anh/chị có thể thử công cụ mà không gửi dữ liệu và có thể dừng bất cứ lúc nào.</i></p>
+            <p style="margin-bottom: 0; text-align: right; font-style: italic; font-weight: 700; color: #2563eb;"><b>Trân trọng — Nguyễn Vũ Tuấn Minh, lớp 12 Tin 1</b></p>
         </div>
         """,
       unsafe_allow_html=True,
@@ -402,10 +395,10 @@ with tab3:
 
   st.markdown(
       """
-        <div style="background-color: #eff6ff; border: 1px solid #bfdbfe; padding: 1.25rem; border-left: 5px solid #2563eb; border-radius: 10px; margin-bottom: 1.5rem;">
-            <h4 style="margin-top: 0; color: #1e40af; font-size: 1.15rem;">Cần hiểu trước khi gửi phản hồi</h4>
-            <p style="margin-bottom: 0.5rem; font-weight: 600; color: #1e3a8a;">Năm yếu tố và các phương án có ý nghĩa gì?</p>
-            <p style="margin-bottom: 0; color: #334155;">Công cụ không tự quyết định thay gia đình. Người tham gia cho biết điều gì quan trọng, điều kiện nào không thể chấp nhận và mức độ mỗi phương án đáp ứng hoàn cảnh thực tế của hộ.</p>
+        <div style="background-color: #eff6ff; border: 1px solid #bfdbfe; padding: 1.5rem; border-left: 6px solid #2563eb; border-radius: 10px; margin-bottom: 1.5rem;">
+            <h4 style="margin-top: 0; color: #1e40af;">Cần hiểu trước khi gửi phản hồi</h4>
+            <p style="margin-bottom: 0.5rem; font-weight: 700; color: #1e3a8a;">Năm yếu tố và các phương án có ý nghĩa gì?</p>
+            <p style="margin-bottom: 0; color: #1e293b;">Công cụ không tự quyết định thay gia đình. Người tham gia cho biết điều gì quan trọng, điều kiện nào không thể chấp nhận và mức độ mỗi phương án đáp ứng hoàn cảnh thực tế của hộ.</p>
         </div>
         """,
       unsafe_allow_html=True,
@@ -540,8 +533,9 @@ with tab5:
 
   st.markdown("---")
   st.markdown(
-      "<p style='text-align: center; color: #64748b; font-size: 0.9rem"
-      " !important;'>© 2026 — Đề tài NCKH học sinh phổ thông | Thực hiện bởi"
-      " Nguyễn Vũ Tuấn Minh (12 Tin 1, THPT chuyên Hà Nội – Amsterdam)</p>",
+      "<p style='text-align: center; color: #475569; font-size: 1.05rem"
+      " !important; font-weight: 500;'>© 2026 — Đề tài NCKH học sinh phổ thông"
+      " | Thực hiện bởi Nguyễn Vũ Tuấn Minh (12 Tin 1, THPT chuyên Hà Nội –"
+      " Amsterdam)</p>",
       unsafe_allow_html=True,
   )
