@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 """
-CÔNG CỤ TRỰC QUAN HÓA & HỖ TRỢ QUYẾT ĐỊNH (PHIÊN BẢN KHẮC PHỤC TRIỆT ĐỂ LỖI)
+CÔNG CỤ TRỰC QUAN HÓA & HỖ TRỢ QUYẾT ĐỊNH (PHIÊN BẢN CẬP NHẬT ẢNH & TƯ LIỆU)
 Đề tài: Lựa chọn nơi ở sau giải tỏa của hộ gia đình có con đang học phổ thông 
         bị ảnh hưởng bởi dự án Vành đai 2.5 đoạn Ngụy Như Kon Tum – Nhân Hòa – Nguyễn Trãi
 Tác giả: Nguyễn Vũ Tuấn Minh (Lớp 12 Tin 1, Trường THPT chuyên Hà Nội – Amsterdam)
 """
 
+import base64
+import os
 import numpy as np
 import pandas as pd
 import plotly.express as px
@@ -20,46 +22,76 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
+# Hàm để mã hóa ảnh nền
+def get_base64_of_bin_file(bin_file):
+    if os.path.exists(bin_file):
+        with open(bin_file, 'rb') as f:
+            data = f.read()
+        return base64.b64encode(data).decode()
+    return ""
+
+# Lấy dữ liệu ảnh nền, nếu không có file thì trả về chuỗi rỗng
+bg_image_base64 = get_base64_of_bin_file("NNKT2.jpg")
+
 # Tùy chỉnh CSS giao diện
+# Nếu có ảnh NNKT2.jpg, sử dụng làm nền cho header, nếu không dùng màu xanh
+header_bg = f"url('data:image/jpeg;base64,{bg_image_base64}')" if bg_image_base64 else "linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%)"
+
 st.markdown(
-    """
+    f"""
     <style>
-    .main-header {
-        background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+    .main-header {{
+        background-image: {header_bg};
+        background-size: cover;
+        background-position: center;
         padding: 2.5rem;
         border-radius: 12px;
         color: white;
         margin-bottom: 2rem;
         box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    }
-    .card {
+        text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8); /* Thêm đổ bóng chữ để dễ đọc trên nền ảnh */
+        position: relative;
+    }}
+    /* Thêm lớp phủ mờ để chữ nổi bật hơn trên ảnh */
+    .main-header::before {{
+        content: "";
+        position: absolute;
+        top: 0; right: 0; bottom: 0; left: 0;
+        background-color: rgba(0, 0, 0, 0.5); /* Độ mờ 50% */
+        border-radius: 12px;
+    }}
+    .main-header h1, .main-header p {{
+        position: relative;
+        z-index: 1;
+    }}
+    .card {{
         background-color: #ffffff;
         padding: 1.5rem;
         border-radius: 10px;
         border-left: 5px solid #3b82f6;
         box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         margin-bottom: 1rem;
-    }
-    .author-card {
+    }}
+    .author-card {{
         background-color: #f8fafc;
         border: 1px solid #e2e8f0;
         padding: 1.5rem;
         border-radius: 10px;
         text-align: center;
-    }
-    .stTabs [data-baseweb="tab-list"] {
+    }}
+    .stTabs [data-baseweb="tab-list"] {{
         gap: 10px;
-    }
-    .stTabs [data-baseweb="tab"] {
+    }}
+    .stTabs [data-baseweb="tab"] {{
         background-color: #f1f5f9;
         border-radius: 6px 6px 0px 0px;
         padding: 10px 20px;
         font-weight: 600;
-    }
-    .stTabs [aria-selected="true"] {
+    }}
+    .stTabs [aria-selected="true"] {{
         background-color: #3b82f6 !important;
         color: white !important;
-    }
+    }}
     </style>
 """,
     unsafe_allow_html=True,
@@ -71,7 +103,6 @@ st.markdown(
 def load_data():
   try:
     df = pd.read_csv("processed_data.csv")
-    # Kiểm tra xem có đủ cột cần thiết không, nếu thiếu tự động bổ sung
     if "Khoang_cach" not in df.columns:
       df["Khoang_cach"] = "3 - 7 km"
     if "Nha_truoc" not in df.columns:
@@ -115,7 +146,6 @@ df = load_data()
 
 # --- SIDEBAR ---
 with st.sidebar:
-  # Hiển thị ảnh Tuấn Minh chuẩn xác theo tên file trên GitHub
   try:
     st.image("ANH TUAN MINH.jpg", use_container_width=True)
   except:
@@ -374,7 +404,7 @@ with tab4:
   img_col1, img_col2, img_col3 = st.columns(3)
   with img_col1:
     st.image(
-        "https://images.unsplash.com/photo-1577495508048-b635879837f1?auto=format&fit=crop&w=500&q=80",
+        "https://photo-baomoi.bmcdn.me/w700_r1/2024_03_14_119_48574343/c70c1a9c40339ab30325.jpg",
         caption=(
             "Khu vực nút giao Ngụy Như Kon Tum hoàn thành giải phóng mặt bằng"
         ),
@@ -382,26 +412,26 @@ with tab4:
     )
   with img_col2:
     st.image(
-        "https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?auto=format&fit=crop&w=500&q=80",
+        "https://hanoimoi.vn/Uploads/Images/2024/04/10/746820/thanh-xuan-tang-toc-giai-phong-mat-bang-du-an-vanh-dai-2-5-4.jpg",
         caption="Đoạn qua phố Nhân Hòa trong quá trình thi công xây dựng",
         use_container_width=True,
     )
   with img_col3:
     st.image(
-        "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=500&q=80",
+        "https://cms.giaoduc.net.vn/uploaded/2024/2/18/giai-phong-mat-bang-duong-vanh-dai-25-1.jpg",
         caption="Khu vực kết nối với trục đường Nguyễn Trãi",
         use_container_width=True,
     )
 
   st.markdown("---")
-  st.markdown("### 🎥 Video Cập nhật Tiến độ Dự án (Dưới 1 phút)")
+  st.markdown("### 🎥 Video Cập nhật Tiến độ Dự án")
   v_col1, v_col2 = st.columns(2)
   with v_col1:
     st.markdown("**Video 1: Toàn cảnh đoạn Ngụy Như Kon Tum - Nhân Hòa**")
-    st.video("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+    st.video("https://www.youtube.com/watch?v=Xh0wJk6k_H8")
   with v_col2:
     st.markdown("**Video 2: Công tác thi công kết nối Vành đai 2.5 - Nguyễn Trãi**")
-    st.video("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+    st.video("https://www.youtube.com/watch?v=Oq7m9P0r2w8")
 
 # ==========================================
 # TAB 5: TÀI LIỆU & TƯƠNG TÁC MỞ
