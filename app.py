@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-CÔNG CỤ TRỰC QUAN HÓA & HỖ TRỢ QUYẾT ĐỊNH (PHIÊN BẢN SỬA LỖI HIỂN THỊ)
+CÔNG CỤ TRỰC QUAN HÓA & HỖ TRỢ QUYẾT ĐỊNH (PHIÊN BẢN SỬA LỖI MARKDOWN)
 Đề tài: Lựa chọn nơi ở sau giải tỏa của hộ gia đình có con đang học phổ thông 
         bị ảnh hưởng bởi dự án Vành đai 2.5 đoạn Ngụy Như Kon Tum – Nhân Hòa – Nguyễn Trãi
 Tác giả: Nguyễn Vũ Tuấn Minh (Lớp 12 Tin 1, Trường THPT chuyên Hà Nội – Amsterdam)
@@ -16,7 +16,7 @@ import streamlit as st
 
 # Cấu hình trang web
 st.set_page_config(
-    page_title="Lựa chọn nơi ở sau giải tỏa - Vành đai 2.5",
+    page_title="Lựa chọn nơi ở sau di dời - Vành đai 2.5",
     page_icon="🏡",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -49,7 +49,7 @@ header_bg = (
     else "linear-gradient(135deg, #0f172a 0%, #2563eb 100%)"
 )
 
-# HỆ THỐNG CSS
+# HỆ THỐNG CSS CHUNG
 st.markdown(
     f"""
     <style>
@@ -100,18 +100,6 @@ st.markdown(
         line-height: 1.8 !important;
         color: #1e293b !important;
         font-weight: 400;
-    }}
-    h3 {{
-        color: #0f172a !important;
-        font-size: 1.6rem !important;
-        font-weight: 700 !important;
-        margin-top: 1.5rem !important;
-        margin-bottom: 1rem !important;
-    }}
-    h4 {{
-        font-size: 1.35rem !important;
-        font-weight: 700 !important;
-        color: #1e3a8a !important;
     }}
     .card {{
         background-color: #ffffff;
@@ -528,7 +516,7 @@ with tab5:
   )
 
 # ==========================================
-# TAB 6: HỒ SƠ QUÁ TRÌNH NGHIÊN CỨU (IN PROGRESS)
+# TAB 6: HỒ SƠ QUÁ TRÌNH NGHIÊN CỨU (IN PROGRESS) - DẠNG MARKDOWN AN TOÀN
 # ==========================================
 with tab6:
   st.markdown("### 📝 Hồ sơ Quá trình Nghiên cứu (Research in Progress)")
@@ -538,40 +526,92 @@ with tab6:
       " hoặc công trình đã công bố.*"
   )
 
-  st.markdown(
-      """
+  with st.container():
+    st.markdown(
+        """
         <div class="card">
-            <h4>1. Vì sao em bắt đầu nghiên cứu?</h4>
-            <p><b>Câu chuyện khởi nguồn:</b> Từ trải nghiệm chuyển nhà của chính gia đình từ khu Nguyễn Đức Cảnh sang phố Nguyễn Tuân để gần trường chuyên Amsterdam, giúp em nhận ra rằng: <i>không có lựa chọn nhà ở nào chỉ có điểm tốt; một việc thuận tiện hơn (thời gian đi học) có thể đồng nghĩa với một việc khác bất tiện hơn (mẹ đi làm xa hơn, xa ông bà)</i>.</p>
-            <p><b>Động lực thực tế:</b> Khi chứng kiến các ngôi nhà bị giải tỏa để làm Vành đai 2.5, em tự hỏi: nếu phải chuyển đi chứ không phải tự chọn chuyển, các gia đình có con đi học sẽ quyết định thế nào? Em muốn tìm câu trả lời qua khảo sát và phân tích số liệu thay vì chỉ dựa vào câu chuyện của gia đình mình.</p>
-
-            <h4 style="margin-top: 1.5rem;">2. Em muốn tìm hiểu điều gì?</h4>
-            <p>Tập trung vào các hộ gia đình có con học phổ thông tự cho biết đã di dời vì dự án Vành đai 2.5 (đoạn Ngụy Như Kon Tum – Nguyễn Trãi). Ba câu hỏi cốt lõi:</p>
-            <p>• Các hộ chuyển đi bao xa và ở theo hình thức nào?<br>
-            • Điều gì được coi là quan trọng khi chọn nơi ở mới; thời gian đi học và đi làm thay đổi ra sao?<br>
-            • Một số điều kiện khi lựa chọn có liên hệ với kết quả chuyển nhà hay không?</p>
-
-            <h4 style="margin-top: 1.5rem;">3. Phương pháp và Quá trình thực hiện</h4>
-            <p><b>Thiết kế & Thu thập:</b> Xây dựng đề cương với 3 giả thuyết (H1: đệm tài chính & sở hữu nhà; H2: ưu tiên giữ trường & kết quả giữ trường; H3: ưu tiên đi lại & biến động thời gian đi làm). Khảo sát qua Google Forms với 4 câu hỏi sàng lọc. Tập dữ liệu ban đầu ghi nhận 38 lượt trả lời từ 09/10/2026 đến 11/10/2026 qua 3 kênh (CH01, CH02, CH03).</p>
-            <p><b>Vận dụng Toán học:</b> Tính tần suất, tỷ lệ phần trăm, số trung bình, trung vị, độ lệch chuẩn. Lập bảng 2×2, tính chênh lệch hai tỷ lệ D và so sánh với sai số tham chiếu E, kết hợp phép kiểm định Fisher.</p>
-
-            <h4 style="margin-top: 1.5rem;">4. Những giới hạn và Vấn đề đang hoàn thiện</h4>
-            <p>• <b>Hạn chế dữ liệu mẫu:</b> Mẫu không ngẫu nhiên, dữ liệu tự khai, chưa xác minh độc lập từng hộ; một số phản hồi mở trùng nguyên văn cần được kiểm tra kỹ.</p>
-            <p>• <b>Về giả thuyết H1–H3:</b> Sau góp ý của cô Lê Thị Thúy, em nhận ra việc tính toán ra một tỷ lệ chưa đủ để khẳng định kết quả khi chưa lọc sạch các phiếu nghi vấn. Đặc biệt với mẫu nhỏ, thay đổi vài phiếu có thể làm thay đổi kết quả.</p>
-
-            <h4 style="margin-top: 1.5rem;">5. Kế hoạch tiếp tục nghiên cứu</h4>
-            <p><b>Bước 1:</b> Khóa và lưu bản xuất Google Forms gốc; kiểm tra nguồn gốc, mốc thời gian và phiếu bất thường.<br>
-            <b>Bước 2:</b> Xây dựng bảng đối chiếu câu hỏi với biến nghiên cứu; tách rõ sở hữu và vay vốn.<br>
-            <b>Bước 3:</b> Lập bảng quyết định giữ/loại phiếu có lý do, đảm bảo ẩn danh.<br>
-            <b>Bước 4:</b> Tính lại các bảng mô tả và H1–H3, đánh giá độ nhạy khi thay đổi tập mẫu.<br>
-            <b>Bước 5:</b> Hoàn thiện báo cáo, xin ý kiến cô hướng dẫn và dự kiến bổ sung phỏng vấn sâu nếu có điều kiện.</p>
-
-            <h4 style="margin-top: 1.5rem;">6. Hướng phát triển công cụ hỗ trợ quyết định</h4>
-            <p>Từ đề tài, em ấp ủ dự định xây dựng một ứng dụng/web nhỏ giúp các gia đình so sánh các phương án nhà ở theo tổng chi phí (mua, trả góp, lãi suất), thời gian đi lại và các ưu tiên cá nhân. Đây là định hướng ứng dụng thực tiễn mà em muốn tiếp tục theo đuổi trong tương lai.</p>
-
-            <h4 style="margin-top: 1.5rem;">Lời cảm ơn</h4>
-            <p style="margin-bottom: 0;">Em xin gửi lời cảm ơn chân thành đến cô <b>Lê Thị Thúy</b> đã tận tâm hướng dẫn, chỉ ra những điểm cần hoàn thiện; cảm ơn các bạn học sinh đã hỗ trợ lan tỏa khảo sát và các cô chú đã dành thời gian tham gia chia sẻ ý kiến.</p>
-        </div>
         """,
-      unsafe_allow_html=True,
-  )
+        unsafe_allow_html=True,
+    )
+
+    st.markdown("#### 1. Vì sao em bắt đầu nghiên cứu?")
+    st.markdown(
+        "**Câu chuyện khởi nguồn:** Từ trải nghiệm chuyển nhà của chính gia đình"
+        " từ khu Nguyễn Đức Cảnh sang phố Nguyễn Tuân để gần trường chuyên"
+        " Amsterdam, giúp em nhận ra rằng: *không có lựa chọn nhà ở nào chỉ có"
+        " điểm tốt; một việc thuận tiện hơn (thời gian đi học) có thể đồng nghĩa"
+        " với một việc khác bất tiện hơn (mẹ đi làm xa hơn, xa ông bà)*."
+    )
+    st.markdown(
+        "**Động lực thực tế:** Khi chứng kiến các ngôi nhà bị giải tỏa để làm"
+        " Vành đai 2.5, em tự hỏi: nếu phải chuyển đi chứ không phải tự chọn"
+        " chuyển, các gia đình có con đi học sẽ quyết định thế nào? Em muốn tìm"
+        " câu trả lời qua khảo sát và phân tích số liệu thay vì chỉ dựa vào câu"
+        " chuyện của gia đình mình."
+    )
+
+    st.markdown("#### 2. Em muốn tìm hiểu điều gì?")
+    st.markdown(
+        "Tập trung vào các hộ gia đình có con học phổ thông tự cho biết đã di dời"
+        " vì dự án Vành đai 2.5 (đoạn Ngụy Như Kon Tum – Nguyễn Trãi). Ba câu hỏi"
+        " cốt lõi:"
+    )
+    st.markdown(
+        "- Các hộ chuyển đi bao xa và ở theo hình thức nào?\n- Điều gì được"
+        " coi là quan trọng khi chọn nơi ở mới; thời gian đi học và đi làm"
+        " thay đổi ra sao?\n- Một số điều kiện khi lựa chọn có liên hệ với"
+        " kết quả chuyển nhà hay không?"
+    )
+
+    st.markdown("#### 3. Phương pháp và Quá trình thực hiện")
+    st.markdown(
+        "**Thiết kế & Thu thập:** Xây dựng đề cương với 3 giả thuyết (H1: đệm tài"
+        " chính & sở hữu nhà; H2: ưu tiên giữ trường & kết quả giữ trường; H3:"
+        " ưu tiên đi lại & biến động thời gian đi làm). Khảo sát qua Google"
+        " Forms với 4 câu hỏi sàng lọc. Tập dữ liệu ban đầu ghi nhận 38 lượt"
+        " trả lời từ 09/10/2026 đến 11/10/2026 qua 3 kênh (CH01, CH02, CH03)."
+    )
+    st.markdown(
+        "**Vận dụng Toán học:** Tính tần suất, tỷ lệ phần trăm, số trung bình,"
+        " trung vị, độ lệch chuẩn. Lập bảng 2×2, tính chênh lệch hai tỷ lệ $D$"
+        " và so sánh với sai số tham chiếu $E$, kết hợp phép kiểm định Fisher."
+    )
+
+    st.markdown("#### 4. Những giới hạn và Vấn đề đang hoàn thiện")
+    st.markdown(
+        "- **Hạn chế dữ liệu mẫu:** Mẫu không ngẫu nhiên, dữ liệu tự khai, chưa"
+        " xác minh độc lập từng hộ; một số phản hồi mở trùng nguyên văn cần"
+        " được kiểm tra kỹ.\n- **Về giả thuyết H1–H3:** Sau góp ý của cô Lê Thị"
+        " Thúy, em nhận ra việc tính toán ra một tỷ lệ chưa đủ để khẳng định"
+        " kết quả khi chưa lọc sạch các phiếu nghi vấn. Đặc biệt với mẫu nhỏ,"
+        " thay đổi vài phiếu có thể làm thay đổi kết quả."
+    )
+
+    st.markdown("#### 5. Kế hoạch tiếp tục nghiên cứu")
+    st.markdown(
+        "**Bước 1:** Khóa và lưu bản xuất Google Forms gốc; kiểm tra nguồn gốc,"
+        " mốc thời gian và phiếu bất thường.\n**Bước 2:** Xây dựng bảng đối"
+        " chiếu câu hỏi với biến nghiên cứu; tách rõ sở hữu và vay vốn.\n**Bước"
+        " 3:** Lập bảng quyết định giữ/loại phiếu có lý do, đảm bảo ẩn danh.\n**Bước"
+        " 4:** Tính lại các bảng mô tả và H1–H3, đánh giá độ nhạy khi thay đổi"
+        " tập mẫu.\n**Bước 5:** Hoàn thiện báo cáo, xin ý kiến cô hướng dẫn và"
+        " dự kiến bổ sung phỏng vấn sâu nếu có điều kiện."
+    )
+
+    st.markdown("#### 6. Hướng phát triển công cụ hỗ trợ quyết định")
+    st.markdown(
+        "Từ đề tài, em ấp ủ dự định xây dựng một ứng dụng/web nhỏ giúp các gia"
+        " đình so sánh các phương án nhà ở theo tổng chi phí (mua, trả góp, lãi"
+        " suất), thời gian đi lại và các ưu tiên cá nhân. Đây là định hướng"
+        " ứng dụng thực tiễn mà em muốn tiếp tục theo đuổi trong tương lai."
+    )
+
+    st.markdown("#### Lời cảm ơn")
+    st.markdown(
+        "Em xin gửi lời cảm ơn chân thành đến cô **Lê Thị Thúy** đã tận tâm"
+        " hướng dẫn, chỉ ra những điểm cần hoàn thiện; cảm ơn các bạn học sinh"
+        " đã hỗ trợ lan tỏa khảo sát và các cô chú đã dành thời gian tham gia"
+        " chia sẻ ý kiến."
+    )
+
+    st.markdown("</div>", unsafe_allow_html=True)
