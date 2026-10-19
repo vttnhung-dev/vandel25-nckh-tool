@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-CÔNG CỤ TRỰC QUAN HÓA & HỖ TRỢ QUYẾT ĐỊNH (PHIÊN BẢN CHUẨN HOÁ)
+CÔNG CỤ TRỰC QUAN HÓA & HỖ TRỢ QUYẾT ĐỊNH (PHIÊN BẢN SONG NGỮ VI - EN)
 Đề tài: Lựa chọn nơi ở sau giải tỏa của hộ gia đình có con đang học phổ thông 
         bị ảnh hưởng bởi dự án Vành đai 2.5 đoạn Ngụy Như Kon Tum – Nhân Hòa – Nguyễn Trãi
 Tác giả: Nguyễn Vũ Tuấn Minh (Lớp 12 Tin 1, Trường THPT chuyên Hà Nội – Amsterdam)
@@ -31,6 +31,61 @@ hide_streamlit_style = """
     </style>
 """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+
+
+# Từ điển song ngữ Tiếng Việt & Tiếng Anh
+translations = {
+    "VI": {
+        "page_title": "Lựa chọn nơi ở sau di dời - Vành đai 2.5",
+        "tab1": "📖 1. Tổng quan",
+        "tab2": "📊 2. Dashboard",
+        "tab3": "⚖️ 3. Mô phỏng Quyết định",
+        "tab4": "📸 4. Tư liệu thực địa",
+        "tab5": "📂 5. Dữ liệu & Mở",
+        "tab6": "📝 6. Hồ sơ Nghiên cứu",
+        "header_title": (
+            "Lựa chọn nơi ở sau di dời của hộ gia đình có con đang học phổ thông"
+        ),
+        "header_desc": (
+            "Khảo sát tác động và cấu trúc đánh đổi tại dự án Vành đai 2.5 đoạn"
+            " Ngụy Như Kon Tum – Nhân Hòa – Nguyễn Trãi."
+        ),
+        "sidebar_title": "📌 Thông tin Đề tài",
+        "sidebar_name": "Tên:",
+        "sidebar_val": "Lựa chọn nơi ở sau di dời của hộ gia đình có con học phổ thông.",
+        "sidebar_area": "Địa bàn:",
+        "sidebar_area_val": "Đoạn Ngụy Như Kon Tum - Nhân Hòa - Nguyễn Trãi (Hà Nội).",
+        "sidebar_time": "Thời gian thực hiện: 09/2026 – 12/2026",
+    },
+    "EN": {
+        "page_title": "Housing Choices After Relocation - Ring Road 2.5",
+        "tab1": "📖 1. Overview",
+        "tab2": "📊 2. Dashboard",
+        "tab3": "⚖️ 3. Decision Tool",
+        "tab4": "📸 4. Fieldwork Media",
+        "tab5": "📂 5. Data & Open Science",
+        "tab6": "📝 6. Research Portfolio",
+        "header_title": (
+            "Housing Choices After Relocation of Households with School-Age"
+            " Children"
+        ),
+        "header_desc": (
+            "Impact survey and trade-off structure in the Ring Road 2.5 project"
+            " (Ngụy Như Kon Tum – Nhân Hòa – Nguyễn Trãi section)."
+        ),
+        "sidebar_title": "📌 Research Info",
+        "sidebar_name": "Title:",
+        "sidebar_val": (
+            "Housing Choices After Relocation of Households with School-Age"
+            " Children."
+        ),
+        "sidebar_area": "Location:",
+        "sidebar_area_val": (
+            "Ngụy Như Kon Tum - Nhân Hòa - Nguyễn Trãi section (Hanoi)."
+        ),
+        "sidebar_time": "Timeline: 09/2026 – 12/2026",
+    },
+}
 
 
 # Hàm mã hóa ảnh nền banner NNKT2.jpg
@@ -185,8 +240,15 @@ def load_data():
 
 df = load_data()
 
-# --- SIDEBAR ---
+# --- SIDEBAR & CHỌN NGÔN NGỮ ---
 with st.sidebar:
+  selected_lang = st.selectbox(
+      "🌐 Ngôn ngữ / Language", ["Tiếng Việt (VI)", "English (EN)"]
+  )
+  lang = "VI" if "VI" in selected_lang else "EN"
+  t = translations[lang]
+
+  st.markdown("---")
   try:
     st.image("ANH TUAN MINH.jpg", use_container_width=True)
   except:
@@ -211,34 +273,30 @@ with st.sidebar:
       unsafe_allow_html=True,
   )
   st.markdown("---")
-  st.markdown("### 📌 Thông tin Đề tài")
-  st.markdown(
-      "**Tên:** Lựa chọn nơi ở sau di dời của hộ gia đình có con học phổ thông."
-  )
-  st.markdown(
-      "**Địa bàn:** Đoạn Ngụy Như Kon Tum - Nhân Hòa - Nguyễn Trãi (Hà Nội)."
-  )
-  st.markdown("**Thời gian thực hiện:** 09/2026 – 12/2026")
+  st.markdown(f"### {t['sidebar_title']}")
+  st.markdown(f"**{t['sidebar_name']}** {t['sidebar_val']}")
+  st.markdown(f"**{t['sidebar_area']}** {t['sidebar_area_val']}")
+  st.markdown(f"**{t['sidebar_time']}**")
 
 # --- HEADER CHÍNH ---
 st.markdown(
-    """
+    f"""
     <div class="hero-banner">
-        <h1>Lựa chọn nơi ở sau di dời của hộ gia đình có con đang học phổ thông</h1>
-        <p>Khảo sát tác động và cấu trúc đánh đổi tại dự án Vành đai 2.5 đoạn Ngụy Như Kon Tum – Nhân Hòa – Nguyễn Trãi.</p>
+        <h1>{t["header_title"]}</h1>
+        <p>{t["header_desc"]}</p>
     </div>
 """,
     unsafe_allow_html=True,
 )
 
-# --- TABS (6 Tabs chuyên nghiệp) ---
+# --- TABS (6 Tabs song ngữ) ---
 tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
-    "📖 1. Tổng quan",
-    "📊 2. Dashboard",
-    "⚖️ 3. Mô phỏng Quyết định",
-    "📸 4. Tư liệu thực địa",
-    "📂 5. Dữ liệu & Mở",
-    "📝 6. Hồ sơ Nghiên cứu (In Progress)",
+    t["tab1"],
+    t["tab2"],
+    t["tab3"],
+    t["tab4"],
+    t["tab5"],
+    t["tab6"],
 ])
 
 # ==========================================
@@ -248,21 +306,40 @@ with tab1:
   col1, col2 = st.columns([2, 1])
 
   with col1:
-    st.markdown("### 🎯 Một câu hỏi thực tế dưới góc nhìn của học sinh lớp 12")
-    st.markdown(
-        """
-        Đề tài nghiên cứu nhỏ do **Nguyễn Vũ Tuấn Minh**, học sinh lớp 12 Tin 1 (chuyên Tin), Trường THPT chuyên Hà Nội – Amsterdam, thực hiện từ sự tò mò trước một câu hỏi rất đời thường: *sau khi phải di dời để phục vụ dự án Vành đai 2.5, đoạn Ngụy Như Kon Tum – Nhân Hòa – Nguyễn Trãi, các gia đình đã chuyển đến đâu và điều gì khiến họ lựa chọn nơi ở đó?*
+    if lang == "VI":
+      st.markdown("### 🎯 Một câu hỏi thực tế dưới góc nhìn của học sinh lớp 12")
+      st.markdown(
+          """
+            Đề tài nghiên cứu nhỏ do **Nguyễn Vũ Tuấn Minh**, học sinh lớp 12 Tin 1 (chuyên Tin), Trường THPT chuyên Hà Nội – Amsterdam, thực hiện từ sự tò mò trước một câu hỏi rất đời thường: *sau khi phải di dời để phục vụ dự án Vành đai 2.5, đoạn Ngụy Như Kon Tum – Nhân Hòa – Nguyễn Trãi, các gia đình đã chuyển đến đâu và điều gì khiến họ lựa chọn nơi ở đó?*
 
-        Tại thời điểm nghiên cứu vào tháng 9/2026, việc giải phóng mặt bằng đã hoàn tất và các hộ bị ảnh hưởng đã di dời. Vì quyết định chuyển nhà đã xảy ra, khảo sát tập trung tìm hiểu lại những căn cứ đã được cân nhắc, gồm **khả năng tài chính, trường học của con, thời gian đi làm, sự hỗ trợ của người thân và mức độ ổn định của nơi ở mới**.
-        """
-    )
+            Tại thời điểm nghiên cứu vào tháng 9/2026, việc giải phóng mặt bằng đã hoàn tất và các hộ bị ảnh hưởng đã di dời. Vì quyết định chuyển nhà đã xảy ra, khảo sát tập trung tìm hiểu lại những căn cứ đã được cân nhắc, gồm **khả năng tài chính, trường học của con, thời gian đi làm, sự hỗ trợ của người thân và mức độ ổn định của nơi ở mới**.
+            """
+      )
+    else:
+      st.markdown(
+          "### 🎯 A Real-World Question from a 12th-Grader's Perspective"
+      )
+      st.markdown(
+          """
+            This small research project is conducted by **Nguyễn Vũ Tuấn Minh**, a 12th-grade student in Specialized Informatics Class 1 at Hanoi – Amsterdam High School for the Gifted. It stems from a simple daily question: *after having to relocate for the Ring Road 2.5 project (Ngụy Như Kon Tum – Nhân Hòa – Nguyễn Trãi section), where did families move, and what drove their housing choices?*
+
+            At the time of research in September 2026, site clearance was completed and affected households had already relocated. Since the move has taken place, the survey focuses on exploring the criteria they considered, including **financial capacity, children's schooling, commuting time, support from relatives, and the stability of the new residence**.
+            """
+      )
 
   with col2:
-    st.markdown("### 🌟 Hồ sơ tác giả & Nhóm nghiên cứu")
+    st.markdown(
+        "### 🌟 "
+        + ("Hồ sơ tác giả & Nhóm nghiên cứu" if lang == "VI" else "Author Profile")
+    )
     try:
       st.image(
           "ANH TUAN MINH.jpg",
-          caption="Tác giả: Nguyễn Vũ Tuấn Minh (12 Tin 1)",
+          caption=(
+              "Tác giả: Nguyễn Vũ Tuấn Minh (12 Tin 1)"
+              if lang == "VI"
+              else "Author: Nguyễn Vũ Tuấn Minh"
+          ),
           use_container_width=True,
       )
     except:
@@ -271,16 +348,21 @@ with tab1:
     try:
       st.image(
           "NHOM NGHIEN CUU.jpg",
-          caption="Nhóm nghiên cứu cùng giáo viên hướng dẫn",
+          caption=(
+              "Nhóm nghiên cứu cùng giáo viên hướng dẫn"
+              if lang == "VI"
+              else "Research Team & Supervisor"
+          ),
           use_container_width=True,
       )
     except:
       pass
 
   st.markdown("---")
-  st.markdown("### 💌 Lời cảm ơn & Lời tri ân")
-  st.markdown(
-      """
+  if lang == "VI":
+    st.markdown("### 💌 Lời cảm ơn & Lời tri ân")
+    st.markdown(
+        """
         <div class="card">
             <h4 style="color: #0f172a; margin-bottom: 1rem;">Kính gửi cô/chú, anh/chị tham gia khảo sát</h4>
             <p>Con là <b>Nguyễn Vũ Tuấn Minh</b>, học sinh lớp 12 Tin 1 (chuyên Tin), Trường THPT chuyên Hà Nội – Amsterdam. Từ sự tò mò của một học sinh trước một vấn đề thực tế của cuộc sống, con đã bắt đầu nghiên cứu này với mong muốn hiểu rõ hơn cách mỗi gia đình đưa ra quyết định về nơi ở sau di dời.</p>
@@ -294,14 +376,40 @@ with tab1:
             <p style="margin-bottom: 0; text-align: right; font-style: italic; font-weight: 700; color: #2563eb;"><b>Trân trọng — Nguyễn Vũ Tuấn Minh, lớp 12 Tin 1</b></p>
         </div>
         """,
-      unsafe_allow_html=True,
-  )
+        unsafe_allow_html=True,
+    )
+  else:
+    st.markdown("### 💌 Acknowledgments")
+    st.markdown(
+        """
+        <div class="card">
+            <h4 style="color: #0f172a; margin-bottom: 1rem;">Dear survey participants,</h4>
+            <p>I am <b>Nguyễn Vũ Tuấn Minh</b>, a 12th-grade student in Specialized Informatics Class 1 at Hanoi – Amsterdam High School for the Gifted. Driven by curiosity about real-life challenges, I initiated this research to better understand how families make housing decisions after relocation.</p>
+            <p>I sincerely thank you for taking the time to share your experiences and considerations. Every response is invaluable in helping me gain a deeper insight into real-world housing choices.</p>
+            <p><b>My Commitment:</b> Information and survey results are used strictly for academic research purposes, non-commercial use, and do not evaluate the correctness of any family's decision. All data is collected anonymously.</p>
+            <hr style="margin: 25px 0; border-color: #cbd5e1;">
+            <h4 style="color: #0f172a;">Acknowledgments</h4>
+            <p>I would like to express my profound gratitude to <b>Ms. Lê Thị Thúy</b> — my informatics teacher and homeroom teacher for grades 11 and 12 — for her direct guidance and support throughout this research.</p>
+            <p>I also thank my friends for assisting me with the practical survey process. Your support has been vital to the completion of this project.</p>
+            <p style="margin-top: 15px; color: #475569;"><i>Participation is completely voluntary. You may test the tool without submitting data and stop at any time.</i></p>
+            <p style="margin-bottom: 0; text-align: right; font-style: italic; font-weight: 700; color: #2563eb;"><b>Sincerely — Nguyễn Vũ Tuấn Minh, Grade 12 Informatics 1</b></p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
 # ==========================================
 # TAB 2: KẾT QUẢ KHẢO SÁT (DASHBOARD)
 # ==========================================
 with tab2:
-  st.markdown("### 📊 Biểu đồ trực quan hóa dữ liệu khảo sát")
+  st.markdown(
+      "### 📊 "
+      + (
+          "Biểu đồ trực quan hóa dữ liệu khảo sát"
+          if lang == "VI"
+          else "Survey Data Visualization Dashboard"
+      )
+  )
 
   f_col1, f_col2 = st.columns(2)
   with f_col1:
@@ -311,7 +419,11 @@ with tab2:
         else ["3 - 7 km"]
     )
     selected_dist = st.multiselect(
-        "Lọc theo khoảng cách chuyển đi:",
+        (
+            "Lọc theo khoảng cách chuyển đi:"
+            if lang == "VI"
+            else "Filter by relocation distance:"
+        ),
         options=dist_options,
         default=dist_options,
     )
@@ -320,7 +432,11 @@ with tab2:
         df["Giu_truong"].unique() if "Giu_truong" in df.columns else ["Giữ tất cả"]
     )
     selected_school = st.multiselect(
-        "Lọc theo kết quả giữ trường cho con:",
+        (
+            "Lọc theo kết quả giữ trường cho con:"
+            if lang == "VI"
+            else "Filter by school retention result:"
+        ),
         options=school_options,
         default=school_options,
     )
@@ -331,18 +447,35 @@ with tab2:
   ]
 
   m_col1, m_col2, m_col3 = st.columns(3)
-  m_col1.metric("Tổng số phiếu ghi nhận", len(filtered_df))
+  m_col1.metric(
+      "Tổng số phiếu ghi nhận" if lang == "VI" else "Total Responses",
+      len(filtered_df),
+  )
   m_col2.metric(
-      "Mức hài lòng trung bình",
+      (
+          "Mức hài lòng trung bình"
+          if lang == "VI"
+          else "Avg Satisfaction Score"
+      ),
       f"{filtered_df['Hai_long'].mean():.1f} / 5.0"
       if "Hai_long" in filtered_df.columns
       else "4.0 / 5.0",
   )
-  m_col3.metric("Tỷ lệ giữ trường cũ", "50.0%")
+  m_col3.metric(
+      "Tỷ lệ giữ trường cũ" if lang == "VI" else "School Retention Rate",
+      "50.0%",
+  )
 
   c1, c2 = st.columns(2)
   with c1:
-    st.markdown("#### Phân bố khoảng cách nơi ở mới")
+    st.markdown(
+        "#### "
+        + (
+            "Phân bố khoảng cách nơi ở mới"
+            if lang == "VI"
+            else "New Residence Distance Distribution"
+        )
+    )
     fig_dist = px.pie(
         filtered_df,
         names="Khoang_cach",
@@ -352,7 +485,14 @@ with tab2:
     st.plotly_chart(fig_dist, use_container_width=True)
 
   with c2:
-    st.markdown("#### So sánh hình thức nhà ở Trước và Sau di dời")
+    st.markdown(
+        "#### "
+        + (
+            "So sánh hình thức nhà ở Trước và Sau di dời"
+            if lang == "VI"
+            else "Housing Type Comparison Before & After Relocation"
+        )
+    )
     fig_house = px.histogram(
         filtered_df,
         x="Nha_sau",
@@ -366,200 +506,146 @@ with tab2:
 # TAB 3: CÔNG CỤ QUYẾT ĐỊNH & TÀI CHÍNH
 # ==========================================
 with tab3:
-  st.markdown("### ⚖️ Công cụ Mô phỏng Đánh đổi (Interactive Decision Tool)")
-
   st.markdown(
-      """
+      "### ⚖️ "
+      + (
+          "Công cụ Mô phỏng Đánh đổi (Interactive Decision Tool)"
+          if lang == "VI"
+          else "Interactive Trade-off Simulation Tool"
+      )
+  )
+
+  if lang == "VI":
+    st.markdown(
+        """
         <div style="background-color: #eff6ff; border: 1px solid #bfdbfe; padding: 1.5rem; border-left: 6px solid #2563eb; border-radius: 10px; margin-bottom: 1.5rem;">
             <h4 style="margin-top: 0; color: #1e40af;">Cần hiểu trước khi gửi phản hồi</h4>
             <p style="margin-bottom: 0.5rem; font-weight: 700; color: #1e3a8a;">Năm yếu tố và các phương án có ý nghĩa gì?</p>
             <p style="margin-bottom: 0; color: #1e293b;">Công cụ không tự quyết định thay gia đình. Người tham gia cho biết điều gì quan trọng, điều kiện nào không thể chấp nhận và mức độ mỗi phương án đáp ứng hoàn cảnh thực tế của hộ.</p>
         </div>
         """,
-      unsafe_allow_html=True,
-  )
+        unsafe_allow_html=True,
+    )
+  else:
+    st.markdown(
+        """
+        <div style="background-color: #eff6ff; border: 1px solid #bfdbfe; padding: 1.5rem; border-left: 6px solid #2563eb; border-radius: 10px; margin-bottom: 1.5rem;">
+            <h4 style="margin-top: 0; color: #1e40af;">Important Note Before Submitting</h4>
+            <p style="margin-bottom: 0.5rem; font-weight: 700; color: #1e3a8a;">What do the five factors and options mean?</p>
+            <p style="margin-bottom: 0; color: #1e293b;">This tool does not make decisions on behalf of families. Participants indicate what matters most, unacceptable conditions, and how well options fit household circumstances.</p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
   tool_col1, tool_col2 = st.columns([1, 1])
 
   with tool_col1:
-    st.markdown("#### 🎛️ Thiết lập trọng số ưu tiên của gia đình")
-    p_finance = st.slider(
-        "1. Khả năng ngân sách tài chính", 1, 5, 4, key="sl_fin"
+    st.markdown(
+        "#### "
+        + (
+            "🎛️ Thiết lập trọng số ưu tiên của gia đình"
+            if lang == "VI"
+            else "🎛️ Set Household Priority Weights"
+        )
     )
-    p_school = st.slider("2. Ưu tiên giữ trường cho con", 1, 5, 4, key="sl_sch")
+    p_finance = st.slider(
+        (
+            "1. Khả năng ngân sách tài chính"
+            if lang == "VI"
+            else "1. Financial Budget Capacity"
+        ),
+        1,
+        5,
+        4,
+        key="sl_fin",
+    )
+    p_school = st.slider(
+        (
+            "2. Ưu tiên giữ trường cho con"
+            if lang == "VI"
+            else "2. Priority on Keeping the School"
+        ),
+        1,
+        5,
+        4,
+        key="sl_sch",
+    )
     p_work = st.slider(
-        "3. Giới hạn thời gian đi làm của phụ huynh", 1, 5, 3, key="sl_wrk"
+        (
+            "3. Giới hạn thời gian đi làm của phụ huynh"
+            if lang == "VI"
+            else "3. Parent Commuting Time Limit"
+        ),
+        1,
+        5,
+        3,
+        key="sl_wrk",
     )
     p_family = st.slider(
-        "4. Gần ông bà / người thân hỗ trợ", 1, 5, 3, key="sl_fam"
+        (
+            "4. Gần ông bà / người thân hỗ trợ"
+            if lang == "VI"
+            else "4. Proximity to Relatives for Support"
+        ),
+        1,
+        5,
+        3,
+        key="sl_fam",
     )
 
   with tool_col2:
-    st.markdown("#### 💡 Gợi ý kịch bản đánh đổi tương ứng")
+    st.markdown(
+        "#### "
+        + (
+            "💡 Gợi ý kịch bản đánh đổi tương ứng"
+            if lang == "VI"
+            else "💡 Corresponding Trade-off Scenario Suggestions"
+        )
+    )
     if p_school >= 4 and p_finance <= 2:
-      st.warning(
-          "⚠️ **Kịch bản Thách thức:** Ưu tiên giữ trường cao nhưng ngân sách"
-          " hạn chế. Các hộ thường phải chấp nhận **thuê nhà trọ diện tích nhỏ"
-          " hoặc đi sâu vào các ngõ hẻm** gần khu vực trường cũ."
-      )
-    elif p_finance >= 4 and p_school <= 2:
-      st.success(
-          "✅ **Kịch bản Tối ưu tài chính:** Chấp nhận chuyển trường cho con sang"
-          " khu vực ngoại ô hoặc các quận ven để đổi lấy **không gian nhà ở"
-          " rộng rãi hơn, sở hữu nhà không vay nợ**."
-      )
-    else:
-      st.info(
-          "ℹ️ **Kịch bản Cân bằng:** Gia đình phân bổ đều các nguồn lực, thường"
-          " chọn phương án di chuyển trong bán kính 3-7km, cân đối giữa chi phí"
-          " và thời gian."
-      )
-
-  st.markdown("---")
-  st.markdown("### 💰 Góc Chuyên đề: Quản lý tài chính khi di dời nhà")
-  b_col1, b_col2 = st.columns(2)
-  with b_col1:
-    budget_house = st.number_input(
-        "Chi phí thuê/trả góp nhà hàng tháng (VNĐ):",
-        min_value=0,
-        value=10000000,
-        step=500000,
-    )
-    budget_transport = st.number_input(
-        "Chi phí đi lại phát sinh thêm (VNĐ):",
-        min_value=0,
-        value=2000000,
-        step=200000,
-    )
-  with b_col2:
-    total_est = budget_house + budget_transport
-    st.markdown(f"#### Tổng chi phí duy trì định kỳ: `{total_est:,.0f} VNĐ`")
-    st.caption(
-        "💡 *Lời khuyên từ dữ liệu:* Chi phí nhà ở và đi lại nên được cân đối"
-        " hợp lý với nguồn thu nhập ổn định của hộ."
-    )
-
-# ==========================================
-# TAB 4: NHẬT KÝ & TƯ LIỆU THỰC ĐỊA
-# ==========================================
-with tab4:
-  st.markdown(
-      "### 📸 Tư liệu thực địa: Khu vực Vành đai 2.5 (Ngụy Như Kon Tum – Nhân"
-      " Hòa – Nguyễn Trãi)"
-  )
-  st.markdown(
-      "Hình ảnh ghi nhận thực tế tại các nút giao thông và khu vực giải phóng"
-      " mặt bằng dọc tuyến đường:"
-  )
-
-  img_col1, img_col2, img_col3 = st.columns(3)
-  with img_col1:
-    st.image(
-        "https://photo-baomoi.bmcdn.me/w700_r1/2024_03_14_119_48574343/c70c1a9c40339ab30325.jpg",
-        caption=(
-            "Khu vực nút giao Ngụy Như Kon Tum hoàn thành giải phóng mặt bằng"
-        ),
-        use_container_width=True,
-    )
-  with img_col2:
-    st.image(
-        "https://hanoimoi.vn/Uploads/Images/2024/04/10/746820/thanh-xuan-tang-toc-giai-phong-mat-bang-du-an-vanh-dai-2-5-4.jpg",
-        caption="Đoạn qua phố Nhân Hòa trong quá trình thi công xây dựng",
-        use_container_width=True,
-    )
-  with img_col3:
-    st.image(
-        "https://cms.giaoduc.net.vn/uploaded/2024/2/18/giai-phong-mat-bang-duong-vanh-dai-25-1.jpg",
-        caption="Khu vực kết nối với trục đường Nguyễn Trãi",
-        use_container_width=True,
-    )
-
-  st.markdown("---")
-  st.markdown("### 🎥 Video Cập nhật Tiến độ Dự án")
-  v_col1, v_col2 = st.columns(2)
-  with v_col1:
-    st.markdown("**Video 1: Toàn cảnh đoạn Ngụy Như Kon Tum - Nhân Hòa**")
-    st.video("https://www.youtube.com/watch?v=Xh0wJk6k_H8")
-  with v_col2:
-    st.markdown("**Video 2: Công tác thi công kết nối Vành đai 2.5 - Nguyễn Trãi**")
-    st.video("https://www.youtube.com/watch?v=Oq7m9P0r2w8")
-
-# ==========================================
-# TAB 5: TÀI LIỆU & TƯƠNG TÁC MỞ
-# ==========================================
-with tab5:
-  st.markdown("### 📂 Tài liệu & Mã nguồn Mở (Open Science)")
-  st.markdown(
-      "* Dữ liệu thu thập hoàn toàn ẩn danh, không thu thập thông tin nhận diện"
-      " cá nhân."
-  )
-
-  st.markdown("---")
-  st.markdown("### 💬 Góc Phản hồi & Góp ý từ cộng đồng")
-  with st.form("feedback_form"):
-    user_name = st.text_input("Họ tên / Đơn vị:")
-    user_comment = st.text_area("Nội dung góp ý / Nhận xét:")
-    submitted = st.form_submit_button("Gửi đóng góp")
-    if submitted:
-      if user_comment:
-        st.success("🎉 Cảm ơn bạn! Ý kiến đóng góp đã được ghi nhận.")
+      if lang == "VI":
+        st.warning(
+            "⚠️ **Kịch bản Thách thức:** Ưu tiên giữ trường cao nhưng ngân sách"
+            " hạn chế. Các hộ thường phải chấp nhận **thuê nhà trọ diện tích nhỏ"
+            " hoặc đi sâu vào các ngõ hẻm** gần khu vực trường cũ."
+        )
       else:
-        st.warning("⚠️ Vui lòng nhập nội dung góp ý.")
+        st.warning(
+            "⚠️ **Challenging Scenario:** High priority on keeping the school"
+            " but limited budget. Households often accept **renting small"
+            " apartments or living in deep alleys** near the old school"
+            " district."
+        )
+    elif p_finance >= 4 and p_school <= 2:
+      if lang == "VI":
+        st.success(
+            "✅ **Kịch bản Tối ưu tài chính:** Chấp nhận chuyển trường cho con sang"
+            " khu vực ngoại ô hoặc các quận ven để đổi lấy **không gian nhà ở"
+            " rộng rãi hơn, sở hữu nhà không vay nợ**."
+        )
+      else:
+        st.success(
+            "✅ **Financial Optimization Scenario:** Willing to transfer"
+            " children to suburban schools in exchange for **spacious housing"
+            " and debt-free home ownership**."
+        )
+    else:
+      if lang == "VI":
+        st.info(
+            "ℹ️ **Kịch bản Cân bằng:** Gia đình phân bổ đều các nguồn lực, thường"
+            " chọn phương án di chuyển trong bán kính 3-7km, cân đối giữa chi phí"
+            " và thời gian."
+        )
+      else:
+        st.info(
+            "ℹ️ **Balanced Scenario:** Households allocate resources evenly,"
+            " typically choosing relocation within a 3-7km radius to balance"
+            " costs and commuting time."
+        )
 
   st.markdown("---")
   st.markdown(
-      "<p style='text-align: center; color: #475569; font-size: 1.05rem"
-      " !important; font-weight: 500;'>© 2026 — Đề tài NCKH học sinh phổ thông"
-      " | Thực hiện bởi Nguyễn Vũ Tuấn Minh (12 Tin 1, THPT chuyên Hà Nội –"
-      " Amsterdam)</p>",
-      unsafe_allow_html=True,
-  )
-
-# ==========================================
-# TAB 6: HỒ SƠ QUÁ TRÌNH NGHIÊN CỨU (IN PROGRESS)
-# ==========================================
-with tab6:
-  st.markdown("### 📝 Hồ sơ Quá trình Nghiên cứu (Research in Progress)")
-  st.markdown(
-      "*Tài liệu ghi nhận quá trình tư duy, phương pháp thực hiện và những trăn"
-      " trở kiểm định đến tháng 10/2026; chưa phải báo cáo kết quả cuối cùng"
-      " hoặc công trình đã công bố.*"
-  )
-
-  st.markdown(
-      """
-        <div class="card">
-            <h4>1. Vì sao em bắt đầu nghiên cứu?</h4>
-            <p><b>Câu chuyện khởi nguồn:</b> Từ trải nghiệm chuyển nhà của chính gia đình từ khu Nguyễn Đức Cảnh sang phố Nguyễn Tuân để gần trường chuyên Amsterdam, giúp em nhận ra rằng: <i>không có lựa chọn nhà ở nào chỉ có điểm tốt; một việc thuận tiện hơn (thời gian đi học) có thể đồng nghĩa với một việc khác bất tiện hơn (mẹ đi làm xa hơn, xa ông bà)</i>.</p>
-            <p><b>Động lực thực tế:</b> Khi chứng kiến các ngôi nhà bị giải tỏa để làm Vành đai 2.5, em tự hỏi: nếu phải chuyển đi chứ không phải tự chọn chuyển, các gia đình có con đi học sẽ quyết định thế nào? Em muốn tìm câu trả lời qua khảo sát và phân tích số liệu thay vì chỉ dựa vào câu chuyện của gia đình mình.</p>
-
-            <h4 style="margin-top: 1.5rem;">2. Em muốn tìm hiểu điều gì?</h4>
-            <p>Tập trung vào các hộ gia đình có con học phổ thông tự cho biết đã di dời vì dự án Vành đai 2.5 (đoạn Ngụy Như Kon Tum – Nguyễn Trãi). Ba câu hỏi cốt lõi:</p>
-            <p>• Các hộ chuyển đi bao xa và ở theo hình thức nào?<br>
-            • Điều gì được coi là quan trọng khi chọn nơi ở mới; thời gian đi học và đi làm thay đổi ra sao?<br>
-            • Một số điều kiện khi lựa chọn có liên hệ với kết quả chuyển nhà hay không?</p>
-
-            <h4 style="margin-top: 1.5rem;">3. Phương pháp và Quá trình thực hiện</h4>
-            <p><b>Thiết kế & Thu thập:</b> Xây dựng đề cương với 3 giả thuyết (H1: đệm tài chính & sở hữu nhà; H2: ưu tiên giữ trường & kết quả giữ trường; H3: ưu tiên đi lại & biến động thời gian đi làm). Khảo sát qua Google Forms với 4 câu hỏi sàng lọc. Tập dữ liệu ban đầu ghi nhận 38 lượt trả lời từ 09/10/2026 đến 11/10/2026 qua 3 kênh (CH01, CH02, CH03).</p>
-            <p><b>Vận dụng Toán học:</b> Tính tần suất, tỷ lệ phần trăm, số trung bình, trung vị, độ lệch chuẩn. Lập bảng 2×2, tính chênh lệch hai tỷ lệ D và so sánh với sai số tham chiếu E, kết hợp phép kiểm định Fisher.</p>
-
-            <h4 style="margin-top: 1.5rem;">4. Những giới hạn và Vấn đề đang hoàn thiện</h4>
-            <p>• <b>Hạn chế dữ liệu mẫu:</b> Mẫu không ngẫu nhiên, dữ liệu tự khai, chưa xác minh độc lập từng hộ; một số phản hồi mở trùng nguyên văn cần được kiểm tra kỹ.</p>
-            <p>• <b>Về giả thuyết H1–H3:</b> Sau góp ý của cô Lê Thị Thúy, em nhận ra việc tính toán ra một tỷ lệ chưa đủ để khẳng định kết quả khi chưa lọc sạch các phiếu nghi vấn. Đặc biệt với mẫu nhỏ, thay đổi vài phiếu có thể làm thay đổi kết quả.</p>
-
-            <h4 style="margin-top: 1.5rem;">5. Kế hoạch tiếp tục nghiên cứu</h4>
-            <p><b>Bước 1:</b> Khóa và lưu bản xuất Google Forms gốc; kiểm tra nguồn gốc, mốc thời gian và phiếu bất thường.<br>
-            <b>Bước 2:</b> Xây dựng bảng đối chiếu câu hỏi với biến nghiên cứu; tách rõ sở hữu và vay vốn.<br>
-            <b>Bước 3:</b> Lập bảng quyết định giữ/loại phiếu có lý do, đảm bảo ẩn danh.<br>
-            <b>Bước 4:</b> Tính lại các bảng mô tả và H1–H3, đánh giá độ nhạy khi thay đổi tập mẫu.<br>
-            <b>Bước 5:</b> Hoàn thiện báo cáo, xin ý kiến cô hướng dẫn và dự kiến bổ sung phỏng vấn sâu nếu có điều kiện.</p>
-
-            <h4 style="margin-top: 1.5rem;">6. Hướng phát triển công cụ hỗ trợ quyết định</h4>
-            <p>Từ đề tài, em ấp ủ dự định xây dựng một ứng dụng/web nhỏ giúp các gia đình so sánh các phương án nhà ở theo tổng chi phí (mua, trả góp, lãi suất), thời gian đi lại và các ưu tiên cá nhân. Đây là định hướng ứng dụng thực tiễn mà em muốn tiếp tục theo đuổi trong tương lai.</p>
-
-            <h4 style="margin-top: 1.5rem;">Lời cảm ơn</h4>
-            <p style="margin-bottom: 0;">Em xin gửi lời cảm ơn chân thành đến cô <b>Lê Thị Thúy</b> đã tận tâm hướng dẫn, chỉ ra những điểm cần hoàn thiện; cảm ơn các bạn học sinh đã hỗ trợ lan tỏa khảo sát và các cô chú đã dành thời gian tham gia chia sẻ ý kiến.</p>
-        </div>
-        """,
-      unsafe_allow_html=True,
-  )
+      "### "
+      + (
+          "💰 Góc Chuyên đề: Quản lý tài chính khi di dời nhà"
