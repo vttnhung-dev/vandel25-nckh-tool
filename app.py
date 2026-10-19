@@ -649,3 +649,404 @@ with tab3:
       "### "
       + (
           "💰 Góc Chuyên đề: Quản lý tài chính khi di dời nhà"
+          if lang == "VI"
+          else "💰 Thematic Corner: Financial Management During Relocation"
+      )
+  )
+  b_col1, b_col2 = st.columns(2)
+  with b_col1:
+    budget_house = st.number_input(
+        (
+            "Chi phí thuê/trả góp nhà hàng tháng (VNĐ):"
+            if lang == "VI"
+            else "Monthly Rent/Mortgage Cost (VND):"
+        ),
+        min_value=0,
+        value=10000000,
+        step=500000,
+    )
+    budget_transport = st.number_input(
+        (
+            "Chi phí đi lại phát sinh thêm (VNĐ):"
+            if lang == "VI"
+            else "Additional Commuting Cost (VND):"
+        ),
+        min_value=0,
+        value=2000000,
+        step=200000,
+    )
+  with b_col2:
+    total_est = budget_house + budget_transport
+    st.markdown(
+        f"#### "
+        + (
+            f"Tổng chi phí duy trì định kỳ: `{total_est:,.0f} VNĐ`"
+            if lang == "VI"
+            else f"Total Periodic Maintenance Cost: `{total_est:,.0f} VND`"
+        )
+    )
+    st.caption(
+        (
+            "💡 *Lời khuyên từ dữ liệu:* Chi phí nhà ở và đi lại nên được cân đối"
+            " hợp lý với nguồn thu nhập ổn định của hộ."
+            if lang == "VI"
+            else "💡 *Data Insight:* Housing and commuting costs should be"
+            " balanced with the household's stable income."
+        )
+    )
+
+# ==========================================
+# TAB 4: NHẬT KÝ & TƯ LIỆU THỰC ĐỊA
+# ==========================================
+with tab4:
+  st.markdown(
+      "### 📸 "
+      + (
+          "Tư liệu thực địa: Khu vực Vành đai 2.5 (Ngụy Như Kon Tum – Nhân Hòa"
+          " – Nguyễn Trãi)"
+          if lang == "VI"
+          else "Fieldwork Media: Ring Road 2.5 Project Area"
+      )
+  )
+  st.markdown(
+      (
+          "Hình ảnh ghi nhận thực tế tại các nút giao thông và khu vực giải phóng"
+          " mặt bằng dọc tuyến đường:"
+          if lang == "VI"
+          else "Actual records at traffic intersections and site clearance"
+          " areas along the route:"
+      )
+  )
+
+  img_col1, img_col2, img_col3 = st.columns(3)
+  with img_col1:
+    st.image(
+        "https://photo-baomoi.bmcdn.me/w700_r1/2024_03_14_119_48574343/c70c1a9c40339ab30325.jpg",
+        caption=(
+            "Khu vực nút giao Ngụy Như Kon Tum hoàn thành giải phóng mặt bằng"
+            if lang == "VI"
+            else "Ngụy Như Kon Tum intersection clearance completed"
+        ),
+        use_container_width=True,
+    )
+  with img_col2:
+    st.image(
+        "https://hanoimoi.vn/Uploads/Images/2024/04/10/746820/thanh-xuan-tang-toc-giai-phong-mat-bang-du-an-vanh-dai-2-5-4.jpg",
+        caption=(
+            "Đoạn qua phố Nhân Hòa trong quá trình thi công xây dựng"
+            if lang == "VI"
+            else "Section through Nhân Hòa street under construction"
+        ),
+        use_container_width=True,
+    )
+  with img_col3:
+    st.image(
+        "https://cms.giaoduc.net.vn/uploaded/2024/2/18/giai-phong-mat-bang-duong-vanh-dai-25-1.jpg",
+        caption=(
+            "Khu vực kết nối với trục đường Nguyễn Trãi"
+            if lang == "VI"
+            else "Connection area with Nguyễn Trãi axis"
+        ),
+        use_container_width=True,
+    )
+
+  st.markdown("---")
+  st.markdown(
+      "### "
+      + (
+          "🎥 Video Cập nhật Tiến độ Dự án"
+          if lang == "VI"
+          else "🎥 Project Progress Video Updates"
+      )
+  )
+  v_col1, v_col2 = st.columns(2)
+  with v_col1:
+    st.markdown(
+        "**"
+        + (
+            "Video 1: Toàn cảnh đoạn Ngụy Như Kon Tum - Nhân Hòa"
+            if lang == "VI"
+            else "Video 1: Overview of Ngụy Như Kon Tum - Nhân Hòa section"
+        )
+        + "**"
+    )
+    st.video("https://www.youtube.com/watch?v=Xh0wJk6k_H8")
+  with v_col2:
+    st.markdown(
+        "**"
+        + (
+            "Video 2: Công tác thi công kết nối Vành đai 2.5 - Nguyễn Trãi"
+            if lang == "VI"
+            else "Video 2: Ring Road 2.5 - Nguyễn Trãi connection construction"
+        )
+        + "**"
+    )
+    st.video("https://www.youtube.com/watch?v=Oq7m9P0r2w8")
+
+# ==========================================
+# TAB 5: TÀI LIỆU & TƯƠNG TÁC MỞ
+# ==========================================
+with tab5:
+  st.markdown(
+      "### 📂 "
+      + (
+          "Tài liệu & Mã nguồn Mở (Open Science)"
+          if lang == "VI"
+          else "Open Science Documents & Code"
+      )
+  )
+  st.markdown(
+      (
+          "* Dữ liệu thu thập hoàn toàn ẩn danh, không thu thập thông tin nhận diện"
+          " cá nhân."
+          if lang == "VI"
+          else "* Data collected is completely anonymous, without personal"
+          " identification information."
+      )
+  )
+
+  st.markdown("---")
+  st.markdown(
+      "### "
+      + (
+          "💬 Góc Phản hồi & Góp ý từ cộng đồng"
+          if lang == "VI"
+          else "💬 Community Feedback & Comments"
+      )
+  )
+  with st.form("feedback_form"):
+    user_name = st.text_input(
+        "Họ tên / Đơn vị:" if lang == "VI" else "Full Name / Organization:"
+    )
+    user_comment = st.text_area(
+        (
+            "Nội dung góp ý / Nhận xét:"
+            if lang == "VI"
+            else "Comments / Feedback Content:"
+        )
+    )
+    submitted = st.form_submit_button(
+        "Gửi đóng góp" if lang == "VI" else "Submit Feedback"
+    )
+    if submitted:
+      if user_comment:
+        st.success(
+            (
+                "🎉 Cảm ơn bạn! Ý kiến đóng góp đã được ghi nhận."
+                if lang == "VI"
+                else "🎉 Thank you! Your feedback has been recorded."
+            )
+        )
+      else:
+        st.warning(
+            (
+                "⚠️ Vui lòng nhập nội dung góp ý."
+                if lang == "VI"
+                else "⚠️ Please enter your feedback content."
+            )
+        )
+
+  st.markdown("---")
+  st.markdown(
+      "<p style='text-align: center; color: #475569; font-size: 1.05rem"
+      " !important; font-weight: 500;'>"
+      + (
+          "© 2026 — Đề tài NCKH học sinh phổ thông | Thực hiện bởi Nguyễn Vũ"
+          " Tuấn Minh (12 Tin 1, THPT chuyên Hà Nội – Amsterdam)"
+          if lang == "VI"
+          else "© 2026 — High School Student Scientific Research Project |"
+          " Conducted by Nguyễn Vũ Tuấn Minh (Grade 12 Informatics 1, Hanoi –"
+          " Amsterdam High School for the Gifted)"
+      )
+      + "</p>",
+      unsafe_allow_html=True,
+  )
+
+# ==========================================
+# TAB 6: HỒ SƠ QUÁ TRÌNH NGHIÊN CỨU (IN PROGRESS)
+# ==========================================
+with tab6:
+  st.markdown(
+      "### 📝 "
+      + (
+          "Hồ sơ Quá trình Nghiên cứu (Research in Progress)"
+          if lang == "VI"
+          else "Research Progress Portfolio"
+      )
+  )
+  st.markdown(
+      (
+          "*Tài liệu ghi nhận quá trình tư duy, phương pháp thực hiện và những trăn"
+          " trở kiểm định đến tháng 10/2026; chưa phải báo cáo kết quả cuối cùng"
+          " hoặc công trình đã công bố.*"
+          if lang == "VI"
+          else "*Documentation recording the thinking process, methodology, and"
+          " verification reflections up to October 2026; not yet a final"
+          " results report or published work.*"
+      )
+  )
+
+  with st.container():
+    st.markdown('<div class="card">', unsafe_allow_html=True)
+    if lang == "VI":
+      st.markdown("#### 1. Vì sao em bắt đầu nghiên cứu?")
+      st.markdown(
+          "**Câu chuyện khởi nguồn:** Từ trải nghiệm chuyển nhà của chính gia"
+          " đình từ khu Nguyễn Đức Cảnh sang phố Nguyễn Tuân để gần trường chuyên"
+          " Amsterdam, giúp em nhận ra rằng: *không có lựa chọn nhà ở nào chỉ có"
+          " điểm tốt; một việc thuận tiện hơn (thời gian đi học) có thể đồng nghĩa"
+          " với một việc khác bất tiện hơn (mẹ đi làm xa hơn, xa ông bà)*."
+      )
+      st.markdown(
+          "**Động lực thực tế:** Khi chứng kiến các ngôi nhà bị giải tỏa để làm"
+          " Vành đai 2.5, em tự hỏi: nếu phải chuyển đi chứ không phải tự chọn"
+          " chuyển, các gia đình có con đi học sẽ quyết định thế nào? Em muốn tìm"
+          " câu trả lời qua khảo sát và phân tích số liệu thay vì chỉ dựa vào câu"
+          " chuyện của gia đình mình."
+      )
+
+      st.markdown("#### 2. Em muốn tìm hiểu điều gì?")
+      st.markdown(
+          "Tập trung vào các hộ gia đình có con học phổ thông tự cho biết đã di"
+          " dời vì dự án Vành đai 2.5 (đoạn Ngụy Như Kon Tum – Nguyễn Trãi). Ba"
+          " câu hỏi cốt lõi:"
+      )
+      st.markdown(
+          "- Các hộ chuyển đi bao xa và ở theo hình thức nào?\n- Điều gì được"
+          " coi là quan trọng khi chọn nơi ở mới; thời gian đi học và đi làm"
+          " thay đổi ra sao?\n- Một số điều kiện khi lựa chọn có liên hệ với"
+          " kết quả chuyển nhà hay không?"
+      )
+
+      st.markdown("#### 3. Phương pháp và Quá trình thực hiện")
+      st.markdown(
+          "**Thiết kế & Thu thập:** Xây dựng đề cương với 3 giả thuyết (H1: đệm"
+          " tài chính & sở hữu nhà; H2: ưu tiên giữ trường & kết quả giữ"
+          " trường; H3: ưu tiên đi lại & biến động thời gian đi làm). Khảo sát"
+          " qua Google Forms với 4 câu hỏi sàng lọc. Tập dữ liệu ban đầu ghi"
+          " nhận 38 lượt trả lời từ 09/10/2026 đến 11/10/2026 qua 3 kênh (CH01,"
+          " CH02, CH03)."
+      )
+      st.markdown(
+          "**Vận dụng Toán học:** Tính tần suất, tỷ lệ phần trăm, số trung"
+          " bình, trung vị, độ lệch chuẩn. Lập bảng 2×2, tính chênh lệch hai tỷ"
+          " lệ $D$ và so sánh với sai số tham chiếu $E$, kết hợp phép kiểm định"
+          " Fisher."
+      )
+
+      st.markdown("#### 4. Những giới hạn và Vấn đề đang hoàn thiện")
+      st.markdown(
+          "- **Hạn chế dữ liệu mẫu:** Mẫu không ngẫu nhiên, dữ liệu tự khai, chưa"
+          " xác minh độc lập từng hộ; một số phản hồi mở trùng nguyên văn cần"
+          " được kiểm tra kỹ.\n- **Về giả thuyết H1–H3:** Sau góp ý của cô Lê Thị"
+          " Thúy, em nhận ra việc tính toán ra một tỷ lệ chưa đủ để khẳng định"
+          " kết quả khi chưa lọc sạch các phiếu nghi vấn. Đặc biệt với mẫu nhỏ,"
+          " thay đổi vài phiếu có thể làm thay đổi kết quả."
+      )
+
+      st.markdown("#### 5. Kế hoạch tiếp tục nghiên cứu")
+      st.markdown(
+          "**Bước 1:** Khóa và lưu bản xuất Google Forms gốc; kiểm tra nguồn gốc,"
+          " mốc thời gian và phiếu bất thường.\n**Bước 2:** Xây dựng bảng đối"
+          " chiếu câu hỏi với biến nghiên cứu; tách rõ sở hữu và vay vốn.\n**Bước"
+          " 3:** Lập bảng quyết định giữ/loại phiếu có lý do, đảm bảo ẩn"
+          " danh.\n**Bước 4:** Tính lại các bảng mô tả và H1–H3, đánh giá độ nhạy"
+          " khi thay đổi tập mẫu.\n**Bước 5:** Hoàn thiện báo cáo, xin ý kiến cô"
+          " hướng dẫn và dự kiến bổ sung phỏng vấn sâu nếu có điều kiện."
+      )
+
+      st.markdown("#### 6. Hướng phát triển công cụ hỗ trợ quyết định")
+      st.markdown(
+          "Từ đề tài, em ấp ủ dự định xây dựng một ứng dụng/web nhỏ giúp các gia"
+          " đình so sánh các phương án nhà ở theo tổng chi phí (mua, trả góp, lãi"
+          " suất), thời gian đi lại và các ưu tiên cá nhân. Đây là định hướng"
+          " ứng dụng thực tiễn mà em muốn tiếp tục theo đuổi trong tương lai."
+      )
+
+      st.markdown("#### Lời cảm ơn")
+      st.markdown(
+          "Em xin gửi lời cảm ơn chân thành đến cô **Lê Thị Thúy** đã tận tâm"
+          " hướng dẫn, chỉ ra những điểm cần hoàn thiện; cảm ơn các bạn học sinh"
+          " đã hỗ trợ lan tỏa khảo sát và các cô chú đã dành thời gian tham gia"
+          " chia sẻ ý kiến."
+      )
+    else:
+      st.markdown("#### 1. Why did I start this research?")
+      st.markdown(
+          "**Origin Story:** From my own family's move from Nguyễn Đức Cảnh to"
+          " Nguyễn Tuân to be closer to Amsterdam High School, I realized that:"
+          " *no housing choice is perfect; greater convenience in one aspect"
+          " (shorter commute to school) may mean less convenience in another"
+          " (longer commute for my mother, farther from grandparents)*."
+      )
+      st.markdown(
+          "**Practical Motivation:** Witnessing houses cleared for Ring Road"
+          " 2.5, I wondered: if families are forced to relocate rather than"
+          " choosing to move, how do households with school-age children"
+          " decide? I wanted to find answers through surveys and data analysis"
+          " rather than relying solely on my own family's experience."
+      )
+
+      st.markdown("#### 2. What did I want to explore?")
+      st.markdown(
+          "Focusing on households with school-age children who relocated due to"
+          " the Ring Road 2.5 project (Ngụy Như Kon Tum – Nguyễn Trãi section)."
+          " Three core questions:"
+      )
+      st.markdown(
+          "- How far did households move and what is their housing arrangement?\n-"
+          " What factors were prioritized when choosing a new home; how did"
+          " commuting times to school and work change?\n- Were certain"
+          " conditions associated with the relocation outcome?"
+      )
+
+      st.markdown("#### 3. Methodology and Process")
+      st.markdown(
+          "**Design & Collection:** Built a proposal with 3 hypotheses (H1:"
+          " financial buffer & home ownership; H2: school retention priority &"
+          " outcome; H3: commuting priority & commute time change). Surveyed via"
+          " Google Forms with 4 screening questions. Initial dataset recorded"
+          " 38 responses from Oct 9 to Oct 11, 2026 across 3 channels."
+      )
+      st.markdown(
+          "**Mathematical Application:** Calculated frequencies, percentages,"
+          " mean, median, standard deviation. Constructed 2×2 tables, computed"
+          " proportion difference $D$ and compared with reference margin $E$,"
+          " alongside Fisher's exact test."
+      )
+
+      st.markdown("#### 4. Limitations and Refinement Areas")
+      st.markdown(
+          "- **Sample Limitations:** Non-random sample, self-reported data,"
+          " unverified individually; some open-ended responses require"
+          " thorough auditing.\n- **Hypotheses H1–H3:** Following Ms. Lê Thị"
+          " Thúy's feedback, I realized that calculating a proportion is"
+          " insufficient without cleaning questionable responses, especially"
+          " with small samples."
+      )
+
+      st.markdown("#### 5. Future Research Plan")
+      st.markdown(
+          "**Step 1:** Lock and archive raw Google Forms export; audit"
+          " timestamps and anomalies.\n**Step 2:** Build questionnaire-variable"
+          " mapping table; separate ownership and loans.\n**Step 3:** Establish"
+          " inclusion/exclusion criteria with valid reasons, ensuring"
+          " anonymity.\n**Step 4:** Recompute descriptive statistics and"
+          " H1–H3.\n**Step 5:** Finalize report and seek supervisor review."
+      )
+
+      st.markdown("#### 6. Decision-Support Tool Development")
+      st.markdown(
+          "I aspire to build a lightweight web application that helps"
+          " families compare housing options based on total costs (purchase,"
+          " mortgage, interest), commuting times, and personal priorities."
+      )
+
+      st.markdown("#### Acknowledgments")
+      st.markdown(
+          "I sincerely thank Ms. **Lê Thị Thúy** for her dedicated guidance,"
+          " my friends for assisting with the survey, and the participants"
+          " who shared their insights."
+      )
+
+    st.markdown("</div>", unsafe_allow_html=True)
