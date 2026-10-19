@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-CÔNG CỤ TRỰC QUAN HÓA & HỖ TRỢ QUYẾT ĐỊNH (PHIÊN BẢN TÍCH HỢP HỒ SƠ NGHIÊN CỨU CHI TIẾT)
+CÔNG CỤ TRỰC QUAN HÓA & HỖ TRỢ QUYẾT ĐỊNH (PHIÊN BẢN SỬA LỖI HIỂN THỊ)
 Đề tài: Lựa chọn nơi ở sau giải tỏa của hộ gia đình có con đang học phổ thông 
         bị ảnh hưởng bởi dự án Vành đai 2.5 đoạn Ngụy Như Kon Tum – Nhân Hòa – Nguyễn Trãi
 Tác giả: Nguyễn Vũ Tuấn Minh (Lớp 12 Tin 1, Trường THPT chuyên Hà Nội – Amsterdam)
@@ -49,18 +49,15 @@ header_bg = (
     else "linear-gradient(135deg, #0f172a 0%, #2563eb 100%)"
 )
 
-# HỆ THỐNG CSS: LỚP PHỦ TỐI & BÓNG CHỮ ĐỂ CHỮ TRẮNG NỔI BẬT TRÊN NỀN ẢNH NNKT2
+# HỆ THỐNG CSS
 st.markdown(
     f"""
     <style>
-    /* Tổng thể font chữ và màu nền */
     html, body, [class*="css"] {{
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         color: #0f172a;
         background-color: #f8fafc;
     }}
-    
-    /* Banner tiêu đề chính với nền ảnh NNKT2 và lớp phủ tối chuyên dụng */
     .hero-banner {{
         background-image: {header_bg};
         background-size: cover;
@@ -98,15 +95,12 @@ st.markdown(
         font-weight: 600;
         margin-bottom: 0;
     }}
-
-    /* TĂNG CỠ CHỮ CHO TOÀN BỘ NỘI DUNG WEB */
     p, li, span, label, .stMarkdown p {{
         font-size: 1.15rem !important;
         line-height: 1.8 !important;
         color: #1e293b !important;
         font-weight: 400;
     }}
-    
     h3 {{
         color: #0f172a !important;
         font-size: 1.6rem !important;
@@ -114,14 +108,11 @@ st.markdown(
         margin-top: 1.5rem !important;
         margin-bottom: 1rem !important;
     }}
-
     h4 {{
         font-size: 1.35rem !important;
         font-weight: 700 !important;
         color: #1e3a8a !important;
     }}
-
-    /* Thẻ nội dung (Cards) nổi bật */
     .card {{
         background-color: #ffffff;
         padding: 2.5rem;
@@ -131,8 +122,6 @@ st.markdown(
         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
         margin-bottom: 1.5rem;
     }}
-
-    /* Tùy chỉnh Tabs to rõ, hiện đại */
     .stTabs [data-baseweb="tab-list"] {{
         gap: 6px;
         border-bottom: 2px solid #cbd5e1;
@@ -152,15 +141,10 @@ st.markdown(
         color: white !important;
         border-color: #2563eb !important;
     }}
-
-    /* Sidebar */
     [data-testid="stSidebar"] {{
         background-color: #ffffff;
         border-right: 1px solid #e2e8f0;
         padding-top: 1rem;
-    }}
-    [data-testid="stSidebar"] p, [data-testid="stSidebar"] span {{
-        font-size: 1.1rem !important;
     }}
     </style>
 """,
@@ -547,12 +531,9 @@ with tab5:
 # TAB 6: HỒ SƠ QUÁ TRÌNH NGHIÊN CỨU (IN PROGRESS)
 # ==========================================
 with tab6:
+  st.markdown("### 📝 Hồ sơ Quá trình Nghiên cứu (Research in Progress)")
   st.markdown(
-      "### 📝 Hồ sơ Quá trình Nghiên cứu (Research in Progress)"
-  )
-  st.markdown(
-      "*"
-      " Tài liệu ghi nhận quá trình tư duy, phương pháp thực hiện và những trăn"
+      "*Tài liệu ghi nhận quá trình tư duy, phương pháp thực hiện và những trăn"
       " trở kiểm định đến tháng 10/2026; chưa phải báo cáo kết quả cuối cùng"
       " hoặc công trình đã công bố.*"
   )
@@ -560,35 +541,35 @@ with tab6:
   st.markdown(
       """
         <div class="card">
-            <h4 style="color: #1e3a8a;">1. Vì sao em bắt đầu nghiên cứu?</h4>
+            <h4>1. Vì sao em bắt đầu nghiên cứu?</h4>
             <p><b>Câu chuyện khởi nguồn:</b> Từ trải nghiệm chuyển nhà của chính gia đình từ khu Nguyễn Đức Cảnh sang phố Nguyễn Tuân để gần trường chuyên Amsterdam, giúp em nhận ra rằng: <i>không có lựa chọn nhà ở nào chỉ có điểm tốt; một việc thuận tiện hơn (thời gian đi học) có thể đồng nghĩa với một việc khác bất tiện hơn (mẹ đi làm xa hơn, xa ông bà)</i>.</p>
             <p><b>Động lực thực tế:</b> Khi chứng kiến các ngôi nhà bị giải tỏa để làm Vành đai 2.5, em tự hỏi: nếu phải chuyển đi chứ không phải tự chọn chuyển, các gia đình có con đi học sẽ quyết định thế nào? Em muốn tìm câu trả lời qua khảo sát và phân tích số liệu thay vì chỉ dựa vào câu chuyện của gia đình mình.</p>
 
-            <h4 style="color: #1e3a8a; margin-top: 1.5rem;">2. Em muốn tìm hiểu điều gì?</h4>
+            <h4 style="margin-top: 1.5rem;">2. Em muốn tìm hiểu điều gì?</h4>
             <p>Tập trung vào các hộ gia đình có con học phổ thông tự cho biết đã di dời vì dự án Vành đai 2.5 (đoạn Ngụy Như Kon Tum – Nguyễn Trãi). Ba câu hỏi cốt lõi:</p>
-            <p>• Các hộ chuyển đi bao xa và ở theo hình thức nào?</p>
-            <p>• Điều gì được coi là quan trọng khi chọn nơi ở mới; thời gian đi học và đi làm thay đổi ra sao?</p>
-            <p>• Một số điều kiện khi lựa chọn có liên hệ với kết quả chuyển nhà hay không?</p>
+            <p>• Các hộ chuyển đi bao xa và ở theo hình thức nào?<br>
+            • Điều gì được coi là quan trọng khi chọn nơi ở mới; thời gian đi học và đi làm thay đổi ra sao?<br>
+            • Một số điều kiện khi lựa chọn có liên hệ với kết quả chuyển nhà hay không?</p>
 
-            <h4 style="color: #1e3a8a; margin-top: 1.5rem;">3. Phương pháp và Quá trình thực hiện</h4>
+            <h4 style="margin-top: 1.5rem;">3. Phương pháp và Quá trình thực hiện</h4>
             <p><b>Thiết kế & Thu thập:</b> Xây dựng đề cương với 3 giả thuyết (H1: đệm tài chính & sở hữu nhà; H2: ưu tiên giữ trường & kết quả giữ trường; H3: ưu tiên đi lại & biến động thời gian đi làm). Khảo sát qua Google Forms với 4 câu hỏi sàng lọc. Tập dữ liệu ban đầu ghi nhận 38 lượt trả lời từ 09/10/2026 đến 11/10/2026 qua 3 kênh (CH01, CH02, CH03).</p>
-            <p><b>Vận dụng Toán học:</b> Tính tần suất, tỷ lệ phần trăm, số trung bình, trung vị, độ lệch chuẩn. Lập bảng 2×2, tính chênh lệch hai tỷ lệ $D$ và so sánh với sai số tham chiếu $E$, kết hợp phép kiểm định Fisher.</p>
+            <p><b>Vận dụng Toán học:</b> Tính tần suất, tỷ lệ phần trăm, số trung bình, trung vị, độ lệch chuẩn. Lập bảng 2×2, tính chênh lệch hai tỷ lệ D và so sánh với sai số tham chiếu E, kết hợp phép kiểm định Fisher.</p>
 
-            <h4 style="color: #1e3a8a; margin-top: 1.5rem;">4. Những giới hạn và Vấn đề đang hoàn thiện</h4>
+            <h4 style="margin-top: 1.5rem;">4. Những giới hạn và Vấn đề đang hoàn thiện</h4>
             <p>• <b>Hạn chế dữ liệu mẫu:</b> Mẫu không ngẫu nhiên, dữ liệu tự khai, chưa xác minh độc lập từng hộ; một số phản hồi mở trùng nguyên văn cần được kiểm tra kỹ.</p>
             <p>• <b>Về giả thuyết H1–H3:</b> Sau góp ý của cô Lê Thị Thúy, em nhận ra việc tính toán ra một tỷ lệ chưa đủ để khẳng định kết quả khi chưa lọc sạch các phiếu nghi vấn. Đặc biệt với mẫu nhỏ, thay đổi vài phiếu có thể làm thay đổi kết quả.</p>
 
-            <h4 style="color: #1e3a8a; margin-top: 1.5rem;">5. Kế hoạch tiếp tục nghiên cứu</h4>
-            <p><b>Bước 1:</b> Khóa và lưu bản xuất Google Forms gốc; kiểm tra nguồn gốc, mốc thời gian và phiếu bất thường.</p>
-            <p><b>Bước 2:</b> Xây dựng bảng đối chiếu câu hỏi với biến nghiên cứu; tách rõ sở hữu và vay vốn.</p>
-            <p><b>Bước 3:</b> Lập bảng quyết định giữ/loại phiếu có lý do, đảm bảo ẩn danh.</p>
-            <p><b>Bước 4:</b> Tính lại các bảng mô tả và H1–H3, đánh giá độ nhạy khi thay đổi tập mẫu.</p>
-            <p><b>Bước 5:</b> Hoàn thiện báo cáo, xin ý kiến cô hướng dẫn và dự kiến bổ sung phỏng vấn sâu nếu có điều kiện.</p>
+            <h4 style="margin-top: 1.5rem;">5. Kế hoạch tiếp tục nghiên cứu</h4>
+            <p><b>Bước 1:</b> Khóa và lưu bản xuất Google Forms gốc; kiểm tra nguồn gốc, mốc thời gian và phiếu bất thường.<br>
+            <b>Bước 2:</b> Xây dựng bảng đối chiếu câu hỏi với biến nghiên cứu; tách rõ sở hữu và vay vốn.<br>
+            <b>Bước 3:</b> Lập bảng quyết định giữ/loại phiếu có lý do, đảm bảo ẩn danh.<br>
+            <b>Bước 4:</b> Tính lại các bảng mô tả và H1–H3, đánh giá độ nhạy khi thay đổi tập mẫu.<br>
+            <b>Bước 5:</b> Hoàn thiện báo cáo, xin ý kiến cô hướng dẫn và dự kiến bổ sung phỏng vấn sâu nếu có điều kiện.</p>
 
-            <h4 style="color: #1e3a8a; margin-top: 1.5rem;">6. Hướng phát triển công cụ hỗ trợ quyết định</h4>
+            <h4 style="margin-top: 1.5rem;">6. Hướng phát triển công cụ hỗ trợ quyết định</h4>
             <p>Từ đề tài, em ấp ủ dự định xây dựng một ứng dụng/web nhỏ giúp các gia đình so sánh các phương án nhà ở theo tổng chi phí (mua, trả góp, lãi suất), thời gian đi lại và các ưu tiên cá nhân. Đây là định hướng ứng dụng thực tiễn mà em muốn tiếp tục theo đuổi trong tương lai.</p>
 
-            <h4 style="color: #1e3a8a; margin-top: 1.5rem;">Lời cảm ơn</h4>
+            <h4 style="margin-top: 1.5rem;">Lời cảm ơn</h4>
             <p style="margin-bottom: 0;">Em xin gửi lời cảm ơn chân thành đến cô <b>Lê Thị Thúy</b> đã tận tâm hướng dẫn, chỉ ra những điểm cần hoàn thiện; cảm ơn các bạn học sinh đã hỗ trợ lan tỏa khảo sát và các cô chú đã dành thời gian tham gia chia sẻ ý kiến.</p>
         </div>
         """,
